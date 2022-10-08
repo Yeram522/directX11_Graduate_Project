@@ -71,6 +71,10 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 		return false;
 	}
 
+
+	/*if (!m_Model->Initialize("./data/Sphere.obj", m_D3D->GetDevice(), m_D3D->GetDeviceContext(), L"./data/seafloor.dds", this->m_LightShader))
+		return false;*/
+
 	// Create the light shader object.
 	m_LightShader = new LightShaderClass;
 	if (!m_LightShader)

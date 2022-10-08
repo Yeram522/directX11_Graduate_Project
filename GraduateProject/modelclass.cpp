@@ -55,7 +55,28 @@ bool ModelClass::Initialize(ID3D11Device* device, const WCHAR* modelFilename, co
 	return true;
 }
 
+bool ModelClass::Initialize(const std::string& filePath, ID3D11Device* device, ID3D11DeviceContext* deviceContext, const WCHAR* textureFilename, LightShaderClass* cb_vs_vertexshader)
+{
+	this->m_device = device;
+	this->m_deviceContext = deviceContext;
 
+	bool result;
+	result = LoadTexture(device, textureFilename);
+	if (!result)
+	{
+		return false;
+	}
+	this->m_LightShader = cb_vs_vertexshader;
+	
+	if (!this->LoadModel(filePath))
+		return false;
+
+	this->m_transform.position = XMFLOAT3(0.0f, 0.0f, 0.0f);
+	this->m_transform.rotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
+
+	//this->UpdateWorldMatrix();
+	return true;
+}
 void ModelClass::Shutdown()
 {
 	// Release the model texture.
@@ -259,7 +280,71 @@ bool ModelClass::LoadModel(const WCHAR* filename)
 {
 	ReadFileCounts(filename);
 
+
 	return true;
+}
+bool ModelClass::LoadModel(const std::string& filePath)
+{
+	Assimp::Importer importer;
+
+	const aiScene* pScene = importer.ReadFile(filePath,
+		aiProcess_Triangulate |
+		aiProcess_ConvertToLeftHanded);
+
+	if (pScene == nullptr)
+		return false;
+
+	this->ProcessNode(pScene->mRootNode, pScene);
+
+	return true;
+}
+void ModelClass::ProcessNode(aiNode* node, const aiScene* scene)
+{
+	for (UINT i = 0; i < node->mNumMeshes; i++)
+	{
+		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+		m_meshes.push_back(this->ProcessMesh(mesh, scene));
+	}
+
+	for (UINT i = 0; i < node->mNumChildren; i++)
+	{
+		this->ProcessNode(node->mChildren[i], scene);
+	}
+}
+Mesh ModelClass::ProcessMesh(aiMesh* mesh, const aiScene* scene)
+{
+	// Data to fill
+	std::vector<VertexType> vertices;
+	std::vector<DWORD> indices;
+
+	//Get vertices
+	for (UINT i = 0; i < mesh->mNumVertices; i++)
+	{
+		VertexType vertex;
+
+		vertex.position.x = mesh->mVertices[i].x;
+		vertex.position.y = mesh->mVertices[i].y;
+		vertex.position.z = mesh->mVertices[i].z;
+
+		if (mesh->mTextureCoords[0])
+		{
+			vertex.texture.x = (float)mesh->mTextureCoords[0][i].x;
+			vertex.texture.y = (float)mesh->mTextureCoords[0][i].y;
+		}
+
+		vertices.push_back(vertex);
+	}
+
+	//Get indices
+	for (UINT i = 0; i < mesh->mNumFaces; i++)
+	{
+		aiFace face = mesh->mFaces[i];
+
+		for (UINT j = 0; j < face.mNumIndices; j++)
+			indices.push_back(face.mIndices[j]);
+	}
+
+	return Mesh(this->m_device, this->m_deviceContext, vertices, indices);
 }
 
 void ModelClass::ReleaseModel()
