@@ -10,26 +10,30 @@
 //////////////
 #include <d3d11.h>
 #include <directxmath.h>
-
+#include <assimp/Importer.hpp>
+#include <assimp/postprocess.h>
+#include <assimp/scene.h>
 using namespace DirectX;
 
 ///////////////////////
 // MY CLASS INCLUDES //
 ///////////////////////
-#include "mesh.h"
-#include "lightshaderclass.h"
+#include "textureclass.h"
+#include <fstream>
+
+using namespace std;
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: ModelClass
 ////////////////////////////////////////////////////////////////////////////////
 class ModelClass
 {
 private:
-	/*struct VertexType
+	struct VertexType
 	{
 		XMFLOAT3 position;
 	    XMFLOAT2 texture;
 		XMFLOAT3 normal;
-	};*/
+	};
 
 	struct FaceType
 	{
@@ -57,7 +61,6 @@ public:
 	ModelClass(const ModelClass&);
 	~ModelClass();
 
-	bool Initialize(const std::string& filePath, ID3D11Device*, ID3D11DeviceContext*, const WCHAR* textureFilename, LightShaderClass*);
 	bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
@@ -66,9 +69,7 @@ public:
 	ID3D11ShaderResourceView* GetTexture();
 
 	bool LoadModel(const WCHAR*);
-	bool LoadModel(const std::string& filePath);
-	void ProcessNode(aiNode* node, const aiScene* scene);
-	Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
+
 	void ReleaseModel();
 
 
@@ -93,8 +94,6 @@ private:
 	TextureClass* m_Texture;
 	ModelType* m_model;
 
-	LightShaderClass* m_LightShader;
-	std::vector<Mesh> m_meshes;
 };
 
 #endif
