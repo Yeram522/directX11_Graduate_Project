@@ -56,7 +56,7 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 //	m_Camera->SetPosition(0.0f, 0.5f, -3.0f);	// for chair
 		
 	// Create the model object.
-	m_Model = new ModelClass;
+	m_Model = new GameObject;
 	if(!m_Model)
 	{
 		return false;
@@ -210,9 +210,9 @@ bool GraphicsClass::Render(float rotation)
 	m_Model->Render(m_D3D->GetDeviceContext());
 
 	// Render the model using the light shader.
-	result = m_LightShader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), 
+	result = m_LightShader->Render(m_D3D->GetDeviceContext(), m_Model->getMesh()->GetIndexCount(),
 		worldMatrix, viewMatrix, projectionMatrix,
-		m_Model->GetTexture(), 
+		m_Model->getMesh()->GetTexture(),
 		m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
 		m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());
 	

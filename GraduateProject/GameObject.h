@@ -1,0 +1,78 @@
+////////////////////////////////////////////////////////////////////////////////
+// Filename: modelclass.h
+////////////////////////////////////////////////////////////////////////////////
+#ifndef _MODELCLASS_H_
+#define _MODELCLASS_H_
+
+
+//////////////
+// INCLUDES //
+//////////////
+
+
+///////////////////////
+// MY CLASS INCLUDES //
+///////////////////////
+#include "Transform.h"
+#include "Mesh.h"
+
+
+using namespace std;
+////////////////////////////////////////////////////////////////////////////////
+// Class name: ModelClass
+////////////////////////////////////////////////////////////////////////////////
+class GameObject
+{
+private:
+	string				tag;
+	string				name;
+
+	Transform* transform; // should not be nullptr
+
+	friend class Component;
+
+protected:
+
+	GameObject* parent;
+	vector<GameObject*> children;
+	vector<Component*>	components;
+
+	void add(GameObject* child) {
+		if (!child) return;
+		children.push_back(child);
+	}
+public:
+	GameObject();
+	GameObject(const GameObject&);
+	~GameObject();
+
+	Mesh* getMesh(){ return m_mesh;}
+	bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*);
+	void Shutdown();
+	void Render(ID3D11DeviceContext*);
+
+	
+	template<typename T>
+	void addComponent() {
+		T* newComponent = new T(this);
+		components.push_back(newComponent);
+	}
+
+	template<typename T>
+	T* getComponent() {
+		for (auto component : components) {
+			auto result = dynamic_cast<T*>(component);
+			if (result == nullptr) continue;
+			return result;
+		}
+		return nullptr;
+	}
+
+private:
+
+	ID3D11Device* m_device;
+	ID3D11DeviceContext* m_deviceContext;
+	Mesh* m_mesh;
+};
+
+#endif

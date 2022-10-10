@@ -10,7 +10,7 @@
 ///////////////////////
 #include "d3dclass.h"
 #include "cameraclass.h"
-#include "modelclass.h"
+#include "GameObject.h"
 #include "lightshaderclass.h"
 #include "lightclass.h"
 #include "ImGui\\imgui.h"
@@ -47,7 +47,7 @@ private:
 private:
 	D3DClass* m_D3D;
 	CameraClass* m_Camera;
-	ModelClass* m_Model;
+	GameObject* m_Model;
 
 	LightShaderClass* m_LightShader;
 	LightClass* m_Light;
