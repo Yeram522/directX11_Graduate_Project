@@ -11,6 +11,10 @@ Mesh::Mesh()
 	m_faceCount = 0;
 }
 
+Mesh::Mesh(vector<Vertex>, vector<unsigned int>, vector<Texture>)
+{
+}
+
 
 ID3D11ShaderResourceView* Mesh::GetTexture()
 {

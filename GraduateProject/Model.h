@@ -4,19 +4,26 @@
 #ifndef _MODEL_H_
 #define _MODEL_H_
 #include "Mesh.h"
-
+#include "d3dclass.h"
+#include "lightshaderclass.h"
+#include "lightclass.h"
+#include "cameraclass.h"
+#include <iostream>
 class Model
 {
 public:
     /*  함수   */
-    Model(char* path)
+    Model(string path)
     {
-        loadModel(path);
+        //loadModel(path);
+        mesh = new Mesh();
     }
-    //void Draw(Shader shader);
+    void Draw(LightShaderClass*, LightClass* , CameraClass* , D3DClass* );
+    Mesh* getMesh() { return mesh; }
 private:
     /*  Model 데이터  */
     vector<Mesh> meshes;
+    Mesh* mesh;
     string directory;
     /*  함수   */
     void loadModel(string path);
@@ -24,6 +31,7 @@ private:
     Mesh processMesh(aiMesh* mesh, const aiScene* scene);
     vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type,
         string typeName);
+
 };
 
 #endif

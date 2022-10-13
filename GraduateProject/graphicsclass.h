@@ -47,7 +47,7 @@ private:
 private:
 	D3DClass* m_D3D;
 	CameraClass* m_Camera;
-	GameObject* m_Model;
+	GameObject* m_GameObject;
 
 	LightShaderClass* m_LightShader;
 	LightClass* m_Light;

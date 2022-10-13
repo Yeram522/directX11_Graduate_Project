@@ -8,7 +8,7 @@ GraphicsClass::GraphicsClass()
 {
 	m_D3D = 0;
 	m_Camera = 0;
-	m_Model = 0;
+	m_GameObject = 0;
 	m_LightShader = 0;
 	m_Light = 0;
 }
@@ -56,14 +56,14 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 //	m_Camera->SetPosition(0.0f, 0.5f, -3.0f);	// for chair
 		
 	// Create the model object.
-	m_Model = new GameObject;
-	if(!m_Model)
+	m_GameObject = new GameObject("./data/Sphere.obj");
+	if(!m_GameObject)
 	{
 		return false;
 	}
 
 	// Initialize the model object.
-	result = m_Model->Initialize(m_D3D->GetDevice(), L"./data/Sphere.obj", L"./data/seafloor.dds");
+	result = m_GameObject->Initialize(m_D3D->GetDevice(), L"./data/Sphere.obj", L"./data/seafloor.dds");
 	//result = m_Model->Initialize(m_D3D->GetDevice(), L"./data/chair.obj", L"./data/chair_d.dds");
 	if(!result)
 	{
@@ -123,11 +123,11 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 void GraphicsClass::Shutdown()
 {
 	// Release the model object.
-	if(m_Model)
+	if(m_GameObject)
 	{
-		m_Model->Shutdown();
-		delete m_Model;
-		m_Model = 0;
+		m_GameObject->Shutdown();
+		delete m_GameObject;
+		m_GameObject = 0;
 	}
 
 	// Release the camera object.
@@ -207,19 +207,19 @@ bool GraphicsClass::Render(float rotation)
 	worldMatrix = XMMatrixRotationY(rotation);
 
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	m_Model->Render(m_D3D->GetDeviceContext());
-
+	m_GameObject->Render(m_D3D->GetDeviceContext());
+	//m_GameObject->Draw(m_LightShader, m_Light, m_Camera, m_D3D);
 	// Render the model using the light shader.
-	result = m_LightShader->Render(m_D3D->GetDeviceContext(), m_Model->getMesh()->GetIndexCount(),
+	result = m_LightShader->Render(m_D3D->GetDeviceContext(), m_GameObject->getMesh()->GetIndexCount(),
 		worldMatrix, viewMatrix, projectionMatrix,
-		m_Model->getMesh()->GetTexture(),
+		m_GameObject->getMesh()->GetTexture(),
 		m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
 		m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());
 	
-	if(!result)
+	/*if(!result)
 	{
 		return false;
-	}
+	}*/
 
 	static int counter = 0;
 	//Start theDear ImGui Frame
@@ -230,6 +230,7 @@ bool GraphicsClass::Render(float rotation)
 	//Create ImGui Test Window
 	ImGui::Begin("Inspector");
 	ImGui::Text("PhongShader");
+	ImGui::SliderFloat3("LightDirection", m_Light->GetDirectiontoFloat(), -100.0f, 100.0f);
 	ImGui::SliderFloat4("AmbidientColor", m_Light->GetAmbientColortoFloat(), 0.0f, 1.0f);
 	ImGui::SliderFloat4("DiffuseColor", m_Light->GetDiffuseColortoFloat(), 0.0f, 1.0f);
 	ImGui::SliderFloat4("SpecularColor", m_Light->GetSpecularColortoFloat(), 0.0f, 1.0f);

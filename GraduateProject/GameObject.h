@@ -14,7 +14,7 @@
 // MY CLASS INCLUDES //
 ///////////////////////
 #include "Transform.h"
-#include "Mesh.h"
+#include "Model.h"
 
 
 using namespace std;
@@ -42,15 +42,15 @@ protected:
 		children.push_back(child);
 	}
 public:
-	GameObject();
+	GameObject(string path);
 	GameObject(const GameObject&);
 	~GameObject();
 
-	Mesh* getMesh(){ return m_mesh;}
+	Mesh* getMesh(){ return m_model->getMesh();}
 	bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
-
+	void Draw(LightShaderClass* shader, LightClass* m_Light, CameraClass* m_Camera, D3DClass* m_D3D);
 	
 	template<typename T>
 	void addComponent() {
@@ -72,7 +72,8 @@ private:
 
 	ID3D11Device* m_device;
 	ID3D11DeviceContext* m_deviceContext;
-	Mesh* m_mesh;
+	//Mesh* m_mesh;
+	Model* m_model;
 };
 
 #endif

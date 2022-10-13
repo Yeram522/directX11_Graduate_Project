@@ -41,21 +41,21 @@ struct Texture {
 	unsigned int id;
 	string type;
 };
+struct Vertex
+{
+	XMFLOAT3 position;
+	XMFLOAT2 texture;
+	XMFLOAT3 normal;
+};
+
 class Mesh
 {
 private:
-	struct Vertex
-	{
-		XMFLOAT3 position;
-		XMFLOAT2 texture;
-		XMFLOAT3 normal;
-	};
-
-
 	//FaceType
 	Face* m_faces;
 public:
 	Mesh();
+	Mesh(vector<Vertex>, vector<unsigned int>, vector<Texture>);
 	bool LoadModel(const WCHAR*);
 	void ReleaseModel();
 	int GetIndexCount();
