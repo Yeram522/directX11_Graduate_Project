@@ -4,9 +4,9 @@
 #include "GameObject.h"
 
 
-GameObject::GameObject(string path)
+GameObject::GameObject()
 {
-	m_model = new Model(path);
+	m_model = new Model();
 }
 
 
@@ -23,24 +23,9 @@ GameObject::~GameObject()
 bool GameObject::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const WCHAR* textureFilename)
 {
 	bool result;
+	result = m_model->Initialize(device, modelFilename, textureFilename);
 
-	// Load in the model data,
-	result = m_model->getMesh()->LoadModel(modelFilename);
 	if (!result)
-	{
-		return false;
-	}
-
-	// Initialize the vertex and index buffers.
-	result = m_model->getMesh()->InitializeBuffers(device);
-	if(!result)
-	{
-		return false;
-	}
-
-	// Load the texture for this model.
-	result = m_model->getMesh()->LoadTexture(device, textureFilename);
-	if(!result)
 	{
 		return false;
 	}
@@ -52,7 +37,7 @@ bool GameObject::Initialize(ID3D11Device* device, const WCHAR* modelFilename, co
 void GameObject::Shutdown()
 {
 	// Release the model texture.
-	m_model->getMesh()->ReleaseTexture();
+	m_model->ReleaseTexture();
 
 	// Shutdown the vertex and index buffers.
 	m_model->getMesh()->ShutdownBuffers();

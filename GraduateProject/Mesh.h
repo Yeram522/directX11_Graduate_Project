@@ -37,10 +37,7 @@ struct ModelType
 	float tu, tv;
 	float nx, ny, nz;
 };
-struct Texture {
-	unsigned int id;
-	string type;
-};
+
 struct Vertex
 {
 	XMFLOAT3 position;
@@ -55,18 +52,15 @@ private:
 	Face* m_faces;
 public:
 	Mesh();
-	Mesh(vector<Vertex>, vector<unsigned int>, vector<Texture>);
-	bool LoadModel(const WCHAR*);
+	bool LoadMesh(const WCHAR*);
 	void ReleaseModel();
 	int GetIndexCount();
-	bool LoadTexture(ID3D11Device*, const WCHAR*);
-	void ReleaseTexture();
+
 
 	bool InitializeBuffers(ID3D11Device*);
 	void ShutdownBuffers();
 	void RenderBuffers(ID3D11DeviceContext*);
 
-	ID3D11ShaderResourceView* GetTexture();
 private:
 	bool ReadFileCounts(const WCHAR*);
 	bool LoadDataStructures(const WCHAR*, int, int, int, int);
@@ -74,12 +68,11 @@ private:
 	ID3D11Buffer* m_vertexBuffer, * m_indexBuffer;
 
 	int m_vertexCount, m_indexCount, m_textureCount, m_normalCount, m_faceCount;
-	TextureClass* m_Texture;
 	ModelType* m_model;
 
 	//New Mesh Data
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
-	vector<Texture> textures;
+	vector<TextureClass> textures;
 };
 #endif

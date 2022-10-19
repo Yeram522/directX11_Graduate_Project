@@ -42,7 +42,7 @@ protected:
 		children.push_back(child);
 	}
 public:
-	GameObject(string path);
+	GameObject();
 	GameObject(const GameObject&);
 	~GameObject();
 
@@ -69,10 +69,8 @@ public:
 	}
 
 private:
-
 	ID3D11Device* m_device;
 	ID3D11DeviceContext* m_deviceContext;
-	//Mesh* m_mesh;
 	Model* m_model;
 };
 

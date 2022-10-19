@@ -4,74 +4,20 @@
 
 Mesh::Mesh()
 {
-	m_Texture = 0;
 	m_model = 0;
 	m_textureCount = 0;
 	m_normalCount = 0;
 	m_faceCount = 0;
 }
 
-Mesh::Mesh(vector<Vertex>, vector<unsigned int>, vector<Texture>)
-{
-}
-
-
-ID3D11ShaderResourceView* Mesh::GetTexture()
-{
-	return m_Texture->GetTexture();
-}
-
-
 int Mesh::GetIndexCount()
 {
 	return m_indexCount;
 }
 
-
-bool Mesh::LoadTexture(ID3D11Device* device, const WCHAR* filename)
-{
-	bool result;
-
-
-	// Create the texture object.
-	m_Texture = new TextureClass;
-	if (!m_Texture)
-	{
-		return false;
-	}
-
-	// Initialize the texture object.
-	result = m_Texture->Initialize(device, filename);
-	if (!result)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-
-void Mesh::ReleaseTexture()
-{
-	// Release the texture object.
-	if (m_Texture)
-	{
-		m_Texture->Shutdown();
-		delete m_Texture;
-		m_Texture = 0;
-	}
-
-	return;
-}
-
-
-
-
-bool Mesh::LoadModel(const WCHAR* filename)
+bool Mesh::LoadMesh(const WCHAR* filename)
 {
 	ReadFileCounts(filename);
-
-
 	return true;
 }
 
@@ -501,3 +447,5 @@ bool Mesh::LoadDataStructures(const WCHAR* filename, int vertexCount, int textur
 
 	return true;
 }
+
+

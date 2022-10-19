@@ -10,6 +10,7 @@
 ///////////////////////
 #include "d3dclass.h"
 #include "cameraclass.h"
+
 #include "GameObject.h"
 #include "lightshaderclass.h"
 #include "lightclass.h"

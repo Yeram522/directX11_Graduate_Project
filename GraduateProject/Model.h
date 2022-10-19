@@ -8,29 +8,35 @@
 #include "lightshaderclass.h"
 #include "lightclass.h"
 #include "cameraclass.h"
+#include "Transform.h"
+
 #include <iostream>
 class Model
 {
 public:
     /*  함수   */
-    Model(string path)
-    {
-        //loadModel(path);
-        mesh = new Mesh();
-    }
+    Model();
+   
+    bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*);
+
+    bool LoadTexture(ID3D11Device*, const WCHAR*);
+    void ReleaseTexture();
+    ID3D11ShaderResourceView* GetTexture();
+
+
     void Draw(LightShaderClass*, LightClass* , CameraClass* , D3DClass* );
     Mesh* getMesh() { return mesh; }
 private:
     /*  Model 데이터  */
     vector<Mesh> meshes;
     Mesh* mesh;
+    TextureClass* m_Texture;
+
+
     string directory;
     /*  함수   */
     void loadModel(string path);
-    void processNode(aiNode* node, const aiScene* scene);
-    Mesh processMesh(aiMesh* mesh, const aiScene* scene);
-    vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type,
-        string typeName);
+    
 
 };
 

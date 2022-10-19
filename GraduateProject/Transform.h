@@ -7,6 +7,8 @@
 ///////////////////////
 // MY CLASS INCLUDES //
 ///////////////////////
+#include "cameraclass.h"
+#include "d3dclass.h"
 #include "Component.h"
 
 class Transform : public Component
@@ -16,6 +18,9 @@ class Transform : public Component
 	XMFLOAT3 scale;
 
 	XMFLOAT3 parentposition;
+
+
+	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 };
 
 #endif

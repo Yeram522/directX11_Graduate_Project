@@ -53,10 +53,9 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 
 	// Set the initial position of the camera.
 	m_Camera->SetPosition(0.0f, 0.0f, -5.0f);	// for cube
-//	m_Camera->SetPosition(0.0f, 0.5f, -3.0f);	// for chair
 		
 	// Create the model object.
-	m_GameObject = new GameObject("./data/Sphere.obj");
+	m_GameObject = new GameObject();
 	if(!m_GameObject)
 	{
 		return false;
@@ -64,16 +63,11 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 
 	// Initialize the model object.
 	result = m_GameObject->Initialize(m_D3D->GetDevice(), L"./data/Sphere.obj", L"./data/seafloor.dds");
-	//result = m_Model->Initialize(m_D3D->GetDevice(), L"./data/chair.obj", L"./data/chair_d.dds");
 	if(!result)
 	{
 		MessageBox(hwnd, L"Could not initialize the model object.", L"Error", MB_OK);
 		return false;
 	}
-
-
-	/*if (!m_Model->Initialize("./data/Sphere.obj", m_D3D->GetDevice(), m_D3D->GetDeviceContext(), L"./data/seafloor.dds", this->m_LightShader))
-		return false;*/
 
 	// Create the light shader object.
 	m_LightShader = new LightShaderClass;
@@ -208,13 +202,15 @@ bool GraphicsClass::Render(float rotation)
 
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	m_GameObject->Render(m_D3D->GetDeviceContext());
-	//m_GameObject->Draw(m_LightShader, m_Light, m_Camera, m_D3D);
+	m_GameObject->Draw(m_LightShader, m_Light, m_Camera, m_D3D);
+
+
 	// Render the model using the light shader.
-	result = m_LightShader->Render(m_D3D->GetDeviceContext(), m_GameObject->getMesh()->GetIndexCount(),
+	/*result = m_LightShader->Render(m_D3D->GetDeviceContext(), m_GameObject->getMesh()->GetIndexCount(),
 		worldMatrix, viewMatrix, projectionMatrix,
 		m_GameObject->getMesh()->GetTexture(),
 		m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
-		m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());
+		m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());*/
 	
 	/*if(!result)
 	{

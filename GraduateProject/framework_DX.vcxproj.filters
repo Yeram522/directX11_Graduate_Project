@@ -111,7 +111,7 @@
       <Filter>소스 파일\Component</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Graphic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -188,7 +188,7 @@
       <Filter>헤더 파일\Component</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Graphic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
