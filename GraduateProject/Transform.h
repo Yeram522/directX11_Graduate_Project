@@ -11,8 +11,19 @@
 #include "d3dclass.h"
 #include "Component.h"
 
-class Transform : public Component
+class Transform 
 {
+public:
+	Transform();
+	bool Initialize(D3DClass*, CameraClass*);
+	void Render();
+	void Rotate();
+
+	XMMATRIX m_worldMatrix, m_viewMatrix, m_projectionMatrix;
+
+	D3DClass* m_D3D;//임시로 public
+	CameraClass* m_Camera;//임시로 public
+private:
 	XMFLOAT3 localposition;
 	XMFLOAT3 rotation;
 	XMFLOAT3 scale;
@@ -20,7 +31,7 @@ class Transform : public Component
 	XMFLOAT3 parentposition;
 
 
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+
 };
 
 #endif

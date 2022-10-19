@@ -1,18 +1,20 @@
 #include "Model.h"
 
-void Model::Draw(LightShaderClass* shader, LightClass* m_Light, CameraClass* m_Camera, D3DClass* m_D3D)
+void Model::Render(ID3D11DeviceContext* deviceContext)
 {
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-	bool result;
-	m_Camera->GetViewMatrix(viewMatrix);
-	m_D3D->GetWorldMatrix(worldMatrix);
-	m_D3D->GetProjectionMatrix(projectionMatrix);
+	mesh->RenderBuffers(deviceContext);
+}
 
-	result = shader->Render(m_D3D->GetDeviceContext(), mesh->GetIndexCount(),
-		worldMatrix, viewMatrix, projectionMatrix,
+void Model::Draw(LightShaderClass* shader, LightClass* m_Light, Transform* transform)
+{
+	bool result;
+
+	//d3d랑 camera는 씬에서 가져와야하는데 일다 ㄴ씬이 없어서 transform에서 가져옴!
+	result = shader->Render(transform->m_D3D->GetDeviceContext(), mesh->GetIndexCount(),
+		transform->m_worldMatrix, transform->m_viewMatrix, transform->m_projectionMatrix,
 		GetTexture(),
 		m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
-		m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());
+		transform->m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());
 
 	if (!result)
 	{

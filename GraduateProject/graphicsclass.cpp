@@ -62,10 +62,10 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	// Initialize the model object.
-	result = m_GameObject->Initialize(m_D3D->GetDevice(), L"./data/Sphere.obj", L"./data/seafloor.dds");
+	result = m_GameObject->Initialize(m_D3D, m_Camera,L"./data/Sphere.obj", L"./data/seafloor.dds");
 	if(!result)
 	{
-		MessageBox(hwnd, L"Could not initialize the model object.", L"Error", MB_OK);
+		MessageBox(hwnd, L"Could not initialize the game object.", L"Error", MB_OK);
 		return false;
 	}
 
@@ -109,6 +109,8 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	ImGui_ImplWin32_Init(hwnd);
 	ImGui_ImplDX11_Init(m_D3D->GetDevice(), m_D3D->GetDeviceContext());
 	ImGui::StyleColorsDark();
+
+	//ImGui_ImplDX11_Init(m_D3D->GetDevice(), m_D3D->GetDeviceContext());
 
 	return true;
 }
@@ -183,7 +185,6 @@ bool GraphicsClass::Frame()
 
 bool GraphicsClass::Render(float rotation)
 {
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 	bool result;
 	
 	// Clear the buffers to begin the scene.
@@ -192,30 +193,11 @@ bool GraphicsClass::Render(float rotation)
 	// Generate the view matrix based on the camera's position.
 	m_Camera->Render();
 
-	// Get the world, view, and projection matrices from the camera and d3d objects.
-	m_Camera->GetViewMatrix(viewMatrix);
-	m_D3D->GetWorldMatrix(worldMatrix);
-	m_D3D->GetProjectionMatrix(projectionMatrix);
-
 	// Rotate the world matrix by the rotation value so that the triangle will spin.
-	worldMatrix = XMMatrixRotationY(rotation);
 
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	m_GameObject->Render(m_D3D->GetDeviceContext());
-	m_GameObject->Draw(m_LightShader, m_Light, m_Camera, m_D3D);
-
-
-	// Render the model using the light shader.
-	/*result = m_LightShader->Render(m_D3D->GetDeviceContext(), m_GameObject->getMesh()->GetIndexCount(),
-		worldMatrix, viewMatrix, projectionMatrix,
-		m_GameObject->getMesh()->GetTexture(),
-		m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
-		m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());*/
-	
-	/*if(!result)
-	{
-		return false;
-	}*/
+	m_GameObject->Draw(m_LightShader, m_Light);
 
 	static int counter = 0;
 	//Start theDear ImGui Frame

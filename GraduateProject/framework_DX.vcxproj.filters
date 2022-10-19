@@ -113,6 +113,12 @@
     <ClCompile Include="Model.cpp">
       <Filter>소스 파일\Graphic</Filter>
     </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImGui\imconfig.h">
@@ -189,6 +195,12 @@
     </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>헤더 파일\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>헤더 파일\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,6 +7,8 @@
 GameObject::GameObject()
 {
 	m_model = new Model();
+	transform = new Transform();
+
 }
 
 
@@ -20,10 +22,12 @@ GameObject::~GameObject()
 }
 
 
-bool GameObject::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const WCHAR* textureFilename)
+bool GameObject::Initialize(D3DClass* m_D3D,CameraClass* m_Camera, const WCHAR* modelFilename, const WCHAR* textureFilename)
 {
 	bool result;
-	result = m_model->Initialize(device, modelFilename, textureFilename);
+	result = m_model->Initialize(m_D3D->GetDevice(), modelFilename, textureFilename);
+	result = transform->Initialize(m_D3D, m_Camera);
+
 
 	if (!result)
 	{
@@ -52,14 +56,16 @@ void GameObject::Shutdown()
 void GameObject::Render(ID3D11DeviceContext* deviceContext)
 {
 	// Put the vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	m_model->getMesh()->RenderBuffers(deviceContext);
+	transform->Render();
+	transform ->Rotate();
+	m_model->Render(deviceContext);
 
 	return;
 }
 
-void GameObject::Draw(LightShaderClass* shader, LightClass* m_Light, CameraClass* m_Camera, D3DClass* m_D3D)
+void GameObject::Draw(LightShaderClass* shader, LightClass* m_Light)
 {
-	m_model->Draw(shader, m_Light, m_Camera, m_D3D);
+	m_model->Draw(shader, m_Light, transform);
 }
 
 

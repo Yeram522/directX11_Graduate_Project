@@ -23,8 +23,8 @@ public:
     void ReleaseTexture();
     ID3D11ShaderResourceView* GetTexture();
 
-
-    void Draw(LightShaderClass*, LightClass* , CameraClass* , D3DClass* );
+    void Render(ID3D11DeviceContext*);
+    void Draw(LightShaderClass*, LightClass*,Transform*);
     Mesh* getMesh() { return mesh; }
 private:
     /*  Model ตฅภฬลอ  */
