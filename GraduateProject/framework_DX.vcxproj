@@ -21,6 +21,8 @@
   <ItemGroup>
     <None Include="data\light.ps" />
     <None Include="data\light.vs" />
+    <None Include="data\texture.ps" />
+    <None Include="data\texture.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cameraclass.cpp" />
@@ -28,6 +30,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="d3dclass.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
+    <ClCompile Include="Debugwindowclass.cpp" />
     <ClCompile Include="graphicsclass.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\imgui_draw.cpp" />
@@ -41,6 +44,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="RenderTextureClass.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="systemclass.cpp" />
@@ -55,6 +59,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="d3dclass.h" />
     <ClInclude Include="DDSTextureLoader.h" />
+    <ClInclude Include="Debugwindowclass.h" />
     <ClInclude Include="graphicsclass.h" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />
@@ -70,6 +75,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="RenderTextureClass.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="systemclass.h" />

@@ -14,6 +14,9 @@
 #include "GameObject.h"
 #include "lightshaderclass.h"
 #include "lightclass.h"
+#include "textureshaderclass.h"
+#include "rendertextureclass.h"
+#include "debugwindowclass.h"
 #include "ImGui\\imgui.h"
 #include "ImGui\\imgui_impl_win32.h"
 #include "ImGui\\imgui_impl_dx11.h"
@@ -44,7 +47,9 @@ public:
 
 private:
 	bool Render(float);
-
+private:
+	bool RenderToTexture();
+	bool RenderScene();
 private:
 	D3DClass* m_D3D;
 
@@ -53,6 +58,10 @@ private:
 
 	LightShaderClass* m_LightShader;
 	LightClass* m_Light;
+
+	RenderTextureClass* m_RenderTexture;
+	DebugWindowClass* m_DebugWindow;
+	TextureShaderClass* m_TextureShader;
 };
 
 #endif
