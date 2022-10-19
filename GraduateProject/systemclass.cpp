@@ -168,7 +168,6 @@ LRESULT CALLBACK SystemClass::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam
 			m_Input->KeyUp((unsigned int)wparam);
 			return 0;
 		}
-
 		// Any other messages send to the default message handler as our application won't make use of them.
 		default:
 		{

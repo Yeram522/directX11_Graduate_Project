@@ -106,11 +106,14 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 	ImGui_ImplWin32_Init(hwnd);
 	ImGui_ImplDX11_Init(m_D3D->GetDevice(), m_D3D->GetDeviceContext());
 	ImGui::StyleColorsDark();
 
-	//ImGui_ImplDX11_Init(m_D3D->GetDevice(), m_D3D->GetDeviceContext());
 
 	return true;
 }
@@ -213,14 +216,20 @@ bool GraphicsClass::Render(float rotation)
 	ImGui::SliderFloat4("DiffuseColor", m_Light->GetDiffuseColortoFloat(), 0.0f, 1.0f);
 	ImGui::SliderFloat4("SpecularColor", m_Light->GetSpecularColortoFloat(), 0.0f, 1.0f);
 	ImGui::SliderFloat("Specular power", m_Light->GetSpecularPower(0), 0.0f, 100.0f);
-	
+	ImGui::End();
 
-	/*ImGui::Text("This is example text.");
-	if (ImGui::Button("Click me"))
-		counter += 1;
-	ImGui::SameLine();
-	std::string clickCount = "Click Count: " + std::to_string(counter);
-	ImGui::Text(clickCount.c_str());*/
+
+	ImGui::Begin("GameWindow");
+	{
+		// Using a Child allow to fill all the space of the window.
+		// It also alows customization
+		ImGui::BeginChild("GameRender");
+		// Get the size of the child (i.e. the whole draw size of the windows).
+		ImVec2 wsize = ImGui::GetWindowSize();
+		// Because I use the texture from OpenGL, I need to invert the V from the UV.
+	   // ImGui::Image((ImTextureID)m_D3D->GetTexture2D(), wsize, ImVec2(0, 1), ImVec2(1, 0));
+		ImGui::EndChild();
+	}
 	ImGui::End();
 	//Assemble Together Draw Data
 	ImGui::Render();
