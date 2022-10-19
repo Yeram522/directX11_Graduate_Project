@@ -122,14 +122,14 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>소스 파일\System</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="Debugwindowclass.cpp">
+      <Filter>소스 파일\System</Filter>
     </ClCompile>
     <ClCompile Include="RenderTextureClass.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Graphic</Filter>
     </ClCompile>
-    <ClCompile Include="Debugwindowclass.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="Scene.cpp">
+      <Filter>소스 파일\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -212,13 +212,13 @@
       <Filter>헤더 파일\System</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\System</Filter>
     </ClInclude>
     <ClInclude Include="RenderTextureClass.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Graphic</Filter>
     </ClInclude>
     <ClInclude Include="Debugwindowclass.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

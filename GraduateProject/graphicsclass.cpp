@@ -159,10 +159,10 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
-    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
+ //   //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+ //   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 	ImGui_ImplWin32_Init(hwnd);
 	ImGui_ImplDX11_Init(m_D3D->GetDevice(), m_D3D->GetDeviceContext());
 	ImGui::StyleColorsDark();
@@ -305,41 +305,42 @@ bool GraphicsClass::Render(float rotation)
 
 	//// 2D렌더링이 끝났으므로 다시 Z버퍼를 킵니다.
 	m_D3D->TurnZBufferOn();
-	m_D3D->EndScene();
 
 	//static int counter = 0;
-	////Start theDear ImGui Frame
-	//ImGui_ImplDX11_NewFrame();
-	//ImGui_ImplWin32_NewFrame();
+	//Start theDear ImGui Frame
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
 
-	//ImGui::NewFrame();
-	////Create ImGui Test Window
-	//ImGui::Begin("Inspector");
-	//ImGui::Text("PhongShader");
-	//ImGui::SliderFloat3("LightDirection", m_Light->GetDirectiontoFloat(), -100.0f, 100.0f);
-	//ImGui::SliderFloat4("AmbidientColor", m_Light->GetAmbientColortoFloat(), 0.0f, 1.0f);
-	//ImGui::SliderFloat4("DiffuseColor", m_Light->GetDiffuseColortoFloat(), 0.0f, 1.0f);
-	//ImGui::SliderFloat4("SpecularColor", m_Light->GetSpecularColortoFloat(), 0.0f, 1.0f);
-	//ImGui::SliderFloat("Specular power", m_Light->GetSpecularPower(0), 0.0f, 100.0f);
-	//ImGui::End();
+	ImGui::NewFrame();
+	//Create ImGui Test Window
+	ImGui::Begin("Inspector");
+	ImGui::Text("PhongShader");
+	ImGui::SliderFloat3("LightDirection", m_Light->GetDirectiontoFloat(), -100.0f, 100.0f);
+	ImGui::SliderFloat4("AmbidientColor", m_Light->GetAmbientColortoFloat(), 0.0f, 1.0f);
+	ImGui::SliderFloat4("DiffuseColor", m_Light->GetDiffuseColortoFloat(), 0.0f, 1.0f);
+	ImGui::SliderFloat4("SpecularColor", m_Light->GetSpecularColortoFloat(), 0.0f, 1.0f);
+	ImGui::SliderFloat("Specular power", m_Light->GetSpecularPower(0), 0.0f, 100.0f);
+	ImGui::End();
 
 
-	//ImGui::Begin("GameWindow");
-	//{
-	//	// Using a Child allow to fill all the space of the window.
-	//	// It also alows customization
-	//	ImGui::BeginChild("GameRender");
-	//	// Get the size of the child (i.e. the whole draw size of the windows).
-	//	ImVec2 wsize = ImGui::GetWindowSize();
-	//	// Because I use the texture from OpenGL, I need to invert the V from the UV.
-	//    //ImGui::Image((ImTextureID)m_D3D->GetTexture2D(), wsize);
-	//	ImGui::EndChild();
-	//}
-	//ImGui::End();
-	////Assemble Together Draw Data
-	//ImGui::Render();
-	////Render Draw Data
-	//ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	ImGui::Begin("GameWindow");
+	{
+		// Using a Child allow to fill all the space of the window.
+		// It also alows customization
+		ImGui::BeginChild("GameRender");
+		// Get the size of the child (i.e. the whole draw size of the windows).
+		ImVec2 wsize = ImGui::GetWindowSize();
+		// Because I use the texture from OpenGL, I need to invert the V from the UV.
+	    //ImGui::Image((ImTextureID)m_D3D->GetTexture2D(), wsize);
+		ImGui::EndChild();
+	}
+	ImGui::End();
+	//Assemble Together Draw Data
+	ImGui::Render();
+	//Render Draw Data
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+	m_D3D->EndScene();
 
 	// Present the rendered scene to the screen.
 	return true;

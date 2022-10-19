@@ -18,6 +18,8 @@ public:
 	bool isLoaded(); //Returns true if the Scene is loaded.
 
 	bool Initialize();
+
+    void Update();
 };
 
 #endif
