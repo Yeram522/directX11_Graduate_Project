@@ -312,6 +312,11 @@ bool GraphicsClass::Render(float rotation)
 	ImGui_ImplWin32_NewFrame();
 
 	ImGui::NewFrame();
+
+	//Docking
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+
 	//Create ImGui Test Window
 	ImGui::Begin("Inspector");
 	ImGui::Text("PhongShader");
@@ -323,7 +328,7 @@ bool GraphicsClass::Render(float rotation)
 	ImGui::End();
 
 
-	ImGui::Begin("GameWindow");
+	ImGui::Begin("ViewPort");
 	{
 		// Using a Child allow to fill all the space of the window.
 		// It also alows customization
@@ -331,9 +336,14 @@ bool GraphicsClass::Render(float rotation)
 		// Get the size of the child (i.e. the whole draw size of the windows).
 		ImVec2 wsize = ImGui::GetWindowSize();
 		// Because I use the texture from OpenGL, I need to invert the V from the UV.
-	    //ImGui::Image((ImTextureID)m_D3D->GetTexture2D(), wsize);
+	    ImGui::Image((ImTextureID)m_RenderTexture->GetShaderResourceView(), wsize);
 		ImGui::EndChild();
 	}
+	ImGui::End();
+
+
+	ImGui::Begin("Directory");
+	
 	ImGui::End();
 	//Assemble Together Draw Data
 	ImGui::Render();
