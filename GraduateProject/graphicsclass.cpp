@@ -314,7 +314,6 @@ bool GraphicsClass::Render(float rotation)
 	ImGui::NewFrame();
 
 	//Docking
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
 	//Create ImGui Test Window
@@ -328,6 +327,7 @@ bool GraphicsClass::Render(float rotation)
 	ImGui::End();
 
 
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::Begin("ViewPort");
 	{
 		// Using a Child allow to fill all the space of the window.
@@ -339,12 +339,15 @@ bool GraphicsClass::Render(float rotation)
 	    ImGui::Image((ImTextureID)m_RenderTexture->GetShaderResourceView(), wsize);
 		ImGui::EndChild();
 	}
+	ImGui::PopStyleVar();
+
 	ImGui::End();
 
 
 	ImGui::Begin("Directory");
 	
 	ImGui::End();
+
 	//Assemble Together Draw Data
 	ImGui::Render();
 	//Render Draw Data
