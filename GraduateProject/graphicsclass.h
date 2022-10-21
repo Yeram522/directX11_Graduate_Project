@@ -8,8 +8,7 @@
 ///////////////////////
 // MY CLASS INCLUDES //
 ///////////////////////
-#include "Scene.h"
-
+#include "SceneManager.h"
 
 
 
@@ -30,10 +29,9 @@ public:
 
 private:
 	bool Render(float);
+
 private:
-	bool RenderToTexture();
-	bool RenderScene();
-private:
+	SceneManager* m_SceneManager;
 	Scene* m_Scene;
 };
 

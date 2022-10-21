@@ -1,7 +1,11 @@
 #include "Scene.h"
 
-Scene::Scene(string)
+Scene::Scene(string name)
 {
+	this->name = name;
+
+	m_D3D = 0;
+	m_Camera = 0;
 	m_GameObject = 0;
 	m_LightShader = 0;
 	m_Light = 0;

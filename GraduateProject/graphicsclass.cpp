@@ -2,12 +2,19 @@
 // Filename: graphicsclass.cpp
 ////////////////////////////////////////////////////////////////////////////////
 #include "graphicsclass.h"
+SceneManager* SceneManager::Instance = nullptr;
 
 
 GraphicsClass::GraphicsClass()
 {
 	m_Scene = 0;
 
+	// Create the SceneManager object.
+	m_SceneManager = SceneManager::GetInstance();
+	if (!m_SceneManager)
+	{
+		return;
+	}
 }
 
 
@@ -25,23 +32,14 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 {
 	bool result;
 
-
-	// Create the Direct3D object.
-	m_Scene = new Scene("Main");
-	if(!m_Scene)
-	{
-		return false;
-	}
-
-	// Initialize the Direct3D object.
-	result = m_Scene->Initialize(screenWidth, screenHeight, hwnd);
-	if(!result)
-	{
-		MessageBox(hwnd, L"Could not initialize Scene.", L"Error", MB_OK);
-		return false;
-	}
-
 	
+	result = m_SceneManager->SceneManager::Initialize(screenWidth, screenHeight, hwnd);
+	
+	if (!result)
+	{
+		return false;
+	}
+
 
 	return true;
 }
@@ -49,6 +47,13 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 
 void GraphicsClass::Shutdown()
 {
+	if (m_SceneManager)
+	{
+		//m_Scene->Shutdown();
+		delete m_SceneManager;
+		m_SceneManager = 0;
+	}
+
 	if (m_Scene)
 	{
 		m_Scene->Shutdown();
@@ -85,7 +90,8 @@ bool GraphicsClass::Frame()
 bool GraphicsClass::Render(float rotation)
 {
 	
-	m_Scene->Render();
+	//m_Scene->Render();
+	m_SceneManager->SceneManager::UpdateScene();
 	// Present the rendered scene to the screen.
 	return true;
 }
