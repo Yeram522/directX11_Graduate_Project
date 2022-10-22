@@ -96,7 +96,6 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 
 
 	result = m_SceneManager->SceneManager::Initialize(screenWidth, screenHeight, m_D3D, m_Camera, hwnd, m_Light, m_LightShader);
-	m_SceneManager->SceneManager::LoadScene(new TitleScene());
 	if (!result)
 	{
 		return false;

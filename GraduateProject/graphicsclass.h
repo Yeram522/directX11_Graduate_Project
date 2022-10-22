@@ -27,6 +27,7 @@ public:
 	void Shutdown();
 	bool Frame();
 
+	SceneManager* getSceneManager() { return m_SceneManager; }
 private:
 	bool Render(float);
 

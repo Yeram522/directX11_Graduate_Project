@@ -17,6 +17,13 @@ bool Scene::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 
 
 	sceneManager->m_Camera->SetPosition(0.0f, 0.0f, -5.0f);	// for cube
+	
+	//나중에는 기본값이 아닌 씬에 있는 세팅값으로 바꿔져야함~!
+	sceneManager->m_Light->SetAmbientColor(0.15f, 0.15f, 0.15f, 1.0f);	// for cube
+	sceneManager->m_Light->SetDiffuseColor(1.0f, 1.0f, 1.0f, 1.0f);// for cube
+	sceneManager->m_Light->SetDirection(1.0f, 0.0f, 1.0f);	// for cube
+	sceneManager->m_Light->SetSpecularColor(1.0f, 1.0f, 1.0f, 1.0f);	// for cube
+	sceneManager->m_Light->SetSpecularPower(32.0f);	// for cube
 
 	// Create the model object.
 	InitObject();
