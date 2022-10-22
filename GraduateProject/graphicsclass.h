@@ -30,9 +30,18 @@ public:
 private:
 	bool Render(float);
 
+	bool RenderToTexture();
 private:
 	SceneManager* m_SceneManager;
 	Scene* m_Scene;
+	D3DClass* m_D3D;
+	CameraClass* m_Camera;
+	LightShaderClass* m_LightShader;
+	LightClass* m_Light;
+
+	RenderTextureClass* m_RenderTexture;
+	DebugWindowClass* m_DebugWindow;
+	TextureShaderClass* m_TextureShader;
 };
 
 #endif

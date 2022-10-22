@@ -38,23 +38,23 @@ public:
 
 	string name;
 
-	bool Initialize(int, int, HWND);
+	bool Initialize(int, int, D3DClass*, CameraClass*, HWND,LightClass* m_light, LightShaderClass* shader);
 	void Shutdown();
 	bool Render();
-private:
-	bool RenderToTexture();
-	bool RenderScene();
-private:
+
+	bool isLoaded() { return isLoad; }
+
+protected:
+	vector<GameObject*> m_GameObject;
+	virtual void InitObject() {}
+	virtual bool RenderScene();
 	D3DClass* m_D3D;
 	CameraClass* m_Camera;
-	GameObject* m_GameObject;
+	bool isLoad;
 
-	LightShaderClass* m_LightShader;
+private:
 	LightClass* m_Light;
-
-	RenderTextureClass* m_RenderTexture;
-	DebugWindowClass* m_DebugWindow;
-	TextureShaderClass* m_TextureShader;
+	LightShaderClass* m_LightShader;
 };
 
 #endif

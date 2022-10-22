@@ -1,20 +1,23 @@
 #include "SceneManager.h"
 
-bool SceneManager::Initialize(int screenWidth, int screenHeight, HWND hwnd)
+bool SceneManager::Initialize(int screenWidth, int screenHeight, D3DClass* m_D3D,CameraClass* m_Camera, HWND hwnd,LightClass* m_light, LightShaderClass* shader)
 {
 	this->screenWidth = screenWidth;
 	this->screenHeight = screenHeight;
-	this->hwnd;
+	this->hwnd = hwnd;
+	this->m_D3D = m_D3D;
+	this->m_Camera = m_Camera;
+	this->m_Light = m_light;
+	this->m_LightShader = shader;
 
 	bool result;
-	m_ActiveScene = new Scene("Main");
+	m_ActiveScene = new MainScene();
 	if (!m_ActiveScene)
 	{
 		return false;
 	}
 
-	// Initialize the Direct3D object.
-	result = m_ActiveScene->Initialize(screenWidth, screenHeight, hwnd);
+	result = m_ActiveScene->Initialize(screenWidth, screenHeight, m_D3D, m_Camera,hwnd, m_light, shader);
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize Scene.", L"Error", MB_OK);
@@ -25,30 +28,7 @@ bool SceneManager::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 
 }
 
-void SceneManager::CreateScene(string name)
-{
-	m_sceneinbuild.push_back(new Scene(name));
-	m_sceneCount = m_sceneinbuild.size();
-	LoadScene(name);
-}
 
-void SceneManager::LoadScene(string sceneName)
-{
-	for (auto& scene : m_sceneinbuild)
-	{
-		if (sceneName == scene->name)
-			m_ActiveScene = scene;
-	}
-
-	bool result;
-	// Initialize the Direct3D object.
-	result = m_ActiveScene->Initialize(screenWidth, screenHeight, hwnd);
-	if(!result)
-	{
-		MessageBox(hwnd, L"Could not initialize Scene.", L"Error", MB_OK);
-		return ;
-	}
-}
 
 void SceneManager::UpdateScene()
 {
