@@ -4,6 +4,7 @@
 #ifndef _SCENE_H_
 #define _SCENE_H_
 
+
 #include "d3dclass.h"
 #include "cameraclass.h"
 #include "GameObject.h"
@@ -15,12 +16,12 @@
 #include "ImGui\\imgui.h"
 #include "ImGui\\imgui_impl_win32.h"
 #include "ImGui\\imgui_impl_dx11.h"
-
 #include<string>
 #include <vector>
 
 using namespace std;
 
+class SceneManager;
 
 /////////////
 // GLOBALS //
@@ -38,23 +39,21 @@ public:
 
 	string name;
 
-	bool Initialize(int, int, D3DClass*, CameraClass*, HWND,LightClass* m_light, LightShaderClass* shader);
+	bool Initialize(int, int, HWND);
 	void Shutdown();
 	bool Render();
 
 	bool isLoaded() { return isLoad; }
 
 protected:
+	SceneManager* sceneManager;
 	vector<GameObject*> m_GameObject;
 	virtual void InitObject() {}
 	virtual bool RenderScene();
-	D3DClass* m_D3D;
-	CameraClass* m_Camera;
-	bool isLoad;
 
-private:
-	LightClass* m_Light;
-	LightShaderClass* m_LightShader;
+	D3DClass* getD3D();
+	CameraClass* getCamera();
+	bool isLoad;
 };
 
 #endif

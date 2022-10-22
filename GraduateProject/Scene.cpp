@@ -1,31 +1,22 @@
 #include "Scene.h"
+#include "SceneManager.h"
 
 Scene::Scene(string name)
 {
 	this->name = name;
-
-	m_D3D = 0;
-	m_Camera = 0;
-
+	sceneManager = SceneManager::GetInstance();
 }
 
 Scene::~Scene()
 {
 }
 
-bool Scene::Initialize(int screenWidth, int screenHeight, D3DClass* m_D3D, CameraClass* m_Camera,HWND hwnd,
-	LightClass* m_light, LightShaderClass* shader)
+bool Scene::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 {
 	bool result;
-	
-	this->m_D3D = m_D3D;
-	this->m_Light = m_light;
-	this->m_LightShader = shader;
 
-	// Set the initial position of the camera.
-	this->m_Camera = m_Camera;
 
-	m_Camera->SetPosition(0.0f, 0.0f, -5.0f);	// for cube
+	sceneManager->m_Camera->SetPosition(0.0f, 0.0f, -5.0f);	// for cube
 
 	// Create the model object.
 	InitObject();
@@ -51,33 +42,33 @@ void Scene::Shutdown()
 	
 
 	// Release the camera object.
-	if (m_Camera)
+	if (sceneManager->m_Camera)
 	{
-		delete m_Camera;
-		m_Camera = 0;
+		delete sceneManager->m_Camera;
+		sceneManager->m_Camera = 0;
 	}
 
 	// Release the D3D object.
-	if (m_D3D)
+	if (sceneManager->m_D3D)
 	{
-		m_D3D->Shutdown();
-		delete m_D3D;
-		m_D3D = 0;
+		sceneManager->m_D3D->Shutdown();
+		delete sceneManager->m_D3D;
+		sceneManager->m_D3D = 0;
 	}
 
 	// Release the light object.
-	if (m_Light)
+	if (sceneManager->m_Light)
 	{
-		delete m_Light;
-		m_Light = 0;
+		delete sceneManager->m_Light;
+		sceneManager->m_Light = 0;
 	}
 
 	// Release the light shader object.
-	if (m_LightShader)
+	if (sceneManager->m_LightShader)
 	{
-		m_LightShader->Shutdown();
-		delete m_LightShader;
-		m_LightShader = 0;
+		sceneManager->m_LightShader->Shutdown();
+		delete sceneManager->m_LightShader;
+		sceneManager->m_LightShader = 0;
 	}
 
 	return;
@@ -99,22 +90,26 @@ bool Scene::Render()
 	return true;
 }
 
-
-
-
-
 bool Scene::RenderScene()
 {
-	// Generate the view matrix based on the camera's position.
-
 
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	for (auto& object : m_GameObject)
 	{
-		object->Render(m_D3D->GetDeviceContext());
-		object->Draw(m_LightShader, m_Light);
+		object->Render(sceneManager->m_D3D->GetDeviceContext());
+		object->Draw(sceneManager->m_LightShader, sceneManager->m_Light);
 	}
 	
 
 	return true;
+}
+
+D3DClass* Scene::getD3D()
+{
+	return sceneManager->m_D3D;
+}
+
+CameraClass* Scene::getCamera()
+{
+	return sceneManager->m_Camera;
 }

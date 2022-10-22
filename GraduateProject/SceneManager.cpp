@@ -17,7 +17,7 @@ bool SceneManager::Initialize(int screenWidth, int screenHeight, D3DClass* m_D3D
 		return false;
 	}
 
-	result = m_ActiveScene->Initialize(screenWidth, screenHeight, m_D3D, m_Camera,hwnd, m_light, shader);
+	result = m_ActiveScene->Initialize(screenWidth, screenHeight,hwnd);
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize Scene.", L"Error", MB_OK);

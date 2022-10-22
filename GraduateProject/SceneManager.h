@@ -7,8 +7,6 @@
 #include "MainScene.h"
 #include "TitleScene.h"
 
-class Scene;
-
 class SceneManager
 {
 public:
@@ -37,7 +35,7 @@ public:
 		bool result;
 		m_ActiveScene = new T();
 
-		result = m_ActiveScene->Initialize(screenWidth, screenHeight, m_D3D, m_Camera,hwnd, m_Light, m_LightShader);
+		result = m_ActiveScene->Initialize(screenWidth, screenHeight,hwnd);
 		if (!result)
 		{
 			MessageBox(hwnd, L"Could not initialize Scene.", L"Error", MB_OK);
@@ -53,7 +51,7 @@ private:
 	SceneManager() :m_sceneCount(0), m_ActiveScene(nullptr)
 	{}
 
-
+	friend class Scene;
 
 	int m_sceneCount;
 	//int m_sceneCountInBuildSettings
@@ -62,9 +60,10 @@ private:
 
 	//Initialize SceneManager form graphics Class
 	int screenWidth,screenHeight;
+
+private:
 	HWND hwnd;
 	D3DClass* m_D3D;
-private:
 	CameraClass* m_Camera;
 	LightClass* m_Light;
 	LightShaderClass* m_LightShader;
