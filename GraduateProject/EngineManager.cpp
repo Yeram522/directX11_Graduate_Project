@@ -1,6 +1,7 @@
 #include "EngineManager.h"
 #include "graphicsclass.h"
 
+
 bool EngineManager::Initialize(D3DClass* D3D, HWND hwnd, GraphicsClass* graphicClass)
 {
 	m_graphicClass = graphicClass;
@@ -32,10 +33,15 @@ void EngineManager::renderImGui()
 	//Docking
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
+	//Content
 	showInspector();
 	showViewPort();
 	showContentBrowser();
+	//content end
+	
 
+	//Assemble Together Draw Data
+	ImGui::Render();
 	//Render Draw Data
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }
@@ -72,12 +78,22 @@ void EngineManager::showViewPort()
 	ImGui::End();
 }
 
+constexpr const char* s_AssetDirectory = "data";
+
 void EngineManager::showContentBrowser()
 {
-	ImGui::Begin("Directory");
+	ImGui::Begin("Content Browser");
 
+
+	for (auto& p : fs::directory_iterator(s_AssetDirectory))
+	{
+		std::string path = p.path().string();
+		
+		if (ImGui::Button(path.c_str()))
+		{
+		}
+	}
 	ImGui::End();
 
-	//Assemble Together Draw Data
-	ImGui::Render();
+
 }
