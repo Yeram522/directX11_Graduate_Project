@@ -15,15 +15,20 @@ public:
 		bool result;
 		GameObject* temp = 0;
 		temp = new GameObject();
-		m_GameObject.push_back(temp);
-		if (!temp)
+		Model* model = temp->getOrAddComponent<Model>();
+		
+
+		// Initialize the model object.
+		result = temp->Initialize(Scene::getD3D(), Scene::getCamera(), L"./data/Sphere.obj", L"./data/seafloor.dds", Scene::getLightShader(), Scene::getLight());
+		result = temp->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/Sphere.obj", L"./data/seafloor.dds"
+			, Scene::getLightShader(), Scene::getLight());
+		if (!result)
 		{
 			return;
 		}
 
-		// Initialize the model object.
-		result = temp->Initialize(Scene::getD3D(), Scene::getCamera(), L"./data/Sphere.obj", L"./data/seafloor.dds", Scene::getLightShader(), Scene::getLight());
-		if (!result)
+		m_GameObject.push_back(temp);
+		if (!temp)
 		{
 			return;
 		}

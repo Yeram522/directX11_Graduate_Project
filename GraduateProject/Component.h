@@ -28,6 +28,8 @@ protected:
 	Transform* transform;
 
 	bool enabled;
+
+	ID3D11DeviceContext* getDeviceContext();
 public:
 	Component(GameObject* gameObject);
 
@@ -39,6 +41,7 @@ public:
 
 	void setEnable(bool enable = true) { this->enabled = enable; }
 	bool getEnable() const { return enabled; }
+
 };
 
 #endif

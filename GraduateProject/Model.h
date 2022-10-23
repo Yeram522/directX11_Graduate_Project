@@ -9,13 +9,15 @@
 #include "lightclass.h"
 #include "cameraclass.h"
 #include "Transform.h"
+#include "Component.h"
 
 #include <iostream>
-class Model
+
+class Model:public Component
 {
 public:
     /*  함수   */
-    Model();
+    Model(GameObject* gameObject);
    
     bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*, LightShaderClass* shader, LightClass* m_Light);
 
@@ -23,8 +25,8 @@ public:
     void ReleaseTexture();
     ID3D11ShaderResourceView* GetTexture();
 
-    void Render(ID3D11DeviceContext*);
-    void Draw(Transform*);
+    void update() override;
+    void Draw();
     Mesh* getMesh() { return mesh; }
 private:
     /*  Model 데이터  */

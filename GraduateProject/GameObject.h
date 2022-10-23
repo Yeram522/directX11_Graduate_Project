@@ -69,11 +69,19 @@ public:
 		return nullptr;
 	}
 
+	template<typename T>
+	T* getOrAddComponent() {
+		auto comp = getComponent<T>();
+		if (comp) return comp;
+		addComponent<T>();
+		return getComponent<T>();
+	}
 private:
 	ID3D11Device* m_device;
 	ID3D11DeviceContext* m_deviceContext;
 	CameraClass* m_Camera;
 	Model* m_model;
+
 };
 
 #endif

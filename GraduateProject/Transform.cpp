@@ -16,7 +16,7 @@ bool Transform::Initialize(D3DClass* m_D3D, CameraClass* m_Camera)
 	return true;
 }
 
-void Transform::Render()
+void Transform::update()
 {
 	//매트릭스 초기화.
 	m_Camera->GetViewMatrix(m_viewMatrix);

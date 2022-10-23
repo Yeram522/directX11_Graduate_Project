@@ -15,16 +15,22 @@ public:
 		bool result;
 		GameObject* temp = 0;
 		temp = new GameObject();
-		m_GameObject.push_back(temp);
-		if (!temp)
-		{
-			return;
-		}
+		Model* model = temp->getOrAddComponent<Model>();
+		
 
 		// Initialize the model object.
 		result = temp->Initialize(Scene::getD3D(), Scene::getCamera(), L"./data/chair.obj", L"./data/chair_d.dds"
 		, Scene::getLightShader(),Scene::getLight());
+		result = temp->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/chair.obj", L"./data/chair_d.dds"
+			, Scene::getLightShader(), Scene::getLight());
+
 		if (!result)
+		{
+			return;
+		}
+
+		m_GameObject.push_back(temp);
+		if (!temp)
 		{
 			return;
 		}

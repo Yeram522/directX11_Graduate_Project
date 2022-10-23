@@ -1,13 +1,16 @@
 #include "Model.h"
 
-void Model::Render(ID3D11DeviceContext* deviceContext)
+
+void Model::update()
 {
-	mesh->RenderBuffers(deviceContext);
+	Draw();
 }
 
-void Model::Draw(Transform* transform)
+void Model::Draw()
 {
 	bool result;
+	Transform* transform = Component::transform;
+	mesh->RenderBuffers(transform->m_D3D->GetDeviceContext());//render
 
 	//d3d랑 camera는 씬에서 가져와야하는데 일다 ㄴ씬이 없어서 transform에서 가져옴!
 	result = m_LightShader->Render(transform->m_D3D->GetDeviceContext(), mesh->GetIndexCount(),
@@ -22,7 +25,7 @@ void Model::Draw(Transform* transform)
 	}
 }
 
-Model::Model()
+Model::Model(GameObject* gameObject):Component(gameObject)
 {
 	m_Texture = 0;
 	mesh = new Mesh();

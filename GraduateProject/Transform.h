@@ -16,7 +16,7 @@ class Transform : public Component
 public:
 	Transform(GameObject* gameObject);
 	bool Initialize(D3DClass*, CameraClass*);
-	void Render();
+	void update() override;
 	void Rotate();
 
 	XMMATRIX m_worldMatrix, m_viewMatrix, m_projectionMatrix;

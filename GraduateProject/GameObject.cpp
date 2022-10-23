@@ -6,9 +6,9 @@
 
 GameObject::GameObject()
 {
-	m_model = new Model();
 	transform = new Transform(this);
 	components.push_back(transform);
+	
 }
 
 
@@ -27,7 +27,8 @@ bool GameObject::Initialize(D3DClass* m_D3D,CameraClass* m_Camera, const WCHAR* 
 {
 	bool result;
 	this->m_Camera= m_Camera;
-	result = m_model->Initialize(m_D3D->GetDevice(), modelFilename, textureFilename, shader,m_Light);
+
+	
 	result = transform->Initialize(m_D3D, m_Camera);
 
 	
@@ -58,19 +59,20 @@ void GameObject::Shutdown()
 void GameObject::Render(ID3D11DeviceContext* deviceContext)
 {
 	// Put the vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	transform->Render();
-	transform ->Rotate();
 
+	for (auto component : components)
+	{
+		transform->Rotate();//수정 예정.삭제시켜야됨!
 
-	m_model->Render(deviceContext);
+		component->update();
+	}
+
+	//m_model->Draw();
+
 
 	return;
 }
 
-void GameObject::Draw()
-{
-	m_model->Draw(transform);
-}
 
 
 
