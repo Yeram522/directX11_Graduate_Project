@@ -104,7 +104,7 @@ bool Scene::RenderScene()
 	for (auto& object : m_GameObject)
 	{
 		object->Render(sceneManager->m_D3D->GetDeviceContext());
-		object->Draw(sceneManager->m_LightShader, sceneManager->m_Light);
+		object->Draw();
 	}
 	
 
@@ -119,4 +119,14 @@ D3DClass* Scene::getD3D()
 CameraClass* Scene::getCamera()
 {
 	return sceneManager->m_Camera;
+}
+
+LightClass* Scene::getLight()
+{
+	return sceneManager->m_Light;
+}
+
+LightShaderClass* Scene::getLightShader()
+{
+	return sceneManager->m_LightShader;
 }

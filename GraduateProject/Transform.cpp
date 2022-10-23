@@ -1,7 +1,8 @@
 #include "Transform.h"
 
-Transform::Transform()
+Transform::Transform(GameObject* gameObject):Component(gameObject)
 {
+	Component::gameObject = gameObject;
 	m_D3D = 0;
 	m_Camera = 0;
 }

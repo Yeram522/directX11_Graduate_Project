@@ -17,21 +17,22 @@ public:
     /*  함수   */
     Model();
    
-    bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*);
+    bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*, LightShaderClass* shader, LightClass* m_Light);
 
     bool LoadTexture(ID3D11Device*, const WCHAR*);
     void ReleaseTexture();
     ID3D11ShaderResourceView* GetTexture();
 
     void Render(ID3D11DeviceContext*);
-    void Draw(LightShaderClass*, LightClass*,Transform*);
+    void Draw(Transform*);
     Mesh* getMesh() { return mesh; }
 private:
     /*  Model 데이터  */
     vector<Mesh> meshes;
     Mesh* mesh;
     TextureClass* m_Texture;
-
+    LightShaderClass* m_LightShader;
+    LightClass* m_Light;
 
     string directory;
     /*  함수   */

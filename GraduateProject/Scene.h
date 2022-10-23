@@ -52,6 +52,8 @@ protected:
 
 	D3DClass* getD3D();
 	CameraClass* getCamera();
+	LightClass* getLight();
+	LightShaderClass* getLightShader();
 	bool isLoad;
 };
 

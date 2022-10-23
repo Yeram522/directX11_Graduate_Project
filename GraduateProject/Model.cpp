@@ -5,12 +5,12 @@ void Model::Render(ID3D11DeviceContext* deviceContext)
 	mesh->RenderBuffers(deviceContext);
 }
 
-void Model::Draw(LightShaderClass* shader, LightClass* m_Light, Transform* transform)
+void Model::Draw(Transform* transform)
 {
 	bool result;
 
 	//d3d랑 camera는 씬에서 가져와야하는데 일다 ㄴ씬이 없어서 transform에서 가져옴!
-	result = shader->Render(transform->m_D3D->GetDeviceContext(), mesh->GetIndexCount(),
+	result = m_LightShader->Render(transform->m_D3D->GetDeviceContext(), mesh->GetIndexCount(),
 		transform->m_worldMatrix, transform->m_viewMatrix, transform->m_projectionMatrix,
 		GetTexture(),
 		m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
@@ -30,7 +30,8 @@ Model::Model()
 
 }
 
-bool Model::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const WCHAR* textureFilename)
+bool Model::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const WCHAR* textureFilename
+, LightShaderClass* shader, LightClass* m_Light)
 {
 	bool result;
 
@@ -54,6 +55,9 @@ bool Model::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const W
 	{
 		return false;
 	}
+
+	this->m_LightShader = shader;
+	this->m_Light = m_Light;
 
 	return true;
 }

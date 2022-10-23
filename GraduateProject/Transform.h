@@ -11,10 +11,10 @@
 #include "d3dclass.h"
 #include "Component.h"
 
-class Transform 
+class Transform : public Component
 {
 public:
-	Transform();
+	Transform(GameObject* gameObject);
 	bool Initialize(D3DClass*, CameraClass*);
 	void Render();
 	void Rotate();

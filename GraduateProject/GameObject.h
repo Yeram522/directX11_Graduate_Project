@@ -47,10 +47,11 @@ public:
 	~GameObject();
 
 	Mesh* getMesh(){ return m_model->getMesh();}
-	bool Initialize(D3DClass*, CameraClass*,const WCHAR*, const WCHAR*);
+	bool Initialize(D3DClass*, CameraClass*,const WCHAR*, const WCHAR*,
+		LightShaderClass* shader, LightClass* m_Light);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
-	void Draw(LightShaderClass* shader, LightClass* m_Light);
+	void Draw();
 	
 	template<typename T>
 	void addComponent() {
@@ -71,6 +72,7 @@ public:
 private:
 	ID3D11Device* m_device;
 	ID3D11DeviceContext* m_deviceContext;
+	CameraClass* m_Camera;
 	Model* m_model;
 };
 

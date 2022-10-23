@@ -22,7 +22,7 @@ public:
 		}
 
 		// Initialize the model object.
-		result = temp->Initialize(Scene::getD3D(), Scene::getCamera(), L"./data/Sphere.obj", L"./data/seafloor.dds");
+		result = temp->Initialize(Scene::getD3D(), Scene::getCamera(), L"./data/Sphere.obj", L"./data/seafloor.dds", Scene::getLightShader(), Scene::getLight());
 		if (!result)
 		{
 			return;

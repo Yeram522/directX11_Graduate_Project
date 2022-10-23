@@ -22,7 +22,8 @@ public:
 		}
 
 		// Initialize the model object.
-		result = temp->Initialize(Scene::getD3D(), Scene::getCamera(), L"./data/chair.obj", L"./data/chair_d.dds");
+		result = temp->Initialize(Scene::getD3D(), Scene::getCamera(), L"./data/chair.obj", L"./data/chair_d.dds"
+		, Scene::getLightShader(),Scene::getLight());
 		if (!result)
 		{
 			return;
