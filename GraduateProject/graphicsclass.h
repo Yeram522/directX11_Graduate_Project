@@ -9,6 +9,7 @@
 // MY CLASS INCLUDES //
 ///////////////////////
 #include "SceneManager.h"
+#include "EngineManager.h"
 
 
 
@@ -28,12 +29,15 @@ public:
 	bool Frame();
 
 	SceneManager* getSceneManager() { return m_SceneManager; }
+
+	friend class EngineManager;
 private:
 	bool Render(float);
 
 	bool RenderToTexture();
 private:
 	SceneManager* m_SceneManager;
+	EngineManager* m_EngineManager;
 	Scene* m_Scene;
 	D3DClass* m_D3D;
 	CameraClass* m_Camera;

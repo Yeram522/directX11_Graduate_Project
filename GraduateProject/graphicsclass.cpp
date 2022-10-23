@@ -3,6 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "graphicsclass.h"
 SceneManager* SceneManager::Instance = nullptr;
+EngineManager* EngineManager::Instance = nullptr;
 
 
 GraphicsClass::GraphicsClass()
@@ -18,6 +19,12 @@ GraphicsClass::GraphicsClass()
 	// Create the SceneManager object.
 	m_SceneManager = SceneManager::GetInstance();
 	if (!m_SceneManager)
+	{
+		return;
+	}
+	m_EngineManager = EngineManager::GetInstance();
+
+	if (!m_EngineManager)
 	{
 		return;
 	}
@@ -150,16 +157,12 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	//Setup ImGui
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
-	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
- //   //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-//   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
-	ImGui_ImplWin32_Init(hwnd);
-	ImGui_ImplDX11_Init(m_D3D->GetDevice(), m_D3D->GetDeviceContext());
-	ImGui::StyleColorsDark();
+	result = m_EngineManager->Initialize(m_D3D, hwnd,this);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the EngineManager object.", L"Error", MB_OK);
+		return false;
+	}
 
 
 	return true;
@@ -273,52 +276,7 @@ bool GraphicsClass::Render(float rotation)
 	//// 2D·»´õ¸µÀÌ ³¡³µÀ¸¹Ç·Î ´Ù½Ã Z¹öÆÛ¸¦ Åµ´Ï´Ù.
 	m_D3D->TurnZBufferOn();
 
-	//static int counter = 0;
-	//Start theDear ImGui Frame
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-
-	ImGui::NewFrame();
-
-	//Docking
-	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
-
-	//Create ImGui Test Window
-	ImGui::Begin("Inspector");
-	ImGui::Text("PhongShader");
-	ImGui::SliderFloat3("LightDirection", m_Light->GetDirectiontoFloat(), -100.0f, 100.0f);
-	ImGui::SliderFloat4("AmbidientColor", m_Light->GetAmbientColortoFloat(), 0.0f, 1.0f);
-	ImGui::SliderFloat4("DiffuseColor", m_Light->GetDiffuseColortoFloat(), 0.0f, 1.0f);
-	ImGui::SliderFloat4("SpecularColor", m_Light->GetSpecularColortoFloat(), 0.0f, 1.0f);
-	ImGui::SliderFloat("Specular power", m_Light->GetSpecularPower(0), 0.0f, 100.0f);
-	ImGui::End();
-
-
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-	ImGui::Begin("ViewPort");
-	{
-		// Using a Child allow to fill all the space of the window.
-		// It also alows customization
-		ImGui::BeginChild("GameRender");
-		// Get the size of the child (i.e. the whole draw size of the windows).
-		ImVec2 wsize = ImGui::GetWindowSize();
-		// Because I use the texture from OpenGL, I need to invert the V from the UV.
-		ImGui::Image((ImTextureID)m_RenderTexture->GetShaderResourceView(), wsize);
-		ImGui::EndChild();
-	}
-	ImGui::PopStyleVar();
-
-	ImGui::End();
-
-
-	ImGui::Begin("Directory");
-
-	ImGui::End();
-
-	//Assemble Together Draw Data
-	ImGui::Render();
-	//Render Draw Data
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	m_EngineManager->renderImGui();
 
 	m_D3D->EndScene();
 	return true;

@@ -8,7 +8,7 @@
 class TitleScene : public Scene
 {
 public:
-	TitleScene():Scene("TitleS")
+	TitleScene():Scene("Title")
 	{};
 
 	void InitObject() override {

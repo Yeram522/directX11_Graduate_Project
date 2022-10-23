@@ -43,6 +43,9 @@
     <Filter Include="소스 파일\Scene">
       <UniqueIdentifier>{8bd1c73d-a950-4875-b15a-46325307ed41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Engine">
+      <UniqueIdentifier>{a0cb3145-0cec-4d1b-b10e-73cc71d4c845}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\light.ps">
@@ -140,8 +143,11 @@
     <ClCompile Include="MainScene.cpp">
       <Filter>소스 파일\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="EngineManager.cpp">
+      <Filter>소스 파일\Engine</Filter>
+    </ClCompile>
     <ClCompile Include="TitleScene.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -236,6 +242,9 @@
       <Filter>헤더 파일\Scene</Filter>
     </ClInclude>
     <ClInclude Include="TitleScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
