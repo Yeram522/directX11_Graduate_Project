@@ -78,8 +78,10 @@ void EngineManager::showViewPort()
 		ImGui::BeginChild("GameRender");
 		// Get the size of the child (i.e. the whole draw size of the windows).
 		ImVec2 wsize = ImGui::GetWindowSize();
+		ImVec2 p = ImGui::GetCursorScreenPos();
 		// Because I use the texture from OpenGL, I need to invert the V from the UV.
 		ImGui::Image((ImTextureID)(m_graphicClass->m_RenderTexture)->GetShaderResourceView(), wsize);
+		ImGui::GetWindowDrawList()->AddImage((ImTextureID)(m_graphicClass->m_image->GetTexture()),p, ImVec2(p.x + 250, p.y + 250), ImVec2(0, 0), ImVec2(1, 1));
 		ImGui::EndChild();
 	}
 	ImGui::PopStyleVar();

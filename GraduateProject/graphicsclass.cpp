@@ -28,6 +28,8 @@ GraphicsClass::GraphicsClass()
 	{
 		return;
 	}
+
+	m_image = 0;
 }
 
 
@@ -164,7 +166,20 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 		return false;
 	}
 
+	// Create the bitmap object.
+	m_image = new Image;
+	if (!m_image)
+	{
+		return false;
+	}
 
+	// Initialize the bitmap object.
+	result = m_image->Initialize(m_D3D->GetDevice(), screenWidth, screenHeight, L"./data/seafloor.dds", 256, 256);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the bitmap object.", L"Error", MB_OK);
+		return false;
+	}
 	return true;
 }
 
@@ -230,6 +245,7 @@ bool GraphicsClass::Frame()
 
 bool GraphicsClass::Render(float rotation)
 {
+	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoMatrix;
 	bool result;
 
 	// 전체 씬을 텍스쳐에 그립니다.
@@ -245,9 +261,19 @@ bool GraphicsClass::Render(float rotation)
 
 	m_Camera->Render();
 
+	// Get the world, view, projection, and ortho matrices from the camera and d3d objects.
+	m_Camera->GetViewMatrix(viewMatrix);
+	m_D3D->GetWorldMatrix(worldMatrix);
+	m_D3D->GetProjectionMatrix(projectionMatrix);
+	m_D3D->GetOrthoMatrix(orthoMatrix);
+
+	result = m_image->Render(m_D3D->GetDeviceContext(), 50, 50);
+	if (!result)
+	{
+		return false;
+	}
+
 	m_EngineManager->initImGui();
-
-
 
 	m_EngineManager->updateImGui();
 
@@ -255,15 +281,20 @@ bool GraphicsClass::Render(float rotation)
 	ImGui::Begin("Hierachy");
 	m_SceneManager->SceneManager::UpdateHierachy();
 	ImGui::End();
+
+	/*ImGui::Begin("textureView");
+	ImGui::Image((ImTextureID)(m_image->GetTexture()), ImVec2(100, 100));
+
+	ImGui::End();*/
+
+	m_EngineManager->renderImGui();
+
 	// 2D 렌더링을 하기 위해 Z버퍼를 끕니다.
 	//m_D3D->TurnZBufferOff();
-
-
+	
 
 	//// 2D렌더링이 끝났으므로 다시 Z버퍼를 킵니다.
 	//m_D3D->TurnZBufferOn();
-	m_EngineManager->renderImGui();
-
 
 	m_D3D->EndScene();
 	return true;

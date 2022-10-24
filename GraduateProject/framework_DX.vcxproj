@@ -33,6 +33,7 @@
     <ClCompile Include="Debugwindowclass.cpp" />
     <ClCompile Include="EngineManager.cpp" />
     <ClCompile Include="graphicsclass.cpp" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\imgui_draw.cpp" />
     <ClCompile Include="ImGui\imgui_impl_dx11.cpp" />
@@ -65,6 +66,7 @@
     <ClInclude Include="Debugwindowclass.h" />
     <ClInclude Include="EngineManager.h" />
     <ClInclude Include="graphicsclass.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />
     <ClInclude Include="ImGui\imgui_impl_dx11.h" />

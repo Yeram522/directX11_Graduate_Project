@@ -10,7 +10,7 @@
 ///////////////////////
 #include "SceneManager.h"
 #include "EngineManager.h"
-
+#include "Image.h"
 
 
 
@@ -31,11 +31,15 @@ public:
 	SceneManager* getSceneManager() { return m_SceneManager; }
 
 	friend class EngineManager;
+
+	Image* m_image;//µğ¹ö±ë
+
 private:
 	bool Render(float);
 
 	bool RenderToTexture();
 private:
+
 	SceneManager* m_SceneManager;
 	EngineManager* m_EngineManager;
 	Scene* m_Scene;
