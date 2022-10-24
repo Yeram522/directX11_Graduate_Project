@@ -45,6 +45,7 @@ public:
 	void UpdateScene();
 	//void LoadScene(int sceneIndex);
 
+	Scene* getActiveScene() const { return m_ActiveScene; }
 private:
 	static SceneManager* Instance;
 	//생성자는 private으로 둔다.

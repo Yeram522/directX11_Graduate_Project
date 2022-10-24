@@ -14,13 +14,11 @@ public:
 	void InitObject() override {
 		bool result;
 		GameObject* temp = 0;
-		temp = new GameObject();
+		temp = new GameObject("chair", "object", Scene::getD3D(), Scene::getCamera());
 		Model* model = temp->getOrAddComponent<Model>();
 		
 
 		// Initialize the model object.
-		result = temp->Initialize(Scene::getD3D(), Scene::getCamera(), L"./data/chair.obj", L"./data/chair_d.dds"
-		, Scene::getLightShader(),Scene::getLight());
 		result = temp->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/chair.obj", L"./data/chair_d.dds"
 			, Scene::getLightShader(), Scene::getLight());
 

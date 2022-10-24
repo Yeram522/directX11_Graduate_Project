@@ -22,7 +22,7 @@ bool EngineManager::Initialize(D3DClass* D3D, HWND hwnd, GraphicsClass* graphicC
 	
 }
 
-void EngineManager::renderImGui()
+void EngineManager::renderImGui(Scene* scene)
 {
 	//Start theDear ImGui Frame
 	ImGui_ImplDX11_NewFrame();
@@ -37,6 +37,7 @@ void EngineManager::renderImGui()
 	showInspector();
 	showViewPort();
 	showContentBrowser();
+	showHierachy(scene);
 	//content end
 	
 
@@ -96,4 +97,36 @@ void EngineManager::showContentBrowser()
 	ImGui::End();
 
 
+}
+
+//update방식처럼 아래 노드로 계속 추가되는>?방향으로 함수코드 개선필요함~
+void EngineManager::showHierachy(Scene* scene)
+{
+	ImGui::Begin("Hierachy");
+	
+	for (int i = 0; i < scene->readGameObjectList().size(); i++)
+	{
+		GameObject* object = scene->readGameObjectList()[i];
+		if (ImGui::TreeNode(object->getname().c_str()))
+		{
+			for (int j = 0; j < object->getchildrens().size(); j++)
+			{
+				// Use SetNextItemOpen() so set the default state of a node to be open. We could
+				// also use TreeNodeEx() with the ImGuiTreeNodeFlags_DefaultOpen flag to achieve the same thing!
+				if (j == 0)
+					ImGui::SetNextItemOpen(true, ImGuiCond_Once);
+
+				if (ImGui::TreeNode(object->getchildrens()[j]->getname().c_str()))
+				{
+					ImGui::TreePop();
+				}
+			}
+
+
+			ImGui::TreePop();
+		}
+	}
+    
+	
+	ImGui::End();
 }

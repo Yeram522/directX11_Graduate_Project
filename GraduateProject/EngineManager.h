@@ -5,6 +5,7 @@
 #define _EngineManager_H_
 
 #include "d3dclass.h"
+#include "SceneManager.h"
 #include "ImGui\\imgui.h"
 #include "ImGui\\imgui_impl_win32.h"
 #include "ImGui\\imgui_impl_dx11.h"
@@ -26,11 +27,11 @@ public:
 	}
 
 	bool Initialize(D3DClass*, HWND, GraphicsClass*);
-	void renderImGui();
+	void renderImGui(Scene*);
 	void showInspector();
 	void showViewPort();
 	void showContentBrowser();
-
+	void showHierachy(Scene*);
 private:
 	static EngineManager* Instance;
 	GraphicsClass* m_graphicClass;

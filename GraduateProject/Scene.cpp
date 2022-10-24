@@ -97,6 +97,11 @@ bool Scene::Render()
 	return true;
 }
 
+vector<GameObject*> Scene::readGameObjectList() const
+{
+	return m_GameObject;
+}
+
 bool Scene::RenderScene()
 {
 

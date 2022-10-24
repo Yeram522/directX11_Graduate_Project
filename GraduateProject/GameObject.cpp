@@ -4,11 +4,22 @@
 #include "GameObject.h"
 
 
-GameObject::GameObject()
+GameObject::GameObject(string name, string tag ,
+	D3DClass* m_D3D , CameraClass* m_Camera ,  // transform
+	GameObject* parent )
 {
+	bool result;
+	this->name = name;
+	this->tag = tag;
 	transform = new Transform(this);
 	components.push_back(transform);
-	
+
+	this->m_Camera = m_Camera;
+	result = transform->Initialize(m_D3D, m_Camera);
+	if (!result)
+	{
+		return;
+	}
 }
 
 
@@ -22,8 +33,7 @@ GameObject::~GameObject()
 }
 
 
-bool GameObject::Initialize(D3DClass* m_D3D,CameraClass* m_Camera, const WCHAR* modelFilename, const WCHAR* textureFilename
-	,LightShaderClass* shader, LightClass* m_Light)
+bool GameObject::Initialize(D3DClass* m_D3D,CameraClass* m_Camera)
 {
 	bool result;
 	this->m_Camera= m_Camera;
@@ -43,14 +53,14 @@ bool GameObject::Initialize(D3DClass* m_D3D,CameraClass* m_Camera, const WCHAR* 
 
 void GameObject::Shutdown()
 {
-	// Release the model texture.
-	m_model->ReleaseTexture();
+	//// Release the model texture.
+	//m_model->ReleaseTexture();
 
-	// Shutdown the vertex and index buffers.
-	m_model->getMesh()->ShutdownBuffers();
+	//// Shutdown the vertex and index buffers.
+	//m_model->getMesh()->ShutdownBuffers();
 
-	// Release the model data.
-	m_model->getMesh()->ReleaseModel();
+	//// Release the model data.
+	//m_model->getMesh()->ReleaseModel();
 
 	return;
 }
@@ -67,10 +77,15 @@ void GameObject::Render(ID3D11DeviceContext* deviceContext)
 		component->update();
 	}
 
-	//m_model->Draw();
+	for (auto child : children) child->Render(deviceContext);
 
 
 	return;
+}
+
+string GameObject::getname()
+{
+	 return this->name; 
 }
 
 

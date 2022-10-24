@@ -276,7 +276,7 @@ bool GraphicsClass::Render(float rotation)
 	//// 2D·»´õ¸µÀÌ ³¡³µÀ¸¹Ç·Î ´Ù½Ã Z¹öÆÛ¸¦ Åµ´Ï´Ù.
 	m_D3D->TurnZBufferOn();
 
-	m_EngineManager->renderImGui();
+	m_EngineManager->renderImGui(m_SceneManager->getActiveScene());
 
 	m_D3D->EndScene();
 	return true;

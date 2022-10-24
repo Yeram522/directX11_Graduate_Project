@@ -14,7 +14,6 @@
 #include "rendertextureclass.h"
 #include "debugwindowclass.h"
 
-
 #include<string>
 #include <vector>
 
@@ -43,7 +42,8 @@ public:
 	bool Render();
 
 	bool isLoaded() { return isLoad; }
-
+	
+	vector<GameObject*> readGameObjectList() const;
 protected:
 	SceneManager* sceneManager;
 	vector<GameObject*> m_GameObject;

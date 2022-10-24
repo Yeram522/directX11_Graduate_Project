@@ -42,17 +42,38 @@ protected:
 		children.push_back(child);
 	}
 public:
-	GameObject();
+
+	GameObject(string name = "unknown", string tag = "unknown",
+		D3DClass* m_D3D = nullptr, CameraClass* m_Camera = nullptr,  // transform
+		GameObject* parent = nullptr);
 	GameObject(const GameObject&);
 	~GameObject();
 
-	Mesh* getMesh(){ return m_model->getMesh();}
-	bool Initialize(D3DClass*, CameraClass*,const WCHAR*, const WCHAR*,
-		LightShaderClass* shader, LightClass* m_Light);
+	bool Initialize(D3DClass*, CameraClass*);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
-	void Draw();
 	
+	void setParent(GameObject* parent) {
+		if (this->parent) {
+			this->parent->remove(this);
+		}
+		/* TODO */
+		// if previous parent is a root meaning parent is nullptr, 
+		// we need extra treatment on the root node.
+
+		this->parent = parent;
+		if (parent) {
+			parent->add(this);
+		}
+	}
+
+	void remove(GameObject* child) {
+		if (!child) return;
+		auto it = find(children.begin(), children.end(), child);
+		if (it == children.end()) return;
+		children.erase(it);
+	}
+
 	template<typename T>
 	void addComponent() {
 		T* newComponent = new T(this);
@@ -76,11 +97,13 @@ public:
 		addComponent<T>();
 		return getComponent<T>();
 	}
+
+	vector<GameObject*> getchildrens()  { return children; }
+	string getname();
 private:
 	ID3D11Device* m_device;
 	ID3D11DeviceContext* m_deviceContext;
 	CameraClass* m_Camera;
-	Model* m_model;
 
 };
 
