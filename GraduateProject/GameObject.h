@@ -98,6 +98,8 @@ public:
 		return getComponent<T>();
 	}
 
+	void updateHierachy();
+
 	vector<GameObject*> getchildrens()  { return children; }
 	string getname();
 private:

@@ -230,7 +230,6 @@ bool GraphicsClass::Frame()
 
 bool GraphicsClass::Render(float rotation)
 {
-	XMMATRIX worldMatrix, viewMatrix, orthoMatrix;
 	bool result;
 
 	// 전체 씬을 텍스쳐에 그립니다.
@@ -246,37 +245,25 @@ bool GraphicsClass::Render(float rotation)
 
 	m_Camera->Render();
 
-	m_SceneManager->SceneManager::UpdateScene();
+	m_EngineManager->initImGui();
 
 
+
+	m_EngineManager->updateImGui();
+
+
+	ImGui::Begin("Hierachy");
+	m_SceneManager->SceneManager::UpdateHierachy();
+	ImGui::End();
 	// 2D 렌더링을 하기 위해 Z버퍼를 끕니다.
-	m_D3D->TurnZBufferOff();
+	//m_D3D->TurnZBufferOff();
 
-	// 카메라와 d3d 객체로부터 월드, 뷰, 직교 행렬을 얻어옵니다.
-	m_D3D->GetWorldMatrix(worldMatrix);
-	m_Camera->GetViewMatrix(viewMatrix);
-	m_D3D->GetOrthoMatrix(orthoMatrix);
-
-	// 디버그 윈도우의 정점과 인덱스 버퍼를 그래픽 파이프라인에 넣어 렌더링할 준비를 합니다.
-	result = m_DebugWindow->Render(m_D3D->GetDeviceContext(), 50, 50);
-	if (!result)
-	{
-		return false;
-	}
-
-	// 텍스쳐 셰이더를 이용하여 디버그 윈도우를 그립니다.
-	result = m_TextureShader->Render(m_D3D->GetDeviceContext(), m_DebugWindow->GetIndexCount(), worldMatrix, viewMatrix,
-		orthoMatrix, m_RenderTexture->GetShaderResourceView());
-	if (!result)
-	{
-		return false;
-	}
 
 
 	//// 2D렌더링이 끝났으므로 다시 Z버퍼를 킵니다.
-	m_D3D->TurnZBufferOn();
+	//m_D3D->TurnZBufferOn();
+	m_EngineManager->renderImGui();
 
-	m_EngineManager->renderImGui(m_SceneManager->getActiveScene());
 
 	m_D3D->EndScene();
 	return true;

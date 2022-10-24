@@ -97,6 +97,14 @@ bool Scene::Render()
 	return true;
 }
 
+void Scene::upadteHierachy()
+{
+	for (auto& object : m_GameObject)
+	{
+		object->updateHierachy();
+	}
+}
+
 vector<GameObject*> Scene::readGameObjectList() const
 {
 	return m_GameObject;

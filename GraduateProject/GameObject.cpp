@@ -76,11 +76,21 @@ void GameObject::Render(ID3D11DeviceContext* deviceContext)
 
 		component->update();
 	}
-
 	for (auto child : children) child->Render(deviceContext);
 
-
+	
 	return;
+}
+
+void GameObject::updateHierachy()
+{
+	if (ImGui::TreeNode(name.c_str()))
+	{
+		for (auto child : children) child->updateHierachy();
+		ImGui::TreePop();
+	}
+
+
 }
 
 string GameObject::getname()

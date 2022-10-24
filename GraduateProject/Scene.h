@@ -40,7 +40,7 @@ public:
 	bool Initialize(int, int, HWND);
 	void Shutdown();
 	bool Render();
-
+	void upadteHierachy();
 	bool isLoaded() { return isLoad; }
 	
 	vector<GameObject*> readGameObjectList() const;

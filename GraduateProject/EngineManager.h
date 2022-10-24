@@ -6,9 +6,7 @@
 
 #include "d3dclass.h"
 #include "SceneManager.h"
-#include "ImGui\\imgui.h"
-#include "ImGui\\imgui_impl_win32.h"
-#include "ImGui\\imgui_impl_dx11.h"
+
 #include <filesystem>
 #include <iostream>
 namespace fs = std::filesystem;
@@ -27,7 +25,12 @@ public:
 	}
 
 	bool Initialize(D3DClass*, HWND, GraphicsClass*);
-	void renderImGui(Scene*);
+
+	void initImGui();
+	void updateImGui();
+	void renderImGui();
+
+
 	void showInspector();
 	void showViewPort();
 	void showContentBrowser();

@@ -34,3 +34,8 @@ void SceneManager::UpdateScene()
 {
 	m_ActiveScene->Render();
 }
+
+void SceneManager::UpdateHierachy()
+{
+	m_ActiveScene->upadteHierachy();
+}
