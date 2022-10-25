@@ -12,7 +12,7 @@ bool EngineManager::Initialize(D3DClass* D3D, HWND hwnd, GraphicsClass* graphicC
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
  //   //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-//   io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+   // io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 	ImGui_ImplWin32_Init(hwnd);
 	ImGui_ImplDX11_Init(D3D->GetDevice(), D3D->GetDeviceContext());
 	ImGui::StyleColorsDark();
@@ -81,7 +81,10 @@ void EngineManager::showViewPort()
 		ImVec2 p = ImGui::GetCursorScreenPos();
 		// Because I use the texture from OpenGL, I need to invert the V from the UV.
 		ImGui::Image((ImTextureID)(m_graphicClass->m_RenderTexture)->GetShaderResourceView(), wsize);
-		ImGui::GetWindowDrawList()->AddImage((ImTextureID)(m_graphicClass->m_image->GetTexture()),p, ImVec2(p.x + 250, p.y + 250), ImVec2(0, 0), ImVec2(1, 1));
+
+		/*ImGui::GetWindowDrawList()->AddImage((ImTextureID)(m_graphicClass->m_image->GetTexture()), ImVec2(p.x + 250, p.y + 250), ImVec2(p.x + 450, p.y + 450), ImVec2(0, 0), ImVec2(1, 1));*/
+
+
 		ImGui::EndChild();
 	}
 	ImGui::PopStyleVar();

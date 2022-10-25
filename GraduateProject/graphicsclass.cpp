@@ -143,20 +143,6 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 		return false;
 	}
 
-	// 텍스쳐 셰이더를 생성합니다.
-	m_TextureShader = new TextureShaderClass;
-	if (!m_TextureShader)
-	{
-		return false;
-	}
-
-	// 텍스쳐 셰이더를 초기화합니다.
-	result = m_TextureShader->Initialize(m_D3D->GetDevice(), hwnd);
-	if (!result)
-	{
-		MessageBox(hwnd, L"Could not initialize the texture shader object.", L"Error", MB_OK);
-		return false;
-	}
 
 	//Setup ImGui
 	result = m_EngineManager->Initialize(m_D3D, hwnd,this);
@@ -166,20 +152,6 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 		return false;
 	}
 
-	// Create the bitmap object.
-	m_image = new Image;
-	if (!m_image)
-	{
-		return false;
-	}
-
-	// Initialize the bitmap object.
-	result = m_image->Initialize(m_D3D->GetDevice(), screenWidth, screenHeight, L"./data/seafloor.dds", 256, 256);
-	if (!result)
-	{
-		MessageBox(hwnd, L"Could not initialize the bitmap object.", L"Error", MB_OK);
-		return false;
-	}
 	return true;
 }
 
@@ -245,7 +217,6 @@ bool GraphicsClass::Frame()
 
 bool GraphicsClass::Render(float rotation)
 {
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoMatrix;
 	bool result;
 
 	// 전체 씬을 텍스쳐에 그립니다.
@@ -261,17 +232,12 @@ bool GraphicsClass::Render(float rotation)
 
 	m_Camera->Render();
 
-	// Get the world, view, projection, and ortho matrices from the camera and d3d objects.
-	m_Camera->GetViewMatrix(viewMatrix);
-	m_D3D->GetWorldMatrix(worldMatrix);
-	m_D3D->GetProjectionMatrix(projectionMatrix);
-	m_D3D->GetOrthoMatrix(orthoMatrix);
 
-	result = m_image->Render(m_D3D->GetDeviceContext(), 50, 50);
-	if (!result)
-	{
-		return false;
-	}
+	//result = m_image->Render(m_D3D->GetDeviceContext(), 50, 50);
+	//if (!result)
+	//{
+	//	return false;
+	//}
 
 	m_EngineManager->initImGui();
 
@@ -282,10 +248,6 @@ bool GraphicsClass::Render(float rotation)
 	m_SceneManager->SceneManager::UpdateHierachy();
 	ImGui::End();
 
-	/*ImGui::Begin("textureView");
-	ImGui::Image((ImTextureID)(m_image->GetTexture()), ImVec2(100, 100));
-
-	ImGui::End();*/
 
 	m_EngineManager->renderImGui();
 

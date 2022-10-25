@@ -46,6 +46,7 @@ public:
 	void UpdateHierachy();
 	//void LoadScene(int sceneIndex);
 
+	
 	Scene* getActiveScene() const { return m_ActiveScene; }
 private:
 	static SceneManager* Instance;

@@ -34,7 +34,6 @@ public:
 	void showInspector();
 	void showViewPort();
 	void showContentBrowser();
-	void showHierachy(Scene*);
 private:
 	static EngineManager* Instance;
 	GraphicsClass* m_graphicClass;

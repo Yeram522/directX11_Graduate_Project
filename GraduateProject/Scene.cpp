@@ -15,7 +15,7 @@ bool Scene::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 {
 	bool result;
 
-
+	this->hwnd = hwnd;
 	sceneManager->m_Camera->SetPosition(0.0f, 0.0f, -5.0f);	// for cube
 	
 	//나중에는 기본값이 아닌 씬에 있는 세팅값으로 바꿔져야함~!
@@ -121,6 +121,16 @@ bool Scene::RenderScene()
 	
 
 	return true;
+}
+
+int Scene::getscreenHeight()
+{
+	return sceneManager->screenHeight;
+}
+
+int Scene::getscreenWidth()
+{
+	return sceneManager->screenWidth;
 }
 
 D3DClass* Scene::getD3D()

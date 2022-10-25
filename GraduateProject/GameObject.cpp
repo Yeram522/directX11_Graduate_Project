@@ -72,7 +72,7 @@ void GameObject::Render(ID3D11DeviceContext* deviceContext)
 
 	for (auto component : components)
 	{
-		transform->Rotate();//수정 예정.삭제시켜야됨!
+		//transform->Rotate();//수정 예정.삭제시켜야됨!
 
 		component->update();
 	}

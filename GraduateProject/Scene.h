@@ -49,7 +49,9 @@ protected:
 	vector<GameObject*> m_GameObject;
 	virtual void InitObject() {}
 	virtual bool RenderScene();
-
+	int getscreenHeight();
+	int getscreenWidth();
+	HWND hwnd;
 	D3DClass* getD3D();
 	CameraClass* getCamera();
 	LightClass* getLight();

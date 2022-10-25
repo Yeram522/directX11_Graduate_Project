@@ -19,7 +19,7 @@ public:
 		
 
 		// Initialize the model object.
-		result = temp->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/Sphere.obj", L"./data/seafloor.dds"
+		result = temp->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/Sphere.obj", L"./data/loop.dds"
 			, Scene::getLightShader(), Scene::getLight());
 		if (!result)
 		{
@@ -52,6 +52,17 @@ public:
 			return;
 		}
 
+
+		GameObject* temp2 = new GameObject("image", "sprite", Scene::getD3D(), Scene::getCamera());
+		Image* image = temp2->getOrAddComponent<Image>();
+	
+		// Initialize the bitmap object.
+		result = image->Initialize(Scene::getD3D()->GetDevice(), Scene::getscreenWidth(), Scene::getscreenHeight(), L"./data/seafloor.dds", 256, 256,Scene::hwnd);
+		if (!result)
+		{
+			return ;
+		}
+		m_GameObject.push_back(temp2);
 	}
 };
 #endif

@@ -1,21 +1,22 @@
 #include "Image.h"
 
-Image::Image()
+Image::Image(GameObject* gameObject) :Component(gameObject)
 {
 	m_vertexBuffer = 0;
 	m_indexBuffer = 0;
 	m_Texture = 0;
 }
 
-Image::Image(const Image&)
-{
-}
-
 Image::~Image()
 {
 }
 
-bool Image::Initialize(ID3D11Device* device, int screenWidth, int screenHeight, const WCHAR* textureFilename, int bitmapWidth, int bitmapHeight)
+void Image::update()
+{
+	Render();
+}
+
+bool Image::Initialize(ID3D11Device* device, int screenWidth, int screenHeight, const WCHAR* textureFilename, int bitmapWidth, int bitmapHeight, HWND hwnd)
 {
 	bool result;
 	// Store the screen size.
@@ -44,6 +45,22 @@ bool Image::Initialize(ID3D11Device* device, int screenWidth, int screenHeight, 
 		return false;
 	}
 
+
+	// 텍스쳐 셰이더를 생성합니다.
+	m_TextureShader = new TextureShaderClass;
+	if (!m_TextureShader)
+	{
+		return false;
+	}
+
+	// 텍스쳐 셰이더를 초기화합니다.
+	result = m_TextureShader->Initialize(Component::transform->m_D3D->GetDevice(), hwnd);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the texture shader object.", L"Error", MB_OK);
+		return false;
+	}
+
 	return true;
 }
 
@@ -58,21 +75,39 @@ void Image::Shutdown()
 	return;
 }
 
-bool Image::Render(ID3D11DeviceContext* deviceContext, int positionX, int positionY)
+bool Image::Render()
 {
 	bool result;
 
+	XMMATRIX orthoMatrix;
+	Transform* transform = Component::transform;
 
+	transform->m_D3D->GetOrthoMatrix(orthoMatrix);
+	// 2D 렌더링을 하기 위해 Z버퍼를 끕니다.
+	transform->m_D3D->TurnZBufferOff();
+	
+
+	//Render////////////////////////////////////////////////////////////////////////////////////////
 	// Re-build the dynamic vertex buffer for rendering to possibly a different location on the screen.
-	result = UpdateBuffers(deviceContext, positionX, positionY);
+	result = UpdateBuffers(transform->m_D3D->GetDeviceContext(), 350, 350);
 	if (!result)
 	{
 		return false;
 	}
 
 	// Put the vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	RenderBuffers(deviceContext);
-
+	RenderBuffers(transform->m_D3D->GetDeviceContext());
+	////////////////////////////////////////////////////////////////////////////////////////////////
+	// Render the bitmap with the texture shader.
+	result = m_TextureShader->Render(transform->m_D3D->GetDeviceContext(),GetIndexCount(), transform->m_worldMatrix, transform->m_viewMatrix, orthoMatrix, GetTexture());
+	if (!result)
+	{
+		return false;
+	}
+	//// 2D렌더링이 끝났으므로 다시 Z버퍼를 킵니다.
+	transform->m_D3D->TurnZBufferOn();
+	
+	
 	return true;
 }
 
