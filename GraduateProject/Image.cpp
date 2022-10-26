@@ -89,7 +89,7 @@ bool Image::Render()
 
 	//Render////////////////////////////////////////////////////////////////////////////////////////
 	// Re-build the dynamic vertex buffer for rendering to possibly a different location on the screen.
-	result = UpdateBuffers(transform->m_D3D->GetDeviceContext(), 350, 350);
+	result = UpdateBuffers(transform->m_D3D->GetDeviceContext(), 100, 100);
 	if (!result)
 	{
 		return false;

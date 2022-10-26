@@ -117,6 +117,7 @@ bool Scene::RenderScene()
 	for (auto& object : m_GameObject)
 	{
 		object->Render(sceneManager->m_D3D->GetDeviceContext());
+
 	}
 	
 

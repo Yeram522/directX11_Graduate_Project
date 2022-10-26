@@ -45,14 +45,17 @@ public:
 
 	GameObject(string name = "unknown", string tag = "unknown",
 		D3DClass* m_D3D = nullptr, CameraClass* m_Camera = nullptr,  // transform
-		GameObject* parent = nullptr);
+		GameObject* parent = nullptr, std::function<void(Transform*)> update = [](Transform*) {});
 	GameObject(const GameObject&);
 	~GameObject();
 
 	bool Initialize(D3DClass*, CameraClass*);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
-	
+
+
+	function<void(Transform*)> update;//transform update
+
 	void setParent(GameObject* parent) {
 		if (this->parent) {
 			this->parent->remove(this);

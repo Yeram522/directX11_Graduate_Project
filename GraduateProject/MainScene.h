@@ -10,14 +10,22 @@ class MainScene :public Scene
 public:
 	MainScene() :Scene("main")
 	{};
+	GameObject* temp1;
+	GameObject* temp;
+
+
+	void update(Transform* transform)
+	{
+		transform->Rotate();
+		return;
+	}
 
 	void InitObject() override {
 		bool result;
-		GameObject* temp = 0;
-		temp = new GameObject("sphere","object",Scene::getD3D(), Scene::getCamera());
+		temp = new GameObject("sphere","object",Scene::getD3D(), Scene::getCamera(), nullptr);
 		Model* model = temp->getOrAddComponent<Model>();
 		
-
+		temp->update = [](Transform* transform) {transform->Rotate(); };
 		// Initialize the model object.
 		result = temp->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/Sphere.obj", L"./data/loop.dds"
 			, Scene::getLightShader(), Scene::getLight());
@@ -32,10 +40,8 @@ public:
 			return;
 		}
 
-		GameObject*  temp1 = new GameObject("chair", "object", Scene::getD3D(), Scene::getCamera());
+		temp1 = new GameObject("chair", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
 		Model* model1 = temp1->getOrAddComponent<Model>();
-
-
 		// Initialize the model object.
 		result = temp1->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/chair.obj", L"./data/chair_d.dds"
 			, Scene::getLightShader(), Scene::getLight());
@@ -57,12 +63,14 @@ public:
 		Image* image = temp2->getOrAddComponent<Image>();
 	
 		// Initialize the bitmap object.
-		result = image->Initialize(Scene::getD3D()->GetDevice(), Scene::getscreenWidth(), Scene::getscreenHeight(), L"./data/seafloor.dds", 256, 256,Scene::hwnd);
+		result = image->Initialize(Scene::getD3D()->GetDevice(), Scene::getscreenWidth(), Scene::getscreenHeight(), L"./data/seafloor.dds", 256, 100,Scene::hwnd);
 		if (!result)
 		{
 			return ;
 		}
 		m_GameObject.push_back(temp2);
 	}
+
+
 };
 #endif

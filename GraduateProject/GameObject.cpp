@@ -6,7 +6,7 @@
 
 GameObject::GameObject(string name, string tag ,
 	D3DClass* m_D3D , CameraClass* m_Camera ,  // transform
-	GameObject* parent )
+	GameObject* parent, std::function<void(Transform*)> update):update(update)
 {
 	bool result;
 	this->name = name;
@@ -69,18 +69,25 @@ void GameObject::Shutdown()
 void GameObject::Render(ID3D11DeviceContext* deviceContext)
 {
 	// Put the vertex and index buffers on the graphics pipeline to prepare them for drawing.
+	//transform->update();
+	transform->update();
+
+	//d여기에 이동및 회전하는 매트릭스 식을 넣어야함~!
+	//transform->Rotate();//수정 예정.삭제시켜야됨!
+	update(transform);
 
 	for (auto component : components)
 	{
-		//transform->Rotate();//수정 예정.삭제시켜야됨!
-
+		if (component->tag == "transform") continue;
 		component->update();
 	}
 	for (auto child : children) child->Render(deviceContext);
 
-	
+
 	return;
 }
+
+
 
 void GameObject::updateHierachy()
 {

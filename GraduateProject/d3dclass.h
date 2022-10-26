@@ -19,6 +19,7 @@
 #include <d3dcommon.h>
 #include <d3d11.h>
 #include <directxmath.h>
+#include <functional>
 
 #include "AlignedAllocationPolicy.h"
 #include "ImGui\\imgui.h"

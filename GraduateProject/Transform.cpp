@@ -5,6 +5,7 @@ Transform::Transform(GameObject* gameObject):Component(gameObject)
 	Component::gameObject = gameObject;
 	m_D3D = 0;
 	m_Camera = 0;
+	Component::setTag("transform");
 }
 
 bool Transform::Initialize(D3DClass* m_D3D, CameraClass* m_Camera)
@@ -27,7 +28,6 @@ void Transform::update()
 void Transform::Rotate()
 {
 	static float rotation = 0.0f;
-
 
 	// Update the rotation variable each frame.
 	rotation += XM_PI * 0.005f;

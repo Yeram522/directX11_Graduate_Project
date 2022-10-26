@@ -23,7 +23,10 @@ class Component
 protected:
 	GameObject* getParent() const;
 	Transform* getTransform() const;
-
+	void setTag(string tag)
+	{
+		this->tag = tag;
+	}
 	GameObject* gameObject;
 	Transform* transform;
 
