@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\font.ps" />
+    <None Include="data\font.vs" />
     <None Include="data\light.ps" />
     <None Include="data\light.vs" />
     <None Include="data\texture.ps" />
@@ -32,6 +34,8 @@
     <ClCompile Include="DDSTextureLoader.cpp" />
     <ClCompile Include="Debugwindowclass.cpp" />
     <ClCompile Include="EngineManager.cpp" />
+    <ClCompile Include="FontClass.cpp" />
+    <ClCompile Include="Fontshaderclass.cpp" />
     <ClCompile Include="graphicsclass.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
@@ -51,6 +55,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="systemclass.cpp" />
+    <ClCompile Include="textclass.cpp" />
     <ClCompile Include="textureclass.cpp" />
     <ClCompile Include="textureshaderclass.cpp" />
     <ClCompile Include="TitleScene.cpp" />
@@ -65,6 +70,8 @@
     <ClInclude Include="DDSTextureLoader.h" />
     <ClInclude Include="Debugwindowclass.h" />
     <ClInclude Include="EngineManager.h" />
+    <ClInclude Include="FontClass.h" />
+    <ClInclude Include="Fontshaderclass.h" />
     <ClInclude Include="graphicsclass.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImGui\imconfig.h" />
@@ -86,6 +93,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="systemclass.h" />
+    <ClInclude Include="textclass.h" />
     <ClInclude Include="textureclass.h" />
     <ClInclude Include="textureshaderclass.h" />
     <ClInclude Include="TitleScene.h" />

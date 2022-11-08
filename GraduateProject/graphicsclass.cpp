@@ -30,6 +30,7 @@ GraphicsClass::GraphicsClass()
 	}
 
 	m_image = 0;
+	m_Text = 0;
 }
 
 
@@ -46,7 +47,7 @@ GraphicsClass::~GraphicsClass()
 bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 {
 	bool result;
-
+	XMMATRIX baseViewMatrix;
 	// Create the Direct3D object.
 	m_D3D = new D3DClass;
 	if (!m_D3D)
@@ -68,6 +69,11 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	{
 		return false;
 	}
+	// Initialize a base view matrix with the camera for 2D user interface rendering.
+	m_Camera->SetPosition(0.0f, 0.0f, -1.0f);
+	m_Camera->Render();
+	m_Camera->GetViewMatrix(baseViewMatrix);
+
 
 	// Create the light shader object.
 	m_LightShader = new LightShaderClass;
@@ -219,6 +225,11 @@ bool GraphicsClass::Render(float rotation)
 {
 	bool result;
 
+	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, orthoMatrix;
+	m_Camera->GetViewMatrix(viewMatrix);
+	m_D3D->GetWorldMatrix(worldMatrix);
+	m_D3D->GetProjectionMatrix(projectionMatrix);
+	m_D3D->GetOrthoMatrix(orthoMatrix);
 	// 전체 씬을 텍스쳐에 그립니다.
 	result = RenderToTexture();
 	if (!result)
@@ -232,12 +243,8 @@ bool GraphicsClass::Render(float rotation)
 
 	m_Camera->Render();
 
-
-	//result = m_image->Render(m_D3D->GetDeviceContext(), 50, 50);
-	//if (!result)
-	//{
-	//	return false;
-	//}
+	// Turn the Z buffer back on now that all 2D rendering has completed.
+	m_D3D->TurnZBufferOn();
 
 	m_EngineManager->initImGui();
 
@@ -248,6 +255,7 @@ bool GraphicsClass::Render(float rotation)
 	m_SceneManager->SceneManager::UpdateHierachy();
 	ImGui::End();
 
+	
 
 	m_EngineManager->renderImGui();
 

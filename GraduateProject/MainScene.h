@@ -63,12 +63,25 @@ public:
 		Image* image = temp2->getOrAddComponent<Image>();
 	
 		// Initialize the bitmap object.
-		result = image->Initialize(Scene::getD3D()->GetDevice(), Scene::getscreenWidth(), Scene::getscreenHeight(), L"./data/seafloor.dds", 256, 100,Scene::hwnd);
+		result = image->Initialize(Scene::getD3D()->GetDevice(), Scene::getscreenWidth(), Scene::getscreenHeight(), L"./data/edi.dds", 256, 256,Scene::hwnd);
 		if (!result)
 		{
 			return ;
 		}
 		m_GameObject.push_back(temp2);
+
+		GameObject* temp3 = new GameObject("text", "text", Scene::getD3D(), Scene::getCamera());
+		Text* text = temp3->getOrAddComponent<Text>();
+
+		XMMATRIX baseviewMatrix;
+		Scene::getCamera()->GetViewMatrix(baseviewMatrix);
+		// Initialize the bitmap object.
+		result = text->Initialize(Scene::getD3D()->GetDevice(), Scene::getD3D()->GetDeviceContext(), Scene::hwnd, Scene::getscreenWidth(), Scene::getscreenHeight(), baseviewMatrix);
+		if (!result)
+		{
+			return;
+		}
+		m_GameObject.push_back(temp3);
 	}
 
 

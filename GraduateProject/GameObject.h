@@ -16,6 +16,8 @@
 #include "Transform.h"
 #include "Model.h"
 #include "Image.h"
+#include "textclass.h"
+
 
 using namespace std;
 ////////////////////////////////////////////////////////////////////////////////

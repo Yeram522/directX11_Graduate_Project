@@ -54,7 +54,8 @@ public:
 	
 	void TurnZBufferOn();
 	void TurnZBufferOff();
-
+	void TurnOnAlphaBlending();
+	void TurnOffAlphaBlending();
 	ID3D11DepthStencilView* GetDepthStencilView();
 	void SetBackBufferRenderTarget();
 private:
@@ -73,6 +74,8 @@ private:
 	XMMATRIX m_projectionMatrix;
 	XMMATRIX m_worldMatrix;
 	XMMATRIX m_orthoMatrix;
+	ID3D11BlendState* m_alphaEnableBlendingState;
+	ID3D11BlendState* m_alphaDisableBlendingState;
 };
 
 #endif

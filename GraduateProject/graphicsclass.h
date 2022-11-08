@@ -11,7 +11,7 @@
 #include "SceneManager.h"
 #include "EngineManager.h"
 #include "Image.h"
-
+#include "textclass.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -51,6 +51,8 @@ private:
 	RenderTextureClass* m_RenderTexture;
 	DebugWindowClass* m_DebugWindow;
 	TextureShaderClass* m_TextureShader;
+
+	Text* m_Text;
 };
 
 #endif
