@@ -197,22 +197,55 @@ void GraphicsClass::Shutdown()
 	return;
 }
 
-bool GraphicsClass::Frame()
+bool GraphicsClass::Frame(InputClass* input, double time)
 {
 	bool result;
 
-	static float rotation = 0.0f;
+	//Key Input
+	DIMOUSESTATE mouseCurrState;
 
+	BYTE keyboardState[256];
 
-	// Update the rotation variable each frame.
-	rotation += XM_PI * 0.005f;
-	if (rotation > 360.0f)
+	input->DIKeyboard->Acquire();
+	input->DIMouse->Acquire();
+
+	input->DIMouse->GetDeviceState(sizeof(DIMOUSESTATE), &mouseCurrState);
+
+	input->DIKeyboard->GetDeviceState(sizeof(keyboardState), (LPVOID)&keyboardState);
+
+	if (keyboardState[DIK_ESCAPE] & 0x80)
+		PostMessage(input->m_hwnd, WM_DESTROY, 0, 0);
+
+	float speed = 0.5f;
+
+	if (keyboardState[DIK_A] & 0x80)
 	{
-		rotation -= 360.0f;
+		m_Camera->moveLeftRight -= speed;
+	}
+	if (keyboardState[DIK_D] & 0x80)
+	{
+		m_Camera->moveLeftRight += speed;
+	}
+	if (keyboardState[DIK_W] & 0x80)
+	{
+		m_Camera->moveBackForward += speed;
+	}
+	if (keyboardState[DIK_S] & 0x80)
+	{
+		m_Camera->moveBackForward -= speed;
+	}
+	if ((mouseCurrState.lX != input->mouseLastState.lX) || (mouseCurrState.lY != input->mouseLastState.lY))
+	{
+		m_Camera->camYaw += input->mouseLastState.lX * 0.001f;
+
+		m_Camera->camPitch += mouseCurrState.lY * 0.001f;
+
+		input->mouseLastState = mouseCurrState;
 	}
 
+
 	// Render the graphics scene.
-	result = Render(rotation);
+	result = Render();
 	if(!result)
 	{
 		return false;
@@ -221,7 +254,7 @@ bool GraphicsClass::Frame()
 	return true;
 }
 
-bool GraphicsClass::Render(float rotation)
+bool GraphicsClass::Render()
 {
 	bool result;
 

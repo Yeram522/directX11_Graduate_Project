@@ -42,7 +42,7 @@ bool SystemClass::Initialize()
 	}
 
 	// Initialize the input object.
-	m_Input->Initialize();
+	m_Input->Initialize(m_hinstance,m_hwnd);
 
 	// Create the graphics object.  This object will handle rendering all the graphics for this application.
 	m_Graphics = new GraphicsClass;
@@ -144,8 +144,10 @@ bool SystemClass::Frame()
 
 	}
 
+	frameTime = GetFrameTime();
+
 	// Do the frame processing for the graphics object.
-	result = m_Graphics->Frame();
+	result = m_Graphics->Frame(m_Input, frameTime);
 	if(!result)
 	{
 		return false;
@@ -154,6 +156,21 @@ bool SystemClass::Frame()
 	return true;
 }
 
+
+double SystemClass::GetFrameTime()
+{
+	LARGE_INTEGER currentTime;
+	__int64 tickCount;
+	QueryPerformanceCounter(&currentTime);
+
+	tickCount = currentTime.QuadPart - frameTimeOld;
+	frameTimeOld = currentTime.QuadPart;
+
+	if (tickCount < 0.0f)
+		tickCount = 0;
+
+	return float(tickCount) / countsPerSecond;
+}
 
 LRESULT CALLBACK SystemClass::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
 {

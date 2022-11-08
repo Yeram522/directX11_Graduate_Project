@@ -37,6 +37,7 @@ public:
 	void Shutdown();
 	void Run();
 
+	double GetFrameTime();
 	LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
 
 private:
@@ -51,6 +52,15 @@ private:
 
 	InputClass* m_Input;
 	GraphicsClass* m_Graphics;
+
+	double countsPerSecond = 0.0;
+	__int64 CounterStart = 0;
+
+	int frameCount = 0;
+	int fps = 0;
+
+	__int64 frameTimeOld = 0;
+	double frameTime;
 };
 
 

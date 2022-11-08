@@ -12,7 +12,7 @@
 #include "EngineManager.h"
 #include "Image.h"
 #include "textclass.h"
-
+#include "inputclass.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: GraphicsClass
@@ -26,7 +26,7 @@ public:
 
 	bool Initialize(int, int, HWND);
 	void Shutdown();
-	bool Frame();
+	bool Frame(InputClass*, double time);
 
 	SceneManager* getSceneManager() { return m_SceneManager; }
 
@@ -35,7 +35,7 @@ public:
 	Image* m_image;//µð¹ö±ë
 
 private:
-	bool Render(float);
+	bool Render();
 
 	bool RenderToTexture();
 private:
