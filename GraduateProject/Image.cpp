@@ -100,6 +100,7 @@ bool Image::Render()
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	// Render the bitmap with the texture shader.
 	result = m_TextureShader->Render(transform->m_D3D->GetDeviceContext(),GetIndexCount(), transform->m_worldMatrix, transform->m_viewMatrix, orthoMatrix, GetTexture());
+
 	if (!result)
 	{
 		return false;
@@ -116,7 +117,7 @@ int Image::GetIndexCount()
 	return m_indexCount;
 }
 
-ID3D11ShaderResourceView* Image::GetTexture()
+ID3D11ShaderResourceView** Image::GetTexture()
 {
 	return m_Texture->GetTexture();
 }

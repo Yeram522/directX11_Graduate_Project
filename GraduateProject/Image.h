@@ -16,6 +16,7 @@
 ///////////////////////
 #include "textureclass.h"
 #include "textureshaderclass.h"
+
 #include "Component.h"
 #include "Transform.h"
 
@@ -38,7 +39,7 @@ public:
 	void update() override;
 
 	int GetIndexCount();
-	ID3D11ShaderResourceView* GetTexture();
+	ID3D11ShaderResourceView** GetTexture();
 
 private:
 	bool InitializeBuffers(ID3D11Device*);
@@ -52,6 +53,7 @@ private:
 private:
 	ID3D11Buffer* m_vertexBuffer, * m_indexBuffer;
 	int m_vertexCount, m_indexCount;
+
 	TextureClass* m_Texture;
 	TextureShaderClass* m_TextureShader;
 	int m_screenWidth, m_screenHeight;

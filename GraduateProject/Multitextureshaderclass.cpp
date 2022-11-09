@@ -42,12 +42,15 @@ void MultiTextureShaderClass::Shutdown()
 	return;
 }
 
-bool MultiTextureShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount, XMMATRIX worldMatrix,
-	XMMATRIX viewMatrix, XMMATRIX projectionMatrix, ID3D11ShaderResourceView** textureArray)
+bool MultiTextureShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount,
+	XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix,
+	ID3D11ShaderResourceView** textureArray,
+	XMFLOAT3 lightDirection, XMFLOAT4 ambientColor, XMFLOAT4 diffuseColor,
+	XMFLOAT3 cameraPosition, XMFLOAT4 specularColor, float specularPower)
 {
 	bool result;
 
-
+	//textureArray
 	// Set the shader parameters that it will use for rendering.
 	result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, textureArray);
 	if (!result)

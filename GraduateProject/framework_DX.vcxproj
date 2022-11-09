@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\fog.ps" />
+    <None Include="data\fog.vs" />
     <None Include="data\font.ps" />
     <None Include="data\font.vs" />
     <None Include="data\light.ps" />

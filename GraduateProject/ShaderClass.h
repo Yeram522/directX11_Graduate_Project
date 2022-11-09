@@ -19,6 +19,36 @@ using namespace DirectX;
 
 class ShaderClass
 {
+protected:
+	struct MatrixBufferType
+	{
+		XMMATRIX world;
+		XMMATRIX view;
+		XMMATRIX projection;
+	};
+
+	struct CameraBufferType
+	{
+		XMFLOAT3 cameraPosition;
+		float padding;
+	};
+
+	struct LightBufferType
+	{
+		XMFLOAT4 ambientColor;
+		XMFLOAT4 diffuseColor;
+		XMFLOAT3 lightDirection;
+		float specularPower;
+		XMFLOAT4 specularColor;
+	};
+public:
+	ShaderClass();
+	~ShaderClass();
+
+	virtual bool Initialize(ID3D11Device*, HWND);
+	virtual void Shutdown();
+	virtual bool Render(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView**,
+		XMFLOAT3 lightDirection = XMFLOAT3(0,0,0), XMFLOAT4 ambientColor = XMFLOAT4(0, 0, 0,0), XMFLOAT4 diffuseColor = XMFLOAT4(0, 0, 0,0), XMFLOAT3 cameraPosition = XMFLOAT3(0, 0, 0), XMFLOAT4 specularColor = XMFLOAT4(0, 0, 0,0), float specularPower = 0);
 };
 
 #endif

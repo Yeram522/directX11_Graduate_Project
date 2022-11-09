@@ -81,6 +81,12 @@
     <None Include="data\multitexture.ps">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="data\fog.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\fog.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -119,9 +125,6 @@
     <ClCompile Include="textureclass.cpp">
       <Filter>소스 파일\Engine\Graphic</Filter>
     </ClCompile>
-    <ClCompile Include="textureshaderclass.cpp">
-      <Filter>소스 파일\Engine\Graphic</Filter>
-    </ClCompile>
     <ClCompile Include="DDSTextureLoader.cpp">
       <Filter>소스 파일\Engine\Graphic</Filter>
     </ClCompile>
@@ -132,9 +135,6 @@
       <Filter>소스 파일\Engine\System</Filter>
     </ClCompile>
     <ClCompile Include="lightclass.cpp">
-      <Filter>소스 파일\Engine\Graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="lightshaderclass.cpp">
       <Filter>소스 파일\Engine\Graphic</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
@@ -182,13 +182,19 @@
     <ClCompile Include="Fontshaderclass.cpp">
       <Filter>소스 파일\Engine\Graphic</Filter>
     </ClCompile>
-    <ClCompile Include="Multitextureshaderclass.cpp">
-      <Filter>소스 파일\Engine\Graphic</Filter>
-    </ClCompile>
     <ClCompile Include="TextureArrayClass.cpp">
       <Filter>소스 파일\Engine\Graphic</Filter>
     </ClCompile>
     <ClCompile Include="ShaderClass.cpp">
+      <Filter>소스 파일\Engine\Graphic\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Multitextureshaderclass.cpp">
+      <Filter>소스 파일\Engine\Graphic\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="textureshaderclass.cpp">
+      <Filter>소스 파일\Engine\Graphic\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="lightshaderclass.cpp">
       <Filter>소스 파일\Engine\Graphic\Shader</Filter>
     </ClCompile>
   </ItemGroup>
@@ -223,9 +229,6 @@
     <ClInclude Include="textureclass.h">
       <Filter>헤더 파일\Engine\Graphic</Filter>
     </ClInclude>
-    <ClInclude Include="textureshaderclass.h">
-      <Filter>헤더 파일\Engine\Graphic</Filter>
-    </ClInclude>
     <ClInclude Include="graphicsclass.h">
       <Filter>헤더 파일\Engine\Graphic</Filter>
     </ClInclude>
@@ -240,9 +243,6 @@
     </ClInclude>
     <ClInclude Include="d3dclass.h">
       <Filter>헤더 파일\Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="lightshaderclass.h">
-      <Filter>헤더 파일\Engine\Graphic</Filter>
     </ClInclude>
     <ClInclude Include="lightclass.h">
       <Filter>헤더 파일\Engine\Graphic</Filter>
@@ -301,13 +301,19 @@
     <ClInclude Include="Fontshaderclass.h">
       <Filter>헤더 파일\Engine\Graphic</Filter>
     </ClInclude>
-    <ClInclude Include="Multitextureshaderclass.h">
-      <Filter>헤더 파일\Engine\Graphic</Filter>
-    </ClInclude>
     <ClInclude Include="TextureArrayClass.h">
       <Filter>헤더 파일\Engine\Graphic</Filter>
     </ClInclude>
     <ClInclude Include="ShaderClass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="textureshaderclass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Multitextureshaderclass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="lightshaderclass.h">
       <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
     </ClInclude>
   </ItemGroup>
