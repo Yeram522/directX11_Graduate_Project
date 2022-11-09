@@ -1,116 +1,59 @@
-////////////////////////////////////////////////////////////////////////////////
-// Filename: modelclass.cpp
-////////////////////////////////////////////////////////////////////////////////
-#include "modelclass.h"
+#include "Mesh.h"
 
 
-ModelClass::ModelClass()
+
+Mesh::Mesh()
 {
-	m_vertexBuffer = 0;
-	m_indexBuffer = 0;
-	m_Texture = 0;
 	m_model = 0;
-
 	m_textureCount = 0;
 	m_normalCount = 0;
 	m_faceCount = 0;
 }
 
-
-ModelClass::ModelClass(const ModelClass& other)
-{
-}
-
-
-ModelClass::~ModelClass()
-{
-}
-
-
-bool ModelClass::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const WCHAR* textureFilename)
-{
-	bool result;
-
-	// Load in the model data,
-	result = LoadModel(modelFilename);
-	if (!result)
-	{
-		return false;
-	}
-
-	// Initialize the vertex and index buffers.
-	result = InitializeBuffers(device);
-	if(!result)
-	{
-		return false;
-	}
-
-	// Load the texture for this model.
-	result = LoadTexture(device, textureFilename);
-	if(!result)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-
-void ModelClass::Shutdown()
-{
-	// Release the model texture.
-	ReleaseTexture();
-
-	// Shutdown the vertex and index buffers.
-	ShutdownBuffers();
-
-	// Release the model data.
-	ReleaseModel();
-
-	return;
-}
-
-
-void ModelClass::Render(ID3D11DeviceContext* deviceContext)
-{
-	// Put the vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	RenderBuffers(deviceContext);
-
-	return;
-}
-
-
-int ModelClass::GetIndexCount()
+int Mesh::GetIndexCount()
 {
 	return m_indexCount;
 }
 
-
-ID3D11ShaderResourceView* ModelClass::GetTexture()
+bool Mesh::LoadMesh(const WCHAR* filename)
 {
-	return m_Texture->GetTexture();
+	ReadFileCounts(filename);
+	return true;
 }
 
 
-bool ModelClass::InitializeBuffers(ID3D11Device* device)
+void Mesh::ReleaseModel()
 {
-	VertexType* vertices;
+	if (m_model)
+	{
+		delete[] m_model;
+		m_model = 0;
+	}
+
+	return;
+}
+
+
+bool Mesh::InitializeBuffers(ID3D11Device* device)
+{
+	
+	Vertex* vertices;
 	unsigned long* indices;
 	D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc;
-    D3D11_SUBRESOURCE_DATA vertexData, indexData;
+	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	HRESULT result;
 	int i;
 
 	// Create the vertex array.
-	vertices = new VertexType[m_vertexCount];
-	if(!vertices)
+	vertices = new Vertex[m_vertexCount];
+	if (!vertices)
 	{
 		return false;
 	}
 
 	// Create the index array.
 	indices = new unsigned long[m_indexCount];
-	if(!indices)
+	if (!indices)
 	{
 		return false;
 	}
@@ -126,67 +69,67 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device)
 	}
 
 	// Set up the description of the static vertex buffer.
-    vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-    vertexBufferDesc.ByteWidth = sizeof(VertexType) * m_vertexCount;
-    vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-    vertexBufferDesc.CPUAccessFlags = 0;
-    vertexBufferDesc.MiscFlags = 0;
+	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	vertexBufferDesc.ByteWidth = sizeof(Vertex) * m_vertexCount;
+	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vertexBufferDesc.CPUAccessFlags = 0;
+	vertexBufferDesc.MiscFlags = 0;
 	vertexBufferDesc.StructureByteStride = 0;
 
 	// Give the subresource structure a pointer to the vertex data.
-    vertexData.pSysMem = vertices;
+	vertexData.pSysMem = vertices;
 	vertexData.SysMemPitch = 0;
 	vertexData.SysMemSlicePitch = 0;
 
 	// Now create the vertex buffer.
-    result = device->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer);
-	if(FAILED(result))
+	result = device->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer);
+	if (FAILED(result))
 	{
 		return false;
 	}
 
 	// Set up the description of the static index buffer.
-    indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-    indexBufferDesc.ByteWidth = sizeof(unsigned long) * m_indexCount;
-    indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-    indexBufferDesc.CPUAccessFlags = 0;
-    indexBufferDesc.MiscFlags = 0;
+	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	indexBufferDesc.ByteWidth = sizeof(unsigned long) * m_indexCount;
+	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	indexBufferDesc.CPUAccessFlags = 0;
+	indexBufferDesc.MiscFlags = 0;
 	indexBufferDesc.StructureByteStride = 0;
 
 	// Give the subresource structure a pointer to the index data.
-    indexData.pSysMem = indices;
+	indexData.pSysMem = indices;
 	indexData.SysMemPitch = 0;
 	indexData.SysMemSlicePitch = 0;
 
 	// Create the index buffer.
 	result = device->CreateBuffer(&indexBufferDesc, &indexData, &m_indexBuffer);
-	if(FAILED(result))
+	if (FAILED(result))
 	{
 		return false;
 	}
 
 	// Release the arrays now that the vertex and index buffers have been created and loaded.
-	delete [] vertices;
+	delete[] vertices;
 	vertices = 0;
 
-	delete [] indices;
+	delete[] indices;
 	indices = 0;
 
 	return true;
 }
 
 
-void ModelClass::ShutdownBuffers()
+void Mesh::ShutdownBuffers()
 {
 	// Release the index buffer.
-	if(m_indexBuffer)
+	if (m_indexBuffer)
 	{
 		m_indexBuffer->Release();
 		m_indexBuffer = 0;
 	}
 
 	// Release the vertex buffer.
-	if(m_vertexBuffer)
+	if (m_vertexBuffer)
 	{
 		m_vertexBuffer->Release();
 		m_vertexBuffer = 0;
@@ -196,86 +139,29 @@ void ModelClass::ShutdownBuffers()
 }
 
 
-void ModelClass::RenderBuffers(ID3D11DeviceContext* deviceContext)
+void Mesh::RenderBuffers(ID3D11DeviceContext* deviceContext)
 {
 	unsigned int stride;
 	unsigned int offset;
 
 
 	// Set vertex buffer stride and offset.
-	stride = sizeof(VertexType); 
+	stride = sizeof(Vertex);
 	offset = 0;
-    
+
 	// Set the vertex buffer to active in the input assembler so it can be rendered.
 	deviceContext->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
 
-    // Set the index buffer to active in the input assembler so it can be rendered.
+	// Set the index buffer to active in the input assembler so it can be rendered.
 	deviceContext->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
-    // Set the type of primitive that should be rendered from this vertex buffer, in this case triangles.
+	// Set the type of primitive that should be rendered from this vertex buffer, in this case triangles.
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	return;
 }
 
-
-bool ModelClass::LoadTexture(ID3D11Device* device, const WCHAR* filename)
-{
-	bool result;
-
-
-	// Create the texture object.
-	m_Texture = new TextureClass;
-	if(!m_Texture)
-	{
-		return false;
-	}
-
-	// Initialize the texture object.
-	result = m_Texture->Initialize(device, filename);
-	if(!result)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-
-void ModelClass::ReleaseTexture()
-{
-	// Release the texture object.
-	if(m_Texture)
-	{
-		m_Texture->Shutdown();
-		delete m_Texture;
-		m_Texture = 0;
-	}
-
-	return;
-}
-
-bool ModelClass::LoadModel(const WCHAR* filename)
-{
-	ReadFileCounts(filename);
-
-
-	return true;
-}
-
-
-void ModelClass::ReleaseModel()
-{
-	if (m_model)
-	{
-		delete[] m_model;
-		m_model = 0;
-	}
-
-	return;
-}
-
-bool ModelClass::ReadFileCounts(const WCHAR* filename)
+bool Mesh::ReadFileCounts(const WCHAR* filename)
 {
 	ifstream fin;
 	char input;
@@ -330,36 +216,39 @@ bool ModelClass::ReadFileCounts(const WCHAR* filename)
 	return true;
 }
 
-bool ModelClass::LoadDataStructures(const WCHAR* filename, int vertexCount, int textureCount, int normalCount, int faceCount)
+bool Mesh::LoadDataStructures(const WCHAR* filename, int vertexCount, int textureCount, int normalCount, int faceCount)
 {
-	XMFLOAT3* vertices, * texcoords, * normals;
-	FaceType* faces;
+	//VertexType
+	XMFLOAT3* m_vertices;
+	XMFLOAT3* m_textureCoords;
+	XMFLOAT3* m_normals;
+
 	ifstream fin;
 	int vertexIndex, texcoordIndex, normalIndex, faceIndex, vIndex, tIndex, nIndex;
 	char input, input2;
 	ofstream fout;
 
 	// Initialize the four data structures.
-	vertices = new XMFLOAT3[vertexCount];
-	if (!vertices)
+	m_vertices = new XMFLOAT3[vertexCount];
+	if (!m_vertices)
 	{
 		return false;
 	}
 
-	texcoords = new XMFLOAT3[textureCount];
-	if (!texcoords)
+	m_textureCoords = new XMFLOAT3[textureCount];
+	if (!m_textureCoords)
 	{
 		return false;
 	}
 
-	normals = new XMFLOAT3[normalCount];
-	if (!normals)
+	m_normals = new XMFLOAT3[normalCount];
+	if (!m_normals)
 	{
 		return false;
 	}
 
-	faces = new FaceType[faceCount];
-	if (!faces)
+	m_faces = new Face[faceCount];
+	if (!m_faces)
 	{
 		return false;
 	}
@@ -391,31 +280,31 @@ bool ModelClass::LoadDataStructures(const WCHAR* filename, int vertexCount, int 
 			// Read in the vertices.
 			if (input == ' ')
 			{
-				fin >> vertices[vertexIndex].x >> vertices[vertexIndex].y >>
-					vertices[vertexIndex].z;
+				fin >> m_vertices[vertexIndex].x >> m_vertices[vertexIndex].y >>
+					m_vertices[vertexIndex].z;
 
 				// Invert the Z vertex to change to left hand system.
-				vertices[vertexIndex].z = vertices[vertexIndex].z * -1.0f;
+				m_vertices[vertexIndex].z = m_vertices[vertexIndex].z * -1.0f;
 				vertexIndex++;
 			}
 
 			// Read in the texture uv coordinates.
 			if (input == 't')
 			{
-				fin >> texcoords[texcoordIndex].x >> texcoords[texcoordIndex].y;
+				fin >> m_textureCoords[texcoordIndex].x >> m_textureCoords[texcoordIndex].y;
 				// Invert the V texture coordinates to left hand system.
-				texcoords[texcoordIndex].y = 1.0f - texcoords[texcoordIndex].y;
+				m_textureCoords[texcoordIndex].y = 1.0f - m_textureCoords[texcoordIndex].y;
 				texcoordIndex++;
 			}
 
 			// Read in the normals.
 			if (input == 'n')
 			{
-				fin >> normals[normalIndex].x >> normals[normalIndex].y >>
-					normals[normalIndex].z;
+				fin >> m_normals[normalIndex].x >> m_normals[normalIndex].y >>
+					m_normals[normalIndex].z;
 
 				// Invert the Z normal to change to left hand system.
-				normals[normalIndex].z = normals[normalIndex].z * -1.0f;
+				m_normals[normalIndex].z = m_normals[normalIndex].z * -1.0f;
 				normalIndex++;
 			}
 		}
@@ -427,11 +316,11 @@ bool ModelClass::LoadDataStructures(const WCHAR* filename, int vertexCount, int 
 			if (input == ' ')
 			{
 				// Read the face data in backwards to convert it to a left hand system from right hand system.
-				fin >> faces[faceIndex].vIndex3 >> input2 >> faces[faceIndex].tIndex3 >>
-					input2 >> faces[faceIndex].nIndex3 >> faces[faceIndex].vIndex2 >> input2 >>
-					faces[faceIndex].tIndex2 >> input2 >> faces[faceIndex].nIndex2 >>
-					faces[faceIndex].vIndex1 >> input2 >> faces[faceIndex].tIndex1 >> input2 >>
-					faces[faceIndex].nIndex1;
+				fin >> m_faces[faceIndex].vIndex3 >> input2 >> m_faces[faceIndex].tIndex3 >>
+					input2 >> m_faces[faceIndex].nIndex3 >> m_faces[faceIndex].vIndex2 >> input2 >>
+					m_faces[faceIndex].tIndex2 >> input2 >> m_faces[faceIndex].nIndex2 >>
+					m_faces[faceIndex].vIndex1 >> input2 >> m_faces[faceIndex].tIndex1 >> input2 >>
+					m_faces[faceIndex].nIndex1;
 				faceIndex++;
 			}
 		}
@@ -473,88 +362,90 @@ bool ModelClass::LoadDataStructures(const WCHAR* filename, int vertexCount, int 
 	// Now loop through all the faces and output the three vertices for each face.
 	for (int i = 0; i < faceIndex; i++)
 	{
-		vIndex = faces[i].vIndex1 - 1;
-		tIndex = faces[i].tIndex1 - 1;
-		nIndex = faces[i].nIndex1 - 1;
+		vIndex = m_faces[i].vIndex1 - 1;
+		tIndex = m_faces[i].tIndex1 - 1;
+		nIndex = m_faces[i].nIndex1 - 1;
 		//fout << vertices[vIndex].x << ' ' << vertices[vIndex].y << ' ' << vertices[vIndex].z << ' '
 		//	<< texcoords[tIndex].x << ' ' << texcoords[tIndex].y << ' '
 		//	<< normals[nIndex].x << ' ' << normals[nIndex].y << ' ' << normals[nIndex].z << endl;
 
-		m_model[i * 3].x = vertices[vIndex].x;
-		m_model[i * 3].y = vertices[vIndex].y;
-		m_model[i * 3].z = vertices[vIndex].z;
+		m_model[i * 3].x = m_vertices[vIndex].x;
+		m_model[i * 3].y = m_vertices[vIndex].y;
+		m_model[i * 3].z = m_vertices[vIndex].z;
 
-		m_model[i * 3].tu = texcoords[tIndex].x;
-		m_model[i * 3].tv = texcoords[tIndex].y;
+		m_model[i * 3].tu = m_textureCoords[tIndex].x;
+		m_model[i * 3].tv = m_textureCoords[tIndex].y;
 
-		m_model[i * 3].nx = normals[nIndex].x;
-		m_model[i * 3].ny = normals[nIndex].y;
-		m_model[i * 3].nz = normals[nIndex].z;
+		m_model[i * 3].nx = m_normals[nIndex].x;
+		m_model[i * 3].ny = m_normals[nIndex].y;
+		m_model[i * 3].nz = m_normals[nIndex].z;
 
-		vIndex = faces[i].vIndex2 - 1;
-		tIndex = faces[i].tIndex2 - 1;
-		nIndex = faces[i].nIndex2 - 1;
+		vIndex = m_faces[i].vIndex2 - 1;
+		tIndex = m_faces[i].tIndex2 - 1;
+		nIndex = m_faces[i].nIndex2 - 1;
 		//fout << vertices[vIndex].x << ' ' << vertices[vIndex].y << ' ' << vertices[vIndex].z << ' '
 		//	<< texcoords[tIndex].x << ' ' << texcoords[tIndex].y << ' '
 		//	<< normals[nIndex].x << ' ' << normals[nIndex].y << ' ' << normals[nIndex].z << endl;
 
-		m_model[i * 3 + 1].x = vertices[vIndex].x;
-		m_model[i * 3 + 1].y = vertices[vIndex].y;
-		m_model[i * 3 + 1].z = vertices[vIndex].z;
+		m_model[i * 3 + 1].x = m_vertices[vIndex].x;
+		m_model[i * 3 + 1].y = m_vertices[vIndex].y;
+		m_model[i * 3 + 1].z = m_vertices[vIndex].z;
 
-		m_model[i * 3 + 1].tu = texcoords[tIndex].x;
-		m_model[i * 3 + 1].tv = texcoords[tIndex].y;
+		m_model[i * 3 + 1].tu = m_textureCoords[tIndex].x;
+		m_model[i * 3 + 1].tv = m_textureCoords[tIndex].y;
 
-		m_model[i * 3 + 1].nx = normals[nIndex].x;
-		m_model[i * 3 + 1].ny = normals[nIndex].y;
-		m_model[i * 3 + 1].nz = normals[nIndex].z;
+		m_model[i * 3 + 1].nx = m_normals[nIndex].x;
+		m_model[i * 3 + 1].ny = m_normals[nIndex].y;
+		m_model[i * 3 + 1].nz = m_normals[nIndex].z;
 
-		vIndex = faces[i].vIndex3 - 1;
-		tIndex = faces[i].tIndex3 - 1;
-		nIndex = faces[i].nIndex3 - 1;
+		vIndex = m_faces[i].vIndex3 - 1;
+		tIndex = m_faces[i].tIndex3 - 1;
+		nIndex = m_faces[i].nIndex3 - 1;
 		//fout << vertices[vIndex].x << ' ' << vertices[vIndex].y << ' ' << vertices[vIndex].z << ' '
 		//	<< texcoords[tIndex].x << ' ' << texcoords[tIndex].y << ' '
 		//	<< normals[nIndex].x << ' ' << normals[nIndex].y << ' ' << normals[nIndex].z << endl;
 
-		m_model[i * 3 + 2].x = vertices[vIndex].x;
-		m_model[i * 3 + 2].y = vertices[vIndex].y;
-		m_model[i * 3 + 2].z = vertices[vIndex].z;
+		m_model[i * 3 + 2].x = m_vertices[vIndex].x;
+		m_model[i * 3 + 2].y = m_vertices[vIndex].y;
+		m_model[i * 3 + 2].z = m_vertices[vIndex].z;
 
-		m_model[i * 3 + 2].tu = texcoords[tIndex].x;
-		m_model[i * 3 + 2].tv = texcoords[tIndex].y;
+		m_model[i * 3 + 2].tu = m_textureCoords[tIndex].x;
+		m_model[i * 3 + 2].tv = m_textureCoords[tIndex].y;
 
-		m_model[i * 3 + 2].nx = normals[nIndex].x;
-		m_model[i * 3 + 2].ny = normals[nIndex].y;
-		m_model[i * 3 + 2].nz = normals[nIndex].z;
+		m_model[i * 3 + 2].nx = m_normals[nIndex].x;
+		m_model[i * 3 + 2].ny = m_normals[nIndex].y;
+		m_model[i * 3 + 2].nz = m_normals[nIndex].z;
 	}
 
 	//// Close the output file.
 	//fout.close();
 
 	// Release the four data structures.
-	if (vertices)
+	if (m_vertices)
 	{
-		delete[] vertices;
-		vertices = 0;
+		delete[] m_vertices;
+		m_vertices = 0;
 	}
 
-	if (texcoords)
+	if (m_textureCoords)
 	{
-		delete[] texcoords;
-		texcoords = 0;
+		delete[] m_textureCoords;
+		m_textureCoords = 0;
 	}
 
-	if (normals)
+	if (m_normals)
 	{
-		delete[] normals;
-		normals = 0;
+		delete[] m_normals;
+		m_normals = 0;
 	}
 
-	if (faces)
+	if (m_faces)
 	{
-		delete[] faces;
-		faces = 0;
+		delete[] m_faces;
+		m_faces = 0;
 	}
 
 	return true;
 }
+
+

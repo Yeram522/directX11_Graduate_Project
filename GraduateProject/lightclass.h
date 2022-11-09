@@ -38,6 +38,7 @@ public:
 	float* GetAmbientColortoFloat();
 	float* GetDiffuseColortoFloat();
 	float* GetSpecularColortoFloat();
+	float* GetDirectiontoFloat();
 private:
 	/*XMFLOAT4 m_ambientColor;
 	XMFLOAT4 m_diffuseColor;
@@ -48,6 +49,7 @@ private:
 	float* m_ambientColor;
 	float* m_diffuseColor;
 	float* m_specularColor;
+	float* m_fdirection;
 };
 
 #endif
