@@ -8,15 +8,7 @@
 //////////////
 // INCLUDES //
 //////////////
-#include <d3d11.h>
-#include <directxmath.h>
-#include <d3dcompiler.h>
-
-#include <fstream>
-
-using namespace std;
-using namespace DirectX;
-
+#include "ShaderClass.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: LightShaderClass
@@ -53,7 +45,7 @@ public:
 
 	bool Initialize(ID3D11Device*, HWND);
 	void Shutdown();
-	bool Render(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView*, 
+	bool Render(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView**, 
 		XMFLOAT3, XMFLOAT4, XMFLOAT4, XMFLOAT3, XMFLOAT4, float);
 
 private:
@@ -61,7 +53,7 @@ private:
 	void ShutdownShader();
 	void OutputShaderErrorMessage(ID3D10Blob*, HWND, const WCHAR*);
 
-	bool SetShaderParameters(ID3D11DeviceContext*, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView*, 
+	bool SetShaderParameters(ID3D11DeviceContext*, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView**, 
 		XMFLOAT3, XMFLOAT4, XMFLOAT4, XMFLOAT3, XMFLOAT4, float);
 	void RenderShader(ID3D11DeviceContext*, int);
 

@@ -57,6 +57,7 @@
     <ClCompile Include="RenderTextureClass.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="ShaderClass.cpp" />
     <ClCompile Include="systemclass.cpp" />
     <ClCompile Include="textclass.cpp" />
     <ClCompile Include="TextureArrayClass.cpp" />
@@ -97,6 +98,7 @@
     <ClInclude Include="RenderTextureClass.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="ShaderClass.h" />
     <ClInclude Include="systemclass.h" />
     <ClInclude Include="textclass.h" />
     <ClInclude Include="TextureArrayClass.h" />

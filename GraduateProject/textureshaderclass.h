@@ -11,14 +11,7 @@
 //////////////
 // INCLUDES //
 //////////////
-#include <d3d11.h>
-#include <directxmath.h>
-#include <d3dcompiler.h>
-
-#include <fstream>
-
-using namespace std;
-using namespace DirectX;
+#include "ShaderClass.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////

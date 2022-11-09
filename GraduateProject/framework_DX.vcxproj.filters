@@ -49,6 +49,12 @@
     <Filter Include="소스 파일\Engine\Graphic">
       <UniqueIdentifier>{23da8319-576b-4547-bbb7-b83ef0e89f67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Engine\Graphic\Shader">
+      <UniqueIdentifier>{05e0d162-082c-4ab5-98dc-bff7f23fe63f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Engine\Graphic\Shader">
+      <UniqueIdentifier>{0693f2df-4738-489b-979a-642d6dd6a402}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\light.ps">
@@ -182,6 +188,9 @@
     <ClCompile Include="TextureArrayClass.cpp">
       <Filter>소스 파일\Engine\Graphic</Filter>
     </ClCompile>
+    <ClCompile Include="ShaderClass.cpp">
+      <Filter>소스 파일\Engine\Graphic\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImGui\imconfig.h">
@@ -297,6 +306,9 @@
     </ClInclude>
     <ClInclude Include="TextureArrayClass.h">
       <Filter>헤더 파일\Engine\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderClass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
