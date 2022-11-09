@@ -37,7 +37,17 @@ void Transform::Rotate()
 	}
 
 	m_worldMatrix = XMMatrixRotationY(rotation);
+}
 
+void Transform::Translate(XMFLOAT3 vec3)
+{
+	m_worldMatrix = XMMatrixTranslation(vec3.x, vec3.y, vec3.z);
+}
+
+void Transform::Scaling(XMFLOAT3 vec3)
+{
+	m_worldMatrix = XMMatrixScaling(100.0f,100.0f,100.0f) * XMMatrixTranslation(vec3.x, vec3.y, vec3.z);
+	
 }
 
 

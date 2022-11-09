@@ -25,10 +25,10 @@ public:
 		temp = new GameObject("sphere","object",Scene::getD3D(), Scene::getCamera(), nullptr);
 		Model* model = temp->getOrAddComponent<Model>();
 		
-		temp->update = [](Transform* transform) {transform->Rotate(); };
+		temp->update = [](Transform* transform) {transform->Translate(XMFLOAT3(0, -5, 0)); };
 		// Initialize the model object.
 		temp->getComponent<Model>()->SetGetShader<MultiTextureShaderClass>();
-		result = temp->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/Sphere.obj", L"./data/loop.dds",L"./data/chair_d.dds"
+		result = temp->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/atlas.obj", L"./data/res/Altar_diffuse.dds",L"./data/res/block.dds"
 			, Scene::getLightShader(), Scene::getLight(), Scene::hwnd);
 		if (!result)
 		{
@@ -44,8 +44,9 @@ public:
 		temp1 = new GameObject("chair", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
 		Model* model1 = temp1->getOrAddComponent<Model>();
 		// Initialize the model object.
-		temp->getComponent<Model>()->SetGetShader<MultiTextureShaderClass>();
-		result = temp1->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/chair.obj", L"./data/chair_d.dds", L"./data/chair_d.dds", Scene::getLightShader(), Scene::getLight(), Scene::hwnd);
+		temp1->update = [](Transform* transform) {transform->Translate(XMFLOAT3(0, -5, 0)); };
+		temp1->getComponent<Model>()->SetGetShader<MultiTextureShaderClass>();
+		result = temp1->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/platform.obj", L"./data/res/Platform_diffuse.dds", L"./data/res/block.dds", Scene::getLightShader(), Scene::getLight(), Scene::hwnd);
 
 		temp1->setParent(temp);
 		if (!result)
@@ -58,18 +59,6 @@ public:
 		{
 			return;
 		}
-
-
-		GameObject* temp2 = new GameObject("image", "sprite", Scene::getD3D(), Scene::getCamera());
-		Image* image = temp2->getOrAddComponent<Image>();
-	
-		// Initialize the bitmap object.
-		result = image->Initialize(Scene::getD3D()->GetDevice(), Scene::getscreenWidth(), Scene::getscreenHeight(), L"./data/edi.dds", 256, 256,Scene::hwnd);
-		if (!result)
-		{
-			return ;
-		}
-		m_GameObject.push_back(temp2);
 
 		GameObject* temp3 = new GameObject("text", "text", Scene::getD3D(), Scene::getCamera());
 		Text* text = temp3->getOrAddComponent<Text>();
