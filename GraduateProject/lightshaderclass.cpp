@@ -4,7 +4,7 @@
 #include "lightshaderclass.h"
 
 
-LightShaderClass::LightShaderClass()
+LightShaderClass::LightShaderClass() :ShaderClass()
 {
 	m_vertexShader = 0;
 	m_pixelShader = 0;

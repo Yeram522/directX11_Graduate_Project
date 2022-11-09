@@ -4,7 +4,7 @@
 #include "textureshaderclass.h"
 
 
-TextureShaderClass::TextureShaderClass()
+TextureShaderClass::TextureShaderClass() :ShaderClass()
 {
 	m_vertexShader = 0;
 	m_pixelShader = 0;

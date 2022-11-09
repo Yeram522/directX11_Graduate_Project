@@ -28,7 +28,6 @@ void Model::Draw()
 Model::Model(GameObject* gameObject):Component(gameObject)
 {
 	m_TextureArray = 0;
-	m_MultiTextureShader = 0;
 	mesh = new Mesh();
 
 
@@ -60,19 +59,11 @@ bool Model::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const W
 		return false;
 	}
 
-
 	this->m_LightShader = shader;
 	this->m_Light = m_Light;
 
-	// Create the multitexture shader object.
-	m_MultiTextureShader = new MultiTextureShaderClass;
-	if (!m_MultiTextureShader)
-	{
-		return false;
-	}
-
 	// Initialize the multitexture shader object.
-	result = m_MultiTextureShader->Initialize(device, hwnd);
+	result = m_LightShader->Initialize(device, hwnd);
 
 
 	return true;

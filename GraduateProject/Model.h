@@ -21,6 +21,17 @@ public:
     /*  함수   */
     Model(GameObject* gameObject);
    
+    template<typename T>
+    T* SetGetShader()
+    {
+        T* newShader = new T();
+        m_Shader = newShader;
+
+        auto result = dynamic_cast<T*>(m_Shader);
+        return result;
+    }
+
+
     bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*, const WCHAR* ,LightShaderClass* shader, LightClass* m_Light, HWND);
 
     bool LoadTextures(ID3D11Device*, const WCHAR*, const WCHAR*);
@@ -35,9 +46,11 @@ private:
     vector<Mesh> meshes;
     Mesh* mesh;
     TextureArrayClass* m_TextureArray; //Multi texturing
-    MultiTextureShaderClass* m_MultiTextureShader;
+   // MultiTextureShaderClass* m_MultiTextureShader;
     LightShaderClass* m_LightShader;
     LightClass* m_Light;
+
+    ShaderClass* m_Shader;
 
     string directory;
     /*  함수   */

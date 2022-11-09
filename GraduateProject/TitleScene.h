@@ -19,6 +19,7 @@ public:
 		
 
 		// Initialize the model object.
+		temp->getComponent<Model>()->SetGetShader<MultiTextureShaderClass>();
 		result = temp->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/chair.obj", L"./data/chair_d.dds", L"./data/chair_d.dds", Scene::getLightShader(), Scene::getLight(), Scene::hwnd);
 
 		if (!result)
