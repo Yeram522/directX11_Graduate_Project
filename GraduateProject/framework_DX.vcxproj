@@ -23,6 +23,8 @@
     <None Include="data\font.vs" />
     <None Include="data\light.ps" />
     <None Include="data\light.vs" />
+    <None Include="data\multitexture.ps" />
+    <None Include="data\multitexture.vs" />
     <None Include="data\texture.ps" />
     <None Include="data\texture.vs" />
   </ItemGroup>
@@ -51,11 +53,13 @@
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Multitextureshaderclass.cpp" />
     <ClCompile Include="RenderTextureClass.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="systemclass.cpp" />
     <ClCompile Include="textclass.cpp" />
+    <ClCompile Include="TextureArrayClass.cpp" />
     <ClCompile Include="textureclass.cpp" />
     <ClCompile Include="textureshaderclass.cpp" />
     <ClCompile Include="TitleScene.cpp" />
@@ -89,11 +93,13 @@
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Multitextureshaderclass.h" />
     <ClInclude Include="RenderTextureClass.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="systemclass.h" />
     <ClInclude Include="textclass.h" />
+    <ClInclude Include="TextureArrayClass.h" />
     <ClInclude Include="textureclass.h" />
     <ClInclude Include="textureshaderclass.h" />
     <ClInclude Include="TitleScene.h" />

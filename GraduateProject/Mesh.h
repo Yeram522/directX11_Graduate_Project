@@ -19,7 +19,6 @@ using namespace DirectX;
 // MY CLASS INCLUDES //
 ///////////////////////
 #include "Component.h"
-#include "textureclass.h"
 
 struct Face //인덱스 버퍼?
 {
@@ -69,10 +68,5 @@ private:
 
 	int m_vertexCount, m_indexCount, m_textureCount, m_normalCount, m_faceCount;
 	ModelType* m_model;
-
-	//New Mesh Data
-	vector<Vertex> vertices;
-	vector<unsigned int> indices;
-	vector<TextureClass> textures;
 };
 #endif

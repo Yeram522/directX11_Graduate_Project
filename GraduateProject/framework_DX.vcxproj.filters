@@ -69,6 +69,12 @@
     <None Include="data\font.ps">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="data\multitexture.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\multitexture.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -168,6 +174,12 @@
       <Filter>소스 파일\Engine\Component</Filter>
     </ClCompile>
     <ClCompile Include="Fontshaderclass.cpp">
+      <Filter>소스 파일\Engine\Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="Multitextureshaderclass.cpp">
+      <Filter>소스 파일\Engine\Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureArrayClass.cpp">
       <Filter>소스 파일\Engine\Graphic</Filter>
     </ClCompile>
   </ItemGroup>
@@ -278,6 +290,12 @@
       <Filter>헤더 파일\Engine\Component</Filter>
     </ClInclude>
     <ClInclude Include="Fontshaderclass.h">
+      <Filter>헤더 파일\Engine\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Multitextureshaderclass.h">
+      <Filter>헤더 파일\Engine\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureArrayClass.h">
       <Filter>헤더 파일\Engine\Graphic</Filter>
     </ClInclude>
   </ItemGroup>

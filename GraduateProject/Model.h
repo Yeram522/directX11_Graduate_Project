@@ -10,6 +10,8 @@
 #include "cameraclass.h"
 #include "Transform.h"
 #include "Component.h"
+#include "textureclass.h"
+#include "MultiTextureShaderClass.h"
 
 #include <iostream>
 
