@@ -11,8 +11,8 @@
 #include "Transform.h"
 #include "Component.h"
 #include "textureclass.h"
-#include "MultiTextureShaderClass.h"
-
+#include "TextureArrayClass.h"
+#include "Multitextureshaderclass.h"
 #include <iostream>
 
 class Model:public Component
@@ -21,11 +21,11 @@ public:
     /*  함수   */
     Model(GameObject* gameObject);
    
-    bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*, LightShaderClass* shader, LightClass* m_Light);
+    bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*, const WCHAR* ,LightShaderClass* shader, LightClass* m_Light, HWND);
 
-    bool LoadTexture(ID3D11Device*, const WCHAR*);
+    bool LoadTextures(ID3D11Device*, const WCHAR*, const WCHAR*);
     void ReleaseTexture();
-    ID3D11ShaderResourceView* GetTexture();
+    ID3D11ShaderResourceView** GetTextureArray();
 
     void update() override;
     void Draw();
@@ -34,7 +34,8 @@ private:
     /*  Model 데이터  */
     vector<Mesh> meshes;
     Mesh* mesh;
-    TextureClass* m_Texture;
+    TextureArrayClass* m_TextureArray; //Multi texturing
+    MultiTextureShaderClass* m_MultiTextureShader;
     LightShaderClass* m_LightShader;
     LightClass* m_Light;
 

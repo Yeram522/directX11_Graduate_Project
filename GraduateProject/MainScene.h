@@ -27,8 +27,8 @@ public:
 		
 		temp->update = [](Transform* transform) {transform->Rotate(); };
 		// Initialize the model object.
-		result = temp->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/Sphere.obj", L"./data/loop.dds"
-			, Scene::getLightShader(), Scene::getLight());
+		result = temp->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/Sphere.obj", L"./data/loop.dds",L"./data/chair_d.dds"
+			, Scene::getLightShader(), Scene::getLight(), Scene::hwnd);
 		if (!result)
 		{
 			return;
@@ -43,8 +43,7 @@ public:
 		temp1 = new GameObject("chair", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
 		Model* model1 = temp1->getOrAddComponent<Model>();
 		// Initialize the model object.
-		result = temp1->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/chair.obj", L"./data/chair_d.dds"
-			, Scene::getLightShader(), Scene::getLight());
+		result = temp1->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/chair.obj", L"./data/chair_d.dds", L"./data/chair_d.dds", Scene::getLightShader(), Scene::getLight(), Scene::hwnd);
 
 		temp1->setParent(temp);
 		if (!result)

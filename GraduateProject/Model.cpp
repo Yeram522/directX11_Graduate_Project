@@ -13,28 +13,27 @@ void Model::Draw()
 	mesh->RenderBuffers(transform->m_D3D->GetDeviceContext());//render
 
 	//d3d랑 camera는 씬에서 가져와야하는데 일다 ㄴ씬이 없어서 transform에서 가져옴!
-	result = m_LightShader->Render(transform->m_D3D->GetDeviceContext(), mesh->GetIndexCount(),
+	/*result = m_LightShader->Render(transform->m_D3D->GetDeviceContext(), mesh->GetIndexCount(),
 		transform->m_worldMatrix, transform->m_viewMatrix, transform->m_projectionMatrix,
-		GetTexture(),
+		GetTextureArray()[0],
 		m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
-		transform->m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());
+		transform->m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());*/
 
-	if (!result)
-	{
-		return;
-	}
+	m_MultiTextureShader->Render(transform->m_D3D->GetDeviceContext(), mesh->GetIndexCount(), transform->m_worldMatrix, transform->m_viewMatrix, transform->m_projectionMatrix,GetTextureArray());
+
 }
 
 Model::Model(GameObject* gameObject):Component(gameObject)
 {
-	m_Texture = 0;
+	m_TextureArray = 0;
+	m_MultiTextureShader = 0;
 	mesh = new Mesh();
 
 
 }
 
-bool Model::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const WCHAR* textureFilename
-, LightShaderClass* shader, LightClass* m_Light)
+bool Model::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const WCHAR* textureFilename1
+, const WCHAR* textureFilename2,LightShaderClass* shader, LightClass* m_Light, HWND hwnd)
 {
 	bool result;
 
@@ -52,33 +51,45 @@ bool Model::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const W
 		return false;
 	}
 
-	// Load the texture for this model.
-	result = LoadTexture(device, textureFilename);
+	// Load the textures for this model.
+	result = LoadTextures(device, textureFilename1, textureFilename2);
 	if (!result)
 	{
 		return false;
 	}
 
+
 	this->m_LightShader = shader;
 	this->m_Light = m_Light;
+
+	// Create the multitexture shader object.
+	m_MultiTextureShader = new MultiTextureShaderClass;
+	if (!m_MultiTextureShader)
+	{
+		return false;
+	}
+
+	// Initialize the multitexture shader object.
+	result = m_MultiTextureShader->Initialize(device, hwnd);
+
 
 	return true;
 }
 
-bool Model::LoadTexture(ID3D11Device* device, const WCHAR* filename)
+bool Model::LoadTextures(ID3D11Device* device, const WCHAR* filename1, const WCHAR* filename2)
 {
 	bool result;
 
 
-	// Create the texture object.
-	m_Texture = new TextureClass;
-	if (!m_Texture)
+	// Create the texture array object.
+	m_TextureArray = new TextureArrayClass;
+	if (!m_TextureArray)
 	{
 		return false;
 	}
 
 	// Initialize the texture object.
-	result = m_Texture->Initialize(device, filename);
+	result = m_TextureArray->Initialize(device, filename1, filename2);
 	if (!result)
 	{
 		return false;
@@ -91,19 +102,19 @@ bool Model::LoadTexture(ID3D11Device* device, const WCHAR* filename)
 void Model::ReleaseTexture()
 {
 	// Release the texture object.
-	if (m_Texture)
+	if (m_TextureArray)
 	{
-		m_Texture->Shutdown();
-		delete m_Texture;
-		m_Texture = 0;
+		m_TextureArray->Shutdown();
+		delete m_TextureArray;
+		m_TextureArray = 0;
 	}
 
 	return;
 }
 
-ID3D11ShaderResourceView* Model::GetTexture()
+ID3D11ShaderResourceView** Model::GetTextureArray()
 {
-	return m_Texture->GetTexture();
+	return m_TextureArray->GetTextureArray();
 }
 
 
