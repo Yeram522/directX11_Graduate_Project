@@ -1,6 +1,6 @@
 #include "Multitextureshaderclass.h"
 
-MultiTextureShaderClass::MultiTextureShaderClass()
+MultiTextureShaderClass::MultiTextureShaderClass(LightClass* Light):ShaderClass(Light)
 {
 	m_vertexShader = 0;
 	m_pixelShader = 0;
@@ -10,9 +10,6 @@ MultiTextureShaderClass::MultiTextureShaderClass()
 }
 
 
-MultiTextureShaderClass::MultiTextureShaderClass(const MultiTextureShaderClass& other)
-{
-}
 
 
 MultiTextureShaderClass::~MultiTextureShaderClass()

@@ -1,6 +1,6 @@
 #include "ShaderClass.h"
 
-ShaderClass::ShaderClass()
+ShaderClass::ShaderClass(LightClass* Light):m_Light(Light)
 {
 }
 

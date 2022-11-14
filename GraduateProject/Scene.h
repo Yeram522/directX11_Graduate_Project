@@ -13,7 +13,7 @@
 #include "textureshaderclass.h"
 #include "rendertextureclass.h"
 #include "debugwindowclass.h"
-
+#include "ShaderManagerClass.h"
 
 #include<string>
 #include <vector>
@@ -56,7 +56,7 @@ protected:
 	D3DClass* getD3D();
 	CameraClass* getCamera();
 	LightClass* getLight();
-	LightShaderClass* getLightShader();
+	ShaderManagerClass* getShaderManager();
 	bool isLoad;
 };
 

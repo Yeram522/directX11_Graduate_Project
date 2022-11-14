@@ -11,7 +11,7 @@
 #include <d3d11.h>
 #include <directxmath.h>
 #include <d3dcompiler.h>
-
+#include "lightclass.h"
 #include <fstream>
 
 using namespace std;
@@ -41,8 +41,10 @@ protected:
 		float specularPower;
 		XMFLOAT4 specularColor;
 	};
+protected:
+	LightClass* m_Light;
 public:
-	ShaderClass();
+	ShaderClass(LightClass*);
 	~ShaderClass();
 
 	virtual bool Initialize(ID3D11Device*, HWND) { return true; }

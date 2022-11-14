@@ -12,7 +12,7 @@
 class MultiTextureShaderClass:public ShaderClass
 {
 public:
-	MultiTextureShaderClass();
+	MultiTextureShaderClass(LightClass*);
 	MultiTextureShaderClass(const MultiTextureShaderClass&);
 	~MultiTextureShaderClass();
 

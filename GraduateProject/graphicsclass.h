@@ -10,6 +10,8 @@
 ///////////////////////
 #include "SceneManager.h"
 #include "EngineManager.h"
+#include "ShaderManagerClass.h"
+
 #include "Image.h"
 #include "textclass.h"
 #include "inputclass.h"
@@ -39,13 +41,12 @@ private:
 
 	bool RenderToTexture();
 private:
-
+	ShaderManagerClass* m_ShaderManager;
 	SceneManager* m_SceneManager;
 	EngineManager* m_EngineManager;
 	Scene* m_Scene;
 	D3DClass* m_D3D;
 	CameraClass* m_Camera;
-	LightShaderClass* m_LightShader;
 	LightClass* m_Light;
 
 	RenderTextureClass* m_RenderTexture;

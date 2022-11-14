@@ -16,7 +16,7 @@
 ///////////////////////
 #include "textureclass.h"
 #include "textureshaderclass.h"
-
+#include "ShaderManagerClass.h"
 #include "Component.h"
 #include "Transform.h"
 

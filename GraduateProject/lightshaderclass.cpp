@@ -4,7 +4,7 @@
 #include "lightshaderclass.h"
 
 
-LightShaderClass::LightShaderClass() :ShaderClass()
+LightShaderClass::LightShaderClass(LightClass* light) :ShaderClass(light)
 {
 	m_vertexShader = 0;
 	m_pixelShader = 0;
@@ -14,10 +14,6 @@ LightShaderClass::LightShaderClass() :ShaderClass()
 	m_lightBuffer = 0;
 }
 
-
-LightShaderClass::LightShaderClass(const LightShaderClass& other)
-{
-}
 
 
 LightShaderClass::~LightShaderClass()
@@ -60,7 +56,7 @@ bool LightShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount
 
 	// Set the shader parameters that it will use for rendering.
 	result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, textures, 
-		lightDirection, ambientColor, diffuseColor, cameraPosition, specularColor, specularPower);
+		ShaderClass::m_Light->GetDirection(), ShaderClass::m_Light->GetAmbientColor(), ShaderClass::m_Light->GetDiffuseColor(), cameraPosition, ShaderClass::m_Light->GetSpecularColor(), ShaderClass::m_Light->GetSpecularPower());
 	if(!result)
 	{
 		return false;

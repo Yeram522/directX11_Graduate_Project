@@ -20,7 +20,7 @@
 class TextureShaderClass : public ShaderClass
 {
 public:
-	TextureShaderClass();
+	TextureShaderClass(LightClass* Light);
 	TextureShaderClass(const TextureShaderClass&);
 	~TextureShaderClass();
 

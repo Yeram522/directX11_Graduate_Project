@@ -13,16 +13,16 @@ void Model::Draw()
 	mesh->RenderBuffers(transform->m_D3D->GetDeviceContext());//render
 
 	//d3d랑 camera는 씬에서 가져와야하는데 일다 ㄴ씬이 없어서 transform에서 가져옴!
-	result = m_LightShader->Render(transform->m_D3D->GetDeviceContext(), mesh->GetIndexCount(),
+	/*result = m_LightShader->Render(transform->m_D3D->GetDeviceContext(), mesh->GetIndexCount(),
 		transform->m_worldMatrix, transform->m_viewMatrix, transform->m_projectionMatrix,
 		GetTextureArray(),
 		m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
-		transform->m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());
+		transform->m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());*/
 
-	/*m_MultiTextureShader->Render(transform->m_D3D->GetDeviceContext(), mesh->GetIndexCount(), transform->m_worldMatrix, transform->m_viewMatrix, transform->m_projectionMatrix,GetTextureArray());*/
+	m_Shader->Render(transform->m_D3D->GetDeviceContext(), mesh->GetIndexCount(), transform->m_worldMatrix, transform->m_viewMatrix, transform->m_projectionMatrix,GetTextureArray());
 
-	if (!result)
-		return;
+	/*if (!result)
+		return;*/
 }
 
 Model::Model(GameObject* gameObject):Component(gameObject)
@@ -34,7 +34,7 @@ Model::Model(GameObject* gameObject):Component(gameObject)
 }
 
 bool Model::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const WCHAR* textureFilename1
-, const WCHAR* textureFilename2,LightShaderClass* shader, LightClass* m_Light, HWND hwnd)
+, const WCHAR* textureFilename2, ShaderClass* shader, LightClass* m_Light, HWND hwnd)
 {
 	bool result;
 
@@ -59,12 +59,9 @@ bool Model::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const W
 		return false;
 	}
 
-	this->m_LightShader = shader;
-	this->m_Light = m_Light;
-
-	// Initialize the multitexture shader object.
-	result = m_LightShader->Initialize(device, hwnd);
-
+	this->m_Shader = shader;
+	/*this->m_LightShader = shader;
+	this->m_Light = m_Light;*/
 
 	return true;
 }

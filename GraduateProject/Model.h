@@ -5,14 +5,13 @@
 #define _MODEL_H_
 #include "Mesh.h"
 #include "d3dclass.h"
-#include "lightshaderclass.h"
-#include "lightclass.h"
+
 #include "cameraclass.h"
 #include "Transform.h"
 #include "Component.h"
 #include "textureclass.h"
 #include "TextureArrayClass.h"
-#include "Multitextureshaderclass.h"
+#include "ShaderManagerClass.h"
 #include <iostream>
 
 class Model:public Component
@@ -32,7 +31,7 @@ public:
     }
 
 
-    bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*, const WCHAR* ,LightShaderClass* shader, LightClass* m_Light, HWND);
+    bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*, const WCHAR* , ShaderClass* shader, LightClass* m_Light, HWND);
 
     bool LoadTextures(ID3D11Device*, const WCHAR*, const WCHAR*);
     void ReleaseTexture();
@@ -51,7 +50,6 @@ private:
     LightClass* m_Light;
 
     ShaderClass* m_Shader;
-
     string directory;
     /*  ÇÔ¼ö   */
     void loadModel(string path);

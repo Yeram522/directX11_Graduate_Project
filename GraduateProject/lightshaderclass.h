@@ -16,7 +16,7 @@
 class LightShaderClass:public ShaderClass
 {
 public:
-	LightShaderClass();
+	LightShaderClass(LightClass* light);
 	LightShaderClass(const LightShaderClass&);
 	~LightShaderClass();
 

@@ -70,13 +70,7 @@ void Scene::Shutdown()
 		sceneManager->m_Light = 0;
 	}
 
-	// Release the light shader object.
-	if (sceneManager->m_LightShader)
-	{
-		sceneManager->m_LightShader->Shutdown();
-		delete sceneManager->m_LightShader;
-		sceneManager->m_LightShader = 0;
-	}
+
 
 	return;
 }
@@ -149,7 +143,7 @@ LightClass* Scene::getLight()
 	return sceneManager->m_Light;
 }
 
-LightShaderClass* Scene::getLightShader()
+ShaderManagerClass* Scene::getShaderManager()
 {
-	return sceneManager->m_LightShader;
+	return sceneManager->m_ShaderManager;
 }
