@@ -23,7 +23,7 @@ public:
 	bool Initialize(ID3D11Device*, HWND) override;
 	void Shutdown() override;
 	bool Render(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView**, 
-		XMFLOAT3 lightDirection = XMFLOAT3(0, 0, 0), XMFLOAT4 ambientColor = XMFLOAT4(0, 0, 0, 0), XMFLOAT4 diffuseColor = XMFLOAT4(0, 0, 0, 0), XMFLOAT3 cameraPosition = XMFLOAT3(0, 0, 0), XMFLOAT4 specularColor = XMFLOAT4(0, 0, 0, 0), float specularPower = 0) override;
+		XMFLOAT3 cameraPosition = XMFLOAT3(0, 0, 0)) override;
 
 private:
 	bool InitializeShader(ID3D11Device*, HWND, const WCHAR*, const WCHAR*);

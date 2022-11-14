@@ -50,7 +50,7 @@ public:
 	virtual bool Initialize(ID3D11Device*, HWND) { return true; }
 	virtual void Shutdown() {}
 	virtual bool Render(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView**,
-		XMFLOAT3 lightDirection = XMFLOAT3(0, 0, 0), XMFLOAT4 ambientColor = XMFLOAT4(0, 0, 0, 0), XMFLOAT4 diffuseColor = XMFLOAT4(0, 0, 0, 0), XMFLOAT3 cameraPosition = XMFLOAT3(0, 0, 0), XMFLOAT4 specularColor = XMFLOAT4(0, 0, 0, 0), float specularPower = 0) {return true;}
+		XMFLOAT3 cameraPosition = XMFLOAT3(0, 0, 0)) {return true;}
 };
 
 #endif
