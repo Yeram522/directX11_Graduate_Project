@@ -44,7 +44,7 @@ public:
 		temp1 = new GameObject("chair", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
 		Model* model1 = temp1->getOrAddComponent<Model>();
 		// Initialize the model object.
-		result = temp1->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/chair.obj", L"./data/chair_d.dds", L"./data/chair_d.dds", Scene::getShaderManager()->getLightShader(), Scene::getLight(), Scene::hwnd);
+		result = temp1->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/chair.obj", L"./data/chair_d.dds", L"./data/chair_d.dds", Scene::getShaderManager()->getFogShader(), Scene::getLight(), Scene::hwnd);
 
 		temp1->setParent(temp);
 		if (!result)

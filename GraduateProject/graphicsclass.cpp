@@ -272,9 +272,9 @@ bool GraphicsClass::Render()
 		return false;
 	}
 
-
+	float fogColor = 0.5;
 	// Clear the buffers to begin the scene.
-	m_D3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
+	m_D3D->BeginScene(fogColor, fogColor, fogColor, 1.0f);
 
 	m_Camera->Render();
 
@@ -313,7 +313,7 @@ bool GraphicsClass::RenderToTexture()
 	// RTT가 렌더링 타겟이 되도록 합니다.
 	m_RenderTexture->SetRenderTarget(m_D3D->GetDeviceContext(), m_D3D->GetDepthStencilView());
 	// RTT를 초기화합니다.
-	m_RenderTexture->ClearRenderTarget(m_D3D->GetDeviceContext(), m_D3D->GetDepthStencilView(), 0.0f, 0.0f, 1.0f, 1.0f);
+	m_RenderTexture->ClearRenderTarget(m_D3D->GetDeviceContext(), m_D3D->GetDepthStencilView(), 0.0f, 0.0f, 0.0f, 1.0f);
 
 	// 여기서 씬을 그리면 백버퍼 대신 RTT에 렌더링됩니다.
 	m_SceneManager->SceneManager::UpdateScene();

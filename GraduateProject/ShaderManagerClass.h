@@ -5,6 +5,7 @@
 #include "textureshaderclass.h"
 #include "lightshaderclass.h"
 #include "MultiTextureShaderClass.h"
+#include "FogShaderClass.h"
 
 class ShaderManagerClass
 {
@@ -34,8 +35,16 @@ public:
 		return m_TextureShader;
 	}
 
+	MultiTextureShaderClass* getMultiTextureShader()
+	{
+		return m_MultiTexture;
+	}
 
 
+	FogShaderClass* getFogShader()
+	{
+		return m_FogShader;
+	}
 
 	bool RenderTextureShader(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView*);
 
@@ -53,5 +62,6 @@ private:
 	TextureShaderClass* m_TextureShader;
 	LightShaderClass* m_LightShader;
 	MultiTextureShaderClass* m_MultiTexture;
+	FogShaderClass* m_FogShader;
 };
 

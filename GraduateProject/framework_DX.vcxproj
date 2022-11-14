@@ -38,6 +38,7 @@
     <ClCompile Include="DDSTextureLoader.cpp" />
     <ClCompile Include="Debugwindowclass.cpp" />
     <ClCompile Include="EngineManager.cpp" />
+    <ClCompile Include="FogShaderClass.cpp" />
     <ClCompile Include="FontClass.cpp" />
     <ClCompile Include="Fontshaderclass.cpp" />
     <ClCompile Include="graphicsclass.cpp" />
@@ -78,6 +79,7 @@
     <ClInclude Include="DDSTextureLoader.h" />
     <ClInclude Include="Debugwindowclass.h" />
     <ClInclude Include="EngineManager.h" />
+    <ClInclude Include="FogShaderClass.h" />
     <ClInclude Include="FontClass.h" />
     <ClInclude Include="Fontshaderclass.h" />
     <ClInclude Include="graphicsclass.h" />

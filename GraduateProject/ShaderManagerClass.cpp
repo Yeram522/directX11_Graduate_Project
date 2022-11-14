@@ -5,6 +5,7 @@ ShaderManagerClass::ShaderManagerClass()
 	m_TextureShader = 0;
 	m_LightShader = 0;
 	m_MultiTexture = 0;
+	m_FogShader = 0;
 }
 
 ShaderManagerClass::~ShaderManagerClass()
@@ -52,6 +53,14 @@ bool ShaderManagerClass::Initialize(ID3D11Device* device, HWND hwnd, LightClass*
 		return false;
 	}
 
+
+	// Create the fog shader object.
+	m_FogShader = new FogShaderClass(Light);
+	if (!m_FogShader)
+	{
+		return false;
+	}
+
 	// Initialize the bump map shader object.
 	result = m_MultiTexture->Initialize(device, hwnd);
 	if (!result)
@@ -60,6 +69,15 @@ bool ShaderManagerClass::Initialize(ID3D11Device* device, HWND hwnd, LightClass*
 		return false;
 	}
 
+	// Initialize the fog shader object.
+	result = m_FogShader->Initialize(device, hwnd);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the fog shader object.", L"Error", MB_OK);
+		return false;
+	}
+
+	m_FogShader->setFogPosition(0.0f, 10.0f);
 	return true;
 }
 
@@ -88,5 +106,13 @@ void ShaderManagerClass::Shutdown()
 		m_TextureShader = 0;
 	}
 
+
+	// Release the fog shader object.
+	if (m_FogShader)
+	{
+		m_FogShader->Shutdown();
+		delete m_FogShader;
+		m_FogShader = 0;
+	}
 	return;
 }

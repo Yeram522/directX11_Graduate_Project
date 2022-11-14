@@ -55,6 +55,12 @@
     <Filter Include="소스 파일\Engine\Graphic\Shader">
       <UniqueIdentifier>{0693f2df-4738-489b-979a-642d6dd6a402}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Engine\Manager">
+      <UniqueIdentifier>{cb4b81b8-532e-408f-b55e-c8e559f42607}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Engine\Manager">
+      <UniqueIdentifier>{4a67cc4a-b861-410e-ade3-6b8b87148592}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\light.ps">
@@ -146,9 +152,6 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>소스 파일\Engine\Component</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>소스 파일\Engine\System</Filter>
-    </ClCompile>
     <ClCompile Include="Debugwindowclass.cpp">
       <Filter>소스 파일\Engine\System</Filter>
     </ClCompile>
@@ -160,9 +163,6 @@
     </ClCompile>
     <ClCompile Include="MainScene.cpp">
       <Filter>소스 파일\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineManager.cpp">
-      <Filter>소스 파일\Engine</Filter>
     </ClCompile>
     <ClCompile Include="TitleScene.cpp">
       <Filter>소스 파일\Scene</Filter>
@@ -197,8 +197,17 @@
     <ClCompile Include="lightshaderclass.cpp">
       <Filter>소스 파일\Engine\Graphic\Shader</Filter>
     </ClCompile>
+    <ClCompile Include="FogShaderClass.cpp">
+      <Filter>소스 파일\Engine\Graphic\Shader</Filter>
+    </ClCompile>
     <ClCompile Include="ShaderManagerClass.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineManager.cpp">
+      <Filter>소스 파일\Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>소스 파일\Engine\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -283,17 +292,8 @@
     <ClInclude Include="Model.h">
       <Filter>헤더 파일\Engine\Component</Filter>
     </ClInclude>
-    <ClInclude Include="EngineManager.h">
-      <Filter>헤더 파일\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Image.h">
       <Filter>헤더 파일\Engine\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>헤더 파일\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>헤더 파일\Engine</Filter>
     </ClInclude>
     <ClInclude Include="FontClass.h">
       <Filter>헤더 파일\Engine\Component</Filter>
@@ -319,8 +319,20 @@
     <ClInclude Include="lightshaderclass.h">
       <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="EngineManager.h">
+      <Filter>헤더 파일\Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>헤더 파일\Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>헤더 파일\Engine\System</Filter>
+    </ClInclude>
     <ClInclude Include="ShaderManagerClass.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="FogShaderClass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
