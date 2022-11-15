@@ -17,6 +17,7 @@ public:
 	~TextureArrayClass();
 
 	bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*);
+	bool Initialize(ID3D11Device*, ID3D11ShaderResourceView*, ID3D11ShaderResourceView*);
 	void Shutdown();
 
 	ID3D11ShaderResourceView** GetTextureArray();

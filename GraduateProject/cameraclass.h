@@ -26,13 +26,16 @@ public:
 
 	void SetPosition(float, float, float);
 	void SetRotation(float, float, float);
-
+	void RenderReflection(float);
+	XMMATRIX GetReflectionViewMatrix();
 
 	XMFLOAT3 GetPosition();
 	XMFLOAT3 GetRotation();
 
 	void Render();
 	void GetViewMatrix(XMMATRIX&);
+
+	XMMATRIX m_reflectionViewMatrix;
 
 	float moveLeftRight = 0.0f;
 	float moveBackForward = 0.0f;

@@ -17,6 +17,9 @@ public:
 	GameObject* plane;
 
 
+
+	GameObject* water;
+
 	void update(Transform* transform)
 	{
 		transform->Rotate();
@@ -124,8 +127,6 @@ public:
 		//}
 		//m_GameObject.push_back(temp3);
 
-
-
 		plane = new GameObject("plane", "plane", Scene::getD3D(), Scene::getCamera(), nullptr);
 		Model* planeModel = plane->getOrAddComponent<Model>();
 		plane->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
@@ -143,6 +144,25 @@ public:
 			return;
 		}
 		m_GameObject.push_back(plane);
+
+		water = new GameObject("water", "plane", Scene::getD3D(), Scene::getCamera(), nullptr);
+		model = water->getOrAddComponent<Model>();
+		//plane->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
+
+		// Initialize the model object.
+		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/plane.obj", Scene::getShaderManager()->RenderReflectionToTexture(BigToToro, Scene::getD3D(), Scene::getCamera(), Scene::getLight()), Scene::getShaderManager()->RenderRefractionToTexture(plane, Scene::getD3D(), Scene::getCamera(), Scene::getLight()), Scene::getShaderManager()->getWaterShader(), Scene::getLight(), Scene::hwnd);
+
+		if (!result)
+		{
+			return;
+		}
+
+		if (!water)
+		{
+			return;
+		}
+		m_GameObject.push_back(water);
+
 
 	}
 

@@ -93,6 +93,18 @@
     <None Include="data\fog.ps">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="data\water.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\refraction.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\refraction.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\water.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -208,6 +220,12 @@
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>소스 파일\Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="WaterShaderClass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="RefractionShaderClass.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -333,6 +351,12 @@
     </ClInclude>
     <ClInclude Include="FogShaderClass.h">
       <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="WaterShaderClass.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="RefractionShaderClass.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

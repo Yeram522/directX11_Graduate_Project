@@ -66,6 +66,38 @@ bool Model::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const W
 	return true;
 }
 
+bool Model::Initialize(ID3D11Device* device, const WCHAR* modelFilename, ID3D11ShaderResourceView* texture1, ID3D11ShaderResourceView* texture2, ShaderClass* shader, LightClass* m_Light, HWND hwnd)
+{
+	bool result;
+
+	// Load in the model data,
+	result = mesh->LoadMesh(modelFilename);
+	if (!result)
+	{
+		return false;
+	}
+
+	// Initialize the vertex and index buffers.
+	result = mesh->InitializeBuffers(device);
+	if (!result)
+	{
+		return false;
+	}
+
+	// Load the textures for this model.
+	result = LoadTextures(device, texture1, texture2);
+	if (!result)
+	{
+		return false;
+	}
+
+	this->m_Shader = shader;
+	/*this->m_LightShader = shader;
+	this->m_Light = m_Light;*/
+
+	return true;
+}
+
 bool Model::LoadTextures(ID3D11Device* device, const WCHAR* filename1, const WCHAR* filename2)
 {
 	bool result;
@@ -80,6 +112,28 @@ bool Model::LoadTextures(ID3D11Device* device, const WCHAR* filename1, const WCH
 
 	// Initialize the texture object.
 	result = m_TextureArray->Initialize(device, filename1, filename2);
+	if (!result)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool Model::LoadTextures(ID3D11Device* device, ID3D11ShaderResourceView* texture1, ID3D11ShaderResourceView* texture2)
+{
+	bool result;
+
+
+	// Create the texture array object.
+	m_TextureArray = new TextureArrayClass;
+	if (!m_TextureArray)
+	{
+		return false;
+	}
+
+	// Initialize the texture object.
+	result = m_TextureArray->Initialize(device, texture1, texture2);
 	if (!result)
 	{
 		return false;

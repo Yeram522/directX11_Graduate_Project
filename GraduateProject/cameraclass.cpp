@@ -22,8 +22,7 @@ CameraClass::CameraClass()
 
 	//Set the View matrix
 	camView = XMMatrixLookAtLH(camPosition, camTarget, camUp);
-
-
+	// 위의 세 벡터를 이용하여 뷰 행렬을 생성합니다.
 }
 
 
@@ -52,6 +51,44 @@ void CameraClass::SetRotation(float x, float y, float z)
 	m_rotation.z = z;
 }
 
+void CameraClass::RenderReflection(float height)
+{
+	XMFLOAT3 up, position, lookAt;
+	float radians;
+
+
+	// 위쪽을 가리키는 벡터를 만듭니다.
+	up.x = 0.0f;
+	up.y = 1.0f;
+	up.z = 0.0f;
+
+	// 월드에 카메라 위치를 설정합니다.
+	// 평면 반사를 위해 카메라의 Y값을 역전시킵니다.
+	position.x = XMVectorGetX(camPosition);
+	position.y = -XMVectorGetY(camPosition) + (height * 2.0f);
+	position.z = XMVectorGetZ(camPosition);
+
+	// 회전을 라디안 값으로 계산합니다.
+	XMVECTOR rotate = XMVectorSet(1.0f, 1.0f, 1.0f, 0.0f); //내가 세운식이라 오류 있을 수 있음ㅜㅜ
+	rotate = XMVector3Transform(rotate, camRotationMatrix); //내가 세운식이라 오류 있을 수 있음ㅜㅜ
+
+	radians = XMVectorGetX(rotate) * 0.0174532925f;
+
+	// 카메라가 보는 방향을 설정합니다.
+	lookAt.x = sinf(radians) + XMVectorGetX(camPosition);
+	lookAt.y = position.y;
+	lookAt.z = cosf(radians) + XMVectorGetZ(camPosition);
+
+	// 위의 세 벡터를 이용하여 뷰 행렬을 생성합니다.
+	m_reflectionViewMatrix = XMMatrixLookAtLH(camPosition, camTarget, camUp);
+}
+
+XMMATRIX CameraClass::GetReflectionViewMatrix()
+{
+	return m_reflectionViewMatrix;
+
+}
+
 
 
 XMFLOAT3 CameraClass::GetPosition()
@@ -68,15 +105,14 @@ XMFLOAT3 CameraClass::GetRotation()
 // This uses the position and rotation of the camera to build and to update the view matrix.
 void CameraClass::Render()
 {
-	XMMATRIX rotationMatrix;
 
 	// Create the rotation matrix from the yaw, pitch, and roll values.
-	rotationMatrix = XMMatrixRotationRollPitchYaw(camPitch, camYaw, 0);
+	camRotationMatrix = XMMatrixRotationRollPitchYaw(camPitch, camYaw, 0);
 
 
 
 	// Setup where the camera is looking by default.
-	camTarget = XMVector3TransformCoord(DefaultForward, rotationMatrix);
+	camTarget = XMVector3TransformCoord(DefaultForward, camRotationMatrix);
 	camTarget = XMVector3Normalize(camTarget);
 
 
@@ -109,6 +145,7 @@ void CameraClass::Render()
 
 	// Finally create the view matrix from the three updated vectors.
 	m_viewMatrix = XMMatrixLookAtLH(camPosition, camTarget, camUp);
+
 	//UpdateCamera();
 	return;
 }

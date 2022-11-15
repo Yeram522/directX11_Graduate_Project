@@ -246,6 +246,8 @@ bool GraphicsClass::Frame(InputClass* input, double time)
 	}
 
 
+	m_ShaderManager->updateWaterTranslate(m_Camera->GetReflectionViewMatrix());
+
 	// Render the graphics scene.
 	result = Render();
 	if(!result)

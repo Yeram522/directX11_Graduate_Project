@@ -32,17 +32,23 @@ public:
 
 
     bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*, const WCHAR* , ShaderClass* shader, LightClass* m_Light, HWND);
+    bool Initialize(ID3D11Device*, const WCHAR*, ID3D11ShaderResourceView*, ID3D11ShaderResourceView* , ShaderClass* shader, LightClass* m_Light, HWND);
 
     bool LoadTextures(ID3D11Device*, const WCHAR*, const WCHAR*);
+    bool LoadTextures(ID3D11Device*, ID3D11ShaderResourceView*, ID3D11ShaderResourceView*);
     void ReleaseTexture();
     ID3D11ShaderResourceView** GetTextureArray();
 
+    int GetMeshIndexCount()
+    {
+        return mesh->GetIndexCount();
+    }
     void update() override;
     void Draw();
     Mesh* getMesh() { return mesh; }
 private:
     /*  Model 데이터  */
-    vector<Mesh> meshes;
+    vector<Mesh> meshes;//사용 X
     Mesh* mesh;
     TextureArrayClass* m_TextureArray; //Multi texturing
    // MultiTextureShaderClass* m_MultiTextureShader;
