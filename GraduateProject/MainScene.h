@@ -13,6 +13,7 @@ public:
 	GameObject* BigToToro;
 	GameObject* BabyToToro;
 	GameObject* BusStop;
+	GameObject* Mei;
 	GameObject* plane;
 
 
@@ -81,6 +82,23 @@ public:
 		m_GameObject.push_back(BabyToToro);
 
 
+		Mei = new GameObject("Mei", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
+		model = Mei->getOrAddComponent<Model>();
+		Mei->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 5.0f); };
+		// Initialize the model object.
+		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/mei.obj", L"./data/res/Mei_Texture.dds", L"./data/res/Mei_Texture.dds", Scene::getShaderManager()->getLightShader(), Scene::getLight(), Scene::hwnd);
+
+		//temp1->setParent(temp);
+		if (!result)
+		{
+			return;
+		}
+
+		if (!Mei)
+		{
+			return;
+		}
+		m_GameObject.push_back(Mei);
 
 		//GameObject* temp2 = new GameObject("image", "sprite", Scene::getD3D(), Scene::getCamera());
 		//Image* image = temp2->getOrAddComponent<Image>();
