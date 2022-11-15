@@ -18,7 +18,7 @@ public:
 	bool Initialize(D3DClass*, CameraClass*);
 	void update() override;
 	void Rotate();
-
+	void SetPosition(float, float, float);
 	XMMATRIX m_worldMatrix, m_viewMatrix, m_projectionMatrix;
 
 	D3DClass* m_D3D;//юс╫ц╥н public

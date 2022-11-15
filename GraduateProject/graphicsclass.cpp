@@ -252,7 +252,7 @@ bool GraphicsClass::Frame(InputClass* input, double time)
 	{
 		return false;
 	}
-
+	
 	return true;
 }
 

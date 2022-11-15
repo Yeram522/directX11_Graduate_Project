@@ -10,8 +10,10 @@ class MainScene :public Scene
 public:
 	MainScene() :Scene("main")
 	{};
-	GameObject* temp1;
-	GameObject* temp;
+	GameObject* BigToToro;
+	GameObject* BabyToToro;
+	GameObject* BusStop;
+	GameObject* plane;
 
 
 	void update(Transform* transform)
@@ -22,66 +24,108 @@ public:
 
 	void InitObject() override {
 		bool result;
-		temp = new GameObject("sphere","object",Scene::getD3D(), Scene::getCamera(), nullptr);
-		Model* model = temp->getOrAddComponent<Model>();
-		
-		temp->update = [](Transform* transform) {transform->Rotate(); };
+		BusStop = new GameObject("BusStop","object",Scene::getD3D(), Scene::getCamera(), nullptr);
+		Model* model = BusStop->getOrAddComponent<Model>();
+		BusStop->update = [](Transform* transform) {transform->SetPosition(-0.6f, -3.0f, 2.3f); };
+		//temp->update = [](Transform* transform) {transform->Rotate(); };
 		// Initialize the model object.
 
-		result = temp->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/Sphere.obj", L"./data/loop.dds",L"./data/chair_d.dds"
+		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/busStop.obj", L"./data/res/BusSign_Texture.dds",L"./data/res/BusSign_Texture.dds"
 			, Scene::getShaderManager()->getLightShader(), Scene::getLight(), Scene::hwnd);
 		if (!result)
 		{
 			return;
 		}
 
-		m_GameObject.push_back(temp);
-		if (!temp)
+		m_GameObject.push_back(BusStop);
+		if (!BusStop)
 		{
 			return;
 		}
 
-		temp1 = new GameObject("chair", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
-		Model* model1 = temp1->getOrAddComponent<Model>();
+		BigToToro = new GameObject("Totoro", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
+		model = BigToToro->getOrAddComponent<Model>();
+		BigToToro->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
 		// Initialize the model object.
-		result = temp1->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/chair.obj", L"./data/chair_d.dds", L"./data/chair_d.dds", Scene::getShaderManager()->getFogShader(), Scene::getLight(), Scene::hwnd);
+		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/bigTotoro.obj", L"./data/res/BigTotoro_Texture.dds", L"./data/res/BigTotoro_Texture.dds", Scene::getShaderManager()->getLightShader(), Scene::getLight(), Scene::hwnd);
 
-		temp1->setParent(temp);
+		//temp1->setParent(temp);
 		if (!result)
 		{
 			return;
 		}
 
-		//m_GameObject.push_back(temp1);
-		if (!temp1)
+		m_GameObject.push_back(BigToToro);
+		if (!BigToToro)
 		{
 			return;
 		}
 
 
-		GameObject* temp2 = new GameObject("image", "sprite", Scene::getD3D(), Scene::getCamera());
-		Image* image = temp2->getOrAddComponent<Image>();
+		BabyToToro = new GameObject("BabyTotoro", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
+		model = BabyToToro->getOrAddComponent<Model>();
+		BabyToToro->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
+		// Initialize the model object.
+		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/chiTotoro.obj", L"./data/res/ChiTotoro_Texture.dds", L"./data/res/ChiTotoro_Texture.dds", Scene::getShaderManager()->getLightShader(), Scene::getLight(), Scene::hwnd);
+
+		//temp1->setParent(temp);
+		if (!result)
+		{
+			return;
+		}
+
+		if (!BabyToToro)
+		{
+			return;
+		}
+		m_GameObject.push_back(BabyToToro);
+
+
+
+		//GameObject* temp2 = new GameObject("image", "sprite", Scene::getD3D(), Scene::getCamera());
+		//Image* image = temp2->getOrAddComponent<Image>();
 	
-		// Initialize the bitmap object.
-		result = image->Initialize(Scene::getD3D()->GetDevice(), Scene::getscreenWidth(), Scene::getscreenHeight(), L"./data/edi.dds", 256, 256,Scene::hwnd);
-		if (!result)
-		{
-			return ;
-		}
-		m_GameObject.push_back(temp2);
+		//// Initialize the bitmap object.
+		//result = image->Initialize(Scene::getD3D()->GetDevice(), Scene::getscreenWidth(), Scene::getscreenHeight(), L"./data/edi.dds", 256, 256,Scene::hwnd);
+		//if (!result)
+		//{
+		//	return ;
+		//}
+		//m_GameObject.push_back(temp2);
 
-		GameObject* temp3 = new GameObject("text", "text", Scene::getD3D(), Scene::getCamera());
-		Text* text = temp3->getOrAddComponent<Text>();
+		//GameObject* temp3 = new GameObject("text", "text", Scene::getD3D(), Scene::getCamera());
+		//Text* text = temp3->getOrAddComponent<Text>();
 
-		XMMATRIX baseviewMatrix;
-		Scene::getCamera()->GetViewMatrix(baseviewMatrix);
-		// Initialize the bitmap object.
-		result = text->Initialize(Scene::getD3D()->GetDevice(), Scene::getD3D()->GetDeviceContext(), Scene::hwnd, Scene::getscreenWidth(), Scene::getscreenHeight(), baseviewMatrix);
+		//XMMATRIX baseviewMatrix;
+		//Scene::getCamera()->GetViewMatrix(baseviewMatrix);
+		//// Initialize the bitmap object.
+		//result = text->Initialize(Scene::getD3D()->GetDevice(), Scene::getD3D()->GetDeviceContext(), Scene::hwnd, Scene::getscreenWidth(), Scene::getscreenHeight(), baseviewMatrix);
+		//if (!result)
+		//{
+		//	return;
+		//}
+		//m_GameObject.push_back(temp3);
+
+
+
+		plane = new GameObject("plane", "plane", Scene::getD3D(), Scene::getCamera(), nullptr);
+		Model* planeModel = plane->getOrAddComponent<Model>();
+		plane->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
+
+		// Initialize the model object.
+		result = planeModel->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/plane.obj", L"./data/res/grass.dds", L"./data/res/block.dds", Scene::getShaderManager()->getMultiTextureShader(), Scene::getLight(), Scene::hwnd);
+
 		if (!result)
 		{
 			return;
 		}
-		m_GameObject.push_back(temp3);
+
+		if (!plane)
+		{
+			return;
+		}
+		m_GameObject.push_back(plane);
+
 	}
 
 

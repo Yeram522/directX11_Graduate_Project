@@ -36,8 +36,13 @@ void Transform::Rotate()
 		rotation -= 360.0f;
 	}
 
-	m_worldMatrix = XMMatrixRotationY(rotation);
+	m_worldMatrix *= XMMatrixRotationY(rotation);
 
+}
+
+void Transform::SetPosition(float x, float y, float z)
+{
+	m_worldMatrix *= XMMatrixTranslation(x,y,z);
 }
 
 
