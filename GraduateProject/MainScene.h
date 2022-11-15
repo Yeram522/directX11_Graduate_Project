@@ -129,7 +129,7 @@ public:
 
 		plane = new GameObject("plane", "plane", Scene::getD3D(), Scene::getCamera(), nullptr);
 		Model* planeModel = plane->getOrAddComponent<Model>();
-		plane->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
+		plane->update = [](Transform* transform) {transform->SetPosition(0.0f, -5.0f, 0.0f); };
 
 		// Initialize the model object.
 		result = planeModel->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/plane.obj", L"./data/res/grass.dds", L"./data/res/block.dds", Scene::getShaderManager()->getMultiTextureShader(), Scene::getLight(), Scene::hwnd);
@@ -147,7 +147,7 @@ public:
 
 		water = new GameObject("water", "plane", Scene::getD3D(), Scene::getCamera(), nullptr);
 		model = water->getOrAddComponent<Model>();
-		//plane->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
+		water->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
 
 		// Initialize the model object.
 		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/plane.obj", Scene::getShaderManager()->RenderReflectionToTexture(BigToToro, Scene::getD3D(), Scene::getCamera(), Scene::getLight()), Scene::getShaderManager()->RenderRefractionToTexture(plane, Scene::getD3D(), Scene::getCamera(), Scene::getLight()), Scene::getShaderManager()->getWaterShader(), Scene::getLight(), Scene::hwnd);

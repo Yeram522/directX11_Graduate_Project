@@ -61,6 +61,8 @@ private:
 private:
     float m_waterTranslation;
     float m_reflectRefractScale = 0.01f;
+
+    ID3D11ShaderResourceView* m_waterNormalTexture;
     XMMATRIX m_reflectionMatrix;
     ID3D11VertexShader* m_vertexShader;
     ID3D11PixelShader* m_pixelShader;
