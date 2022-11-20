@@ -29,6 +29,8 @@ bool WaterShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
     }
     // Load the second texture in.
     CreateDDSTextureFromFile(device, L"./data/res/water01.dds", nullptr, &m_waterNormalTexture);
+    CreateDDSTextureFromFile(device, L"./data/res/white.dds", nullptr, &m_waterReflectionTexture);
+    CreateDDSTextureFromFile(device, L"./data/res/block.dds", nullptr, &m_waterRefractionTexture);
     return true;
 }
 
@@ -46,8 +48,8 @@ bool WaterShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount
     bool result;
 
     // Set the shader parameters that it will use for rendering.
-    result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, m_reflectionMatrix, m_waterNormalTexture,
-        m_waterNormalTexture, m_waterNormalTexture, m_waterTranslation, m_reflectRefractScale);
+    result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, m_reflectionMatrix, m_waterReflectionTexture,
+        m_waterRefractionTexture, m_waterNormalTexture, m_waterTranslation, m_reflectRefractScale);
     if (!result)
     {
         return false;

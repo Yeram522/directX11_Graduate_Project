@@ -180,7 +180,7 @@ bool ShaderManagerClass::Initialize(ID3D11Device* device, HWND hwnd, LightClass*
 	}
 
 	// Initialize the refraction render to texture object.
-	result = m_RefractionTexture->Initialize(device, 10, 10);
+	result = m_RefractionTexture->Initialize(device, 1280, 720);
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize the refraction render to texture object.", L"Error", MB_OK);
@@ -195,7 +195,7 @@ bool ShaderManagerClass::Initialize(ID3D11Device* device, HWND hwnd, LightClass*
 	}
 
 	// Initialize the reflection render to texture object.
-	result = m_ReflectionTexture->Initialize(device, 10, 10);
+	result = m_ReflectionTexture->Initialize(device, 1280, 720);
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize the reflection render to texture object.", L"Error", MB_OK);
