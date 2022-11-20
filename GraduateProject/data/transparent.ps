@@ -32,20 +32,15 @@ float4 TransparentPixelShader(PixelInputType input) : SV_TARGET
 {
 	float4 color;
 	float4 alphaValue;
-	float4 blendColor;
+
 
 	// Sample the texture pixel at this location.
     color = shaderTexture[0].Sample(SampleType, input.tex);
 	alphaValue = shaderTexture[1].Sample(SampleType, input.tex);
 
-	blendColor = color;
-	blendColor = (alphaValue * color);
 	if(alphaValue.r == 0.0f && alphaValue.g == 0.0f && alphaValue.b == 0.0f )
 	{
-	  color.r = 1.0f;
-	  color.g = 1.0f;
-	  color.b = 1.0f;
-	  color.a = 0.1f;
+     	color.a = 0.0f;
 	}
 
 	return color;
