@@ -23,6 +23,14 @@ void Transform::update()
 	m_Camera->GetViewMatrix(m_viewMatrix);
 	m_D3D->GetWorldMatrix(m_worldMatrix);
 	m_D3D->GetProjectionMatrix(m_projectionMatrix);
+
+	if (m_BillBoard)
+	{
+		SetBillBoardTransform();
+	}
+
+	m_worldMatrix *= XMMatrixTranslation(localposition.x, localposition.y, localposition.z);
+
 }
 
 void Transform::Rotate()
@@ -36,13 +44,27 @@ void Transform::Rotate()
 		rotation -= 360.0f;
 	}
 
+
 	m_worldMatrix *= XMMatrixRotationY(rotation);
 
 }
 
 void Transform::SetPosition(float x, float y, float z)
 {
-	m_worldMatrix *= XMMatrixTranslation(x,y,z);
+	localposition = XMFLOAT3(x, y, z);
+}
+
+void Transform::SetBillBoardTransform()
+{
+	double angle;
+	float rotation;
+	// atan2 함수를 이용하여 빌보드 모델에 적용될 회전값을 계산합니다. 이렇게 하여 빌보드 모델이 현재 카메라 위치를 바라보게 합니다.
+	angle = atan2(localposition.x - m_Camera->GetPosition().x, localposition.z - m_Camera->GetPosition().z) * (180.0 / 3.14);
+
+	// 회전각도를 라디안으로 변환합니다.
+	rotation = (float)angle * 0.0174532925f;
+
+	m_worldMatrix *= XMMatrixRotationY(rotation);
 }
 
 

@@ -93,12 +93,16 @@ XMMATRIX CameraClass::GetReflectionViewMatrix()
 
 XMFLOAT3 CameraClass::GetPosition()
 {
+	m_position.x = XMVectorGetX(camPosition);
+	m_position.y = -XMVectorGetY(camPosition);
+	m_position.z = XMVectorGetZ(camPosition);
 	return m_position;
 }
 
 
 XMFLOAT3 CameraClass::GetRotation()
 {
+
 	return m_rotation;
 }
 

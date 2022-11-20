@@ -19,12 +19,14 @@ public:
 	void update() override;
 	void Rotate();
 	void SetPosition(float, float, float);
+	void SetBillBoardTransform();
 	XMMATRIX m_worldMatrix, m_viewMatrix, m_projectionMatrix;
 
+	bool m_BillBoard= false;
 	D3DClass* m_D3D;//임시로 public
 	CameraClass* m_Camera;//임시로 public
 private:
-	XMFLOAT3 localposition;
+	XMFLOAT3 localposition = { 0,0,0 };
 	XMFLOAT3 rotation;
 	XMFLOAT3 scale;
 

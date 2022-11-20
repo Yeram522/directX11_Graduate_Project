@@ -9,6 +9,7 @@
 #include "WaterShaderClass.h"
 #include "RefractionShaderClass.h"
 #include "RenderTextureClass.h"
+#include "TransparentShaderClass.h"
 #include "GameObject.h"
 class ShaderManagerClass
 {
@@ -57,6 +58,10 @@ public:
 		return m_RefractionShader;
 	}
 
+	TransparentShaderClass* getTransparentSahder()
+	{
+		return m_TransparentShader;
+	}
 
 	RenderTextureClass* getReflectionTexture()
 	{
@@ -67,6 +72,7 @@ public:
 	{
 		return m_RefractionTexture;
 	}
+
 
 	void updateWaterTranslate(XMMATRIX reflectionMatrix)
 	{
@@ -93,6 +99,7 @@ private:
 	FogShaderClass* m_FogShader;
 	WaterShaderClass* m_WaterShader;
 	RefractionShaderClass* m_RefractionShader;
+	TransparentShaderClass* m_TransparentShader;
 	float m_waterHeight, m_waterTranslation;
 };
 

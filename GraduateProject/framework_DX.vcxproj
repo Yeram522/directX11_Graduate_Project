@@ -31,6 +31,8 @@
     <None Include="data\refraction.vs" />
     <None Include="data\texture.ps" />
     <None Include="data\texture.vs" />
+    <None Include="data\transparent.ps" />
+    <None Include="data\transparent.vs" />
     <None Include="data\water.ps" />
     <None Include="data\water.vs" />
   </ItemGroup>
@@ -74,6 +76,7 @@
     <ClCompile Include="textureshaderclass.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="TransparentShaderClass.cpp" />
     <ClCompile Include="WaterShaderClass.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +122,7 @@
     <ClInclude Include="textureshaderclass.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="TransparentShaderClass.h" />
     <ClInclude Include="WaterShaderClass.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

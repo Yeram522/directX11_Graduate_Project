@@ -105,6 +105,12 @@
     <None Include="data\water.ps">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="data\transparent.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\transparent.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -221,11 +227,14 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>소스 파일\Engine\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="WaterShaderClass.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="RefractionShaderClass.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Engine\Graphic\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="TransparentShaderClass.cpp">
+      <Filter>소스 파일\Engine\Graphic\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="WaterShaderClass.cpp">
+      <Filter>소스 파일\Engine\Graphic\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -356,6 +365,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="RefractionShaderClass.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TransparentShaderClass.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

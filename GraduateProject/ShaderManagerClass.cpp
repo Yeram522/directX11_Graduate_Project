@@ -99,6 +99,7 @@ ShaderManagerClass::ShaderManagerClass()
 	m_LightShader = 0;
 	m_RefractionShader = 0;
 	m_WaterShader = 0;
+	m_TransparentShader = 0;
 }
 
 ShaderManagerClass::~ShaderManagerClass()
@@ -232,16 +233,39 @@ bool ShaderManagerClass::Initialize(ID3D11Device* device, HWND hwnd, LightClass*
 		return false;
 	}
 
+
 	// Set the height of the water.
 	m_waterHeight = 2.75f;
 
 	// Initialize the position of the water.
 	m_waterTranslation = 0.0f;
+
+	// 투명 셰이더 객체를 생성합니다.
+	m_TransparentShader = new TransparentShaderClass(Light);
+	if (!m_TransparentShader)
+	{
+		return false;
+	}
+
+	// 투명 셰이더를 초기화합니다.
+	result = m_TransparentShader->Initialize(device, hwnd);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the transparent shader object.", L"Error", MB_OK);
+		return false;
+	}
 	return true;
 }
 
 void ShaderManagerClass::Shutdown()
 {
+	// 투명 셰이더 객체를 해제합니다.
+	if (m_TransparentShader)
+	{
+		m_TransparentShader->Shutdown();
+		delete m_TransparentShader;
+		m_TransparentShader = 0;
+	}
 
 	// Release the water shader object.
 	if (m_WaterShader)

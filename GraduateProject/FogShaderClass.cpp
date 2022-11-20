@@ -1,6 +1,6 @@
 #include "FogShaderClass.h"
 
-FogShaderClass::FogShaderClass(LightClass* Light):ShaderClass(Light)
+FogShaderClass::FogShaderClass(LightClass* Light):ShaderClass(Light,"2D")
 {
     m_vertexShader = 0;
     m_pixelShader = 0;

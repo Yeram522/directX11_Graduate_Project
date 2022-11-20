@@ -1,7 +1,7 @@
 #include "WaterShaderClass.h"
 #include "DDSTextureLoader.h"
 #include "ShaderManagerClass.h"
-WaterShaderClass::WaterShaderClass(LightClass* Light):ShaderClass(Light)
+WaterShaderClass::WaterShaderClass(LightClass* Light):ShaderClass(Light,"2D")
 {
     m_vertexShader = 0;
     m_pixelShader = 0;

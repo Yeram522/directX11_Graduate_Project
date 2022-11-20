@@ -31,7 +31,8 @@ public:
 		bool result;
 		BusStop = new GameObject("BusStop","object",Scene::getD3D(), Scene::getCamera(), nullptr);
 		Model* model = BusStop->getOrAddComponent<Model>();
-		BusStop->update = [](Transform* transform) {transform->SetPosition(-0.6f, -3.0f, 2.3f); };
+		BusStop->getComponent<Transform>()->SetPosition(-0.6f, -3.0f, 2.3f);
+		//BusStop->update = [](Transform* transform) {transform->SetPosition(-0.6f, -3.0f, 2.3f); };
 		//temp->update = [](Transform* transform) {transform->Rotate(); };
 		// Initialize the model object.
 
@@ -50,7 +51,8 @@ public:
 
 		BigToToro = new GameObject("Totoro", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
 		model = BigToToro->getOrAddComponent<Model>();
-		BigToToro->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
+		BigToToro->getComponent<Transform>()->SetPosition(0.0f, -3.0f, 0.0f);
+	//	BigToToro->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
 		// Initialize the model object.
 		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/bigTotoro.obj", L"./data/res/BigTotoro_Texture.dds", L"./data/res/BigTotoro_Texture.dds", Scene::getShaderManager()->getLightShader(), Scene::getLight(), Scene::hwnd);
 
@@ -69,7 +71,8 @@ public:
 
 		BabyToToro = new GameObject("BabyTotoro", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
 		model = BabyToToro->getOrAddComponent<Model>();
-		BabyToToro->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
+		BabyToToro->getComponent<Transform>()->SetPosition(0.0f, -3.0f, 0.0f);
+		//BabyToToro->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
 		// Initialize the model object.
 		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/chiTotoro.obj", L"./data/res/ChiTotoro_Texture.dds", L"./data/res/ChiTotoro_Texture.dds", Scene::getShaderManager()->getLightShader(), Scene::getLight(), Scene::hwnd);
 
@@ -88,7 +91,8 @@ public:
 
 		Mei = new GameObject("Mei", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
 		model = Mei->getOrAddComponent<Model>();
-		Mei->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 5.0f); };
+		Mei->getComponent<Transform>()->SetPosition(0.0f, -3.0f, 5.0f);
+		//Mei->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 5.0f); };
 		// Initialize the model object.
 		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/mei.obj", L"./data/res/Mei_Texture.dds", L"./data/res/Mei_Texture.dds", Scene::getShaderManager()->getLightShader(), Scene::getLight(), Scene::hwnd);
 
@@ -115,22 +119,11 @@ public:
 		//}
 		//m_GameObject.push_back(temp2);
 
-		//GameObject* temp3 = new GameObject("text", "text", Scene::getD3D(), Scene::getCamera());
-		//Text* text = temp3->getOrAddComponent<Text>();
-
-		//XMMATRIX baseviewMatrix;
-		//Scene::getCamera()->GetViewMatrix(baseviewMatrix);
-		//// Initialize the bitmap object.
-		//result = text->Initialize(Scene::getD3D()->GetDevice(), Scene::getD3D()->GetDeviceContext(), Scene::hwnd, Scene::getscreenWidth(), Scene::getscreenHeight(), baseviewMatrix);
-		//if (!result)
-		//{
-		//	return;
-		//}
-		//m_GameObject.push_back(temp3);
 
 		plane = new GameObject("plane", "plane", Scene::getD3D(), Scene::getCamera(), nullptr);
 		Model* planeModel = plane->getOrAddComponent<Model>();
-		plane->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
+		plane->getComponent<Transform>()->SetPosition(0.0f, -3.0f, 0.0f);
+		//plane->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
 
 		// Initialize the model object.
 		result = planeModel->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/plane.obj", L"./data/res/grass.dds", L"./data/res/block.dds", Scene::getShaderManager()->getMultiTextureShader(), Scene::getLight(), Scene::hwnd);
@@ -151,7 +144,8 @@ public:
 
 		water = new GameObject("water", "plane", Scene::getD3D(), Scene::getCamera(), nullptr);
 		model = water->getOrAddComponent<Model>();
-		water->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
+		water->getComponent<Transform>()->SetPosition(0.0f, -3.0f, 0.0f);
+		//water->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
 
 		// Initialize the model object.
 		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/waterDemo.obj", Scene::getShaderManager()->getReflectionTexture()->GetShaderResourceView(), Scene::getShaderManager()->getRefractionTexture()->GetShaderResourceView(), Scene::getShaderManager()->getWaterShader(), Scene::getLight(), Scene::hwnd);
@@ -169,7 +163,9 @@ public:
 
 		Rock = new GameObject("rock", "object", Scene::getD3D(), Scene::getCamera(), nullptr); //Instancing 예정
 		model = Rock->getOrAddComponent<Model>();
-		Rock->update = [](Transform* transform) {transform->SetPosition(0.0f, -2.0f, 10.0f); };
+		//Rock->getComponent<Transform>()->m_BillBoard = true;
+
+		Rock->getComponent<Transform>()->SetPosition(0.0f, -2.0f, 10.0f);
 		// Initialize the model object.
 		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/rock.obj", L"./data/res/Rocks_Color.dds", L"./data/res/Rocks_Roughness.dds", Scene::getShaderManager()->getMultiTextureShader(), Scene::getLight(), Scene::hwnd);
 
@@ -184,6 +180,41 @@ public:
 		{
 			return;
 		}
+
+		GameObject* billboardingT;
+		billboardingT = new GameObject("billboardingT", "object", Scene::getD3D(), Scene::getCamera(), nullptr); //Instancing 예정
+		model = billboardingT->getOrAddComponent<Model>();
+		billboardingT->getComponent<Transform>()->m_BillBoard = true;
+
+		billboardingT->getComponent<Transform>()->SetPosition(0.0f, -1.0f, 15.0f);
+		// Initialize the model object.
+		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/2DObject.obj", L"./data/res/tree2.dds", L"./data/res/tree2A.dds", Scene::getShaderManager()->getTransparentSahder(), Scene::getLight(), Scene::hwnd);
+
+		//temp1->setParent(temp);
+		if (!result)
+		{
+			return;
+		}
+
+		m_GameObject.push_back(billboardingT);
+		if (!billboardingT)
+		{
+			return;
+		}
+
+
+		GameObject* temp3 = new GameObject("text", "text", Scene::getD3D(), Scene::getCamera());
+		Text* text = temp3->getOrAddComponent<Text>();
+
+		XMMATRIX baseviewMatrix;
+		Scene::getCamera()->GetViewMatrix(baseviewMatrix);
+		// Initialize the bitmap object.
+		result = text->Initialize(Scene::getD3D()->GetDevice(), Scene::getD3D()->GetDeviceContext(), Scene::hwnd, Scene::getscreenWidth(), Scene::getscreenHeight(), baseviewMatrix);
+		if (!result)
+		{
+			return;
+		}
+		m_GameObject.push_back(temp3);
 	}
 
 

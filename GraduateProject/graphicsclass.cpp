@@ -270,16 +270,11 @@ bool GraphicsClass::Render()
 	m_D3D->GetOrthoMatrix(orthoMatrix);
 
 
-	// 전체 씬을 텍스쳐에 그립니다.
-	result = RenderToTexture();
-	if (!result)
-	{
-		return false;
-	}
 
 	m_SceneManager->SceneManager::SetShader(); //반사 셰이더 세팅.
 
 	m_ShaderManager->updateWaterTranslate(m_Camera->GetReflectionViewMatrix());
+
 
 	float fogColor = 0.5;
 	// Clear the buffers to begin the scene.
@@ -287,8 +282,14 @@ bool GraphicsClass::Render()
 
 	m_Camera->Render();
 
-	// Turn the Z buffer back on now that all 2D rendering has completed.
-	m_D3D->TurnZBufferOn();
+
+
+	// 전체 씬을 텍스쳐에 그립니다.
+	result = RenderToTexture();
+	if (!result)
+	{
+		return false;
+	}
 
 	m_EngineManager->initImGui();
 
@@ -303,12 +304,7 @@ bool GraphicsClass::Render()
 
 	m_EngineManager->renderImGui();
 
-	// 2D 렌더링을 하기 위해 Z버퍼를 끕니다.
-	//m_D3D->TurnZBufferOff();
-	
 
-	//// 2D렌더링이 끝났으므로 다시 Z버퍼를 킵니다.
-	//m_D3D->TurnZBufferOn();
 
 	m_D3D->EndScene();
 	return true;

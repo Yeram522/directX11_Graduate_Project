@@ -10,6 +10,12 @@ void Model::Draw()
 {
 	bool result;
 	Transform* transform = Component::transform;
+
+	if (m_Shader->getType() == "2D")
+	{
+		transform->m_D3D->TurnOnAlphaBlending();
+
+	}
 	mesh->RenderBuffers(transform->m_D3D->GetDeviceContext());//render
 
 	//d3d랑 camera는 씬에서 가져와야하는데 일다 ㄴ씬이 없어서 transform에서 가져옴!
@@ -18,11 +24,13 @@ void Model::Draw()
 		GetTextureArray(),
 		m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
 		transform->m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());*/
-
 	m_Shader->Render(transform->m_D3D->GetDeviceContext(), mesh->GetIndexCount(), transform->m_worldMatrix, transform->m_viewMatrix, transform->m_projectionMatrix,GetTextureArray());
 
-	/*if (!result)
-		return;*/
+	if (m_Shader->getType() == "2D")
+	{
+		transform->m_D3D->TurnOffAlphaBlending();
+	}
+
 }
 
 Model::Model(GameObject* gameObject):Component(gameObject)

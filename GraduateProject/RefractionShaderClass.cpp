@@ -1,6 +1,6 @@
 #include "RefractionShaderClass.h"
 
-RefractionShaderClass::RefractionShaderClass(LightClass* Light):ShaderClass(Light)
+RefractionShaderClass::RefractionShaderClass(LightClass* Light):ShaderClass(Light,"2D")
 {
     m_vertexShader = 0;
     m_pixelShader = 0;

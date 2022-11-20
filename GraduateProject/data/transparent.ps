@@ -1,0 +1,52 @@
+////////////////////////////////////////////////////////////////////////////////
+// Filename: transparent.ps
+////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////
+// GLOBALS //
+/////////////
+Texture2D shaderTexture[2];
+SamplerState SampleType;
+
+cbuffer TransparentBuffer
+{
+	float blendAmount;
+};
+
+
+//////////////
+// TYPEDEFS //
+//////////////
+struct PixelInputType
+{
+    float4 position : SV_POSITION;
+    float2 tex : TEXCOORD0;
+};
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Pixel Shader
+////////////////////////////////////////////////////////////////////////////////
+float4 TransparentPixelShader(PixelInputType input) : SV_TARGET
+{
+	float4 color;
+	float4 alphaValue;
+	float4 blendColor;
+
+	// Sample the texture pixel at this location.
+    color = shaderTexture[0].Sample(SampleType, input.tex);
+	alphaValue = shaderTexture[1].Sample(SampleType, input.tex);
+
+	blendColor = color;
+	blendColor = (alphaValue * color);
+	if(alphaValue.r == 0.0f && alphaValue.g == 0.0f && alphaValue.b == 0.0f )
+	{
+	  color.r = 1.0f;
+	  color.g = 1.0f;
+	  color.b = 1.0f;
+	  color.a = 0.1f;
+	}
+
+	return color;
+}
