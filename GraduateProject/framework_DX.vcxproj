@@ -40,6 +40,7 @@
     <ClCompile Include="cameraclass.cpp" />
     <ClCompile Include="colorshaderclass.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="CpuClass.cpp" />
     <ClCompile Include="d3dclass.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
     <ClCompile Include="Debugwindowclass.cpp" />
@@ -47,6 +48,7 @@
     <ClCompile Include="FogShaderClass.cpp" />
     <ClCompile Include="FontClass.cpp" />
     <ClCompile Include="Fontshaderclass.cpp" />
+    <ClCompile Include="FpsClass.cpp" />
     <ClCompile Include="graphicsclass.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
@@ -74,6 +76,7 @@
     <ClCompile Include="TextureArrayClass.cpp" />
     <ClCompile Include="textureclass.cpp" />
     <ClCompile Include="textureshaderclass.cpp" />
+    <ClCompile Include="TimerClass.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TransparentShaderClass.cpp" />
@@ -84,6 +87,7 @@
     <ClInclude Include="cameraclass.h" />
     <ClInclude Include="colorshaderclass.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="CpuClass.h" />
     <ClInclude Include="d3dclass.h" />
     <ClInclude Include="DDSTextureLoader.h" />
     <ClInclude Include="Debugwindowclass.h" />
@@ -91,6 +95,7 @@
     <ClInclude Include="FogShaderClass.h" />
     <ClInclude Include="FontClass.h" />
     <ClInclude Include="Fontshaderclass.h" />
+    <ClInclude Include="FpsClass.h" />
     <ClInclude Include="graphicsclass.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImGui\imconfig.h" />
@@ -120,6 +125,7 @@
     <ClInclude Include="TextureArrayClass.h" />
     <ClInclude Include="textureclass.h" />
     <ClInclude Include="textureshaderclass.h" />
+    <ClInclude Include="TimerClass.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TransparentShaderClass.h" />

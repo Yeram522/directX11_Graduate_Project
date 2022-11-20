@@ -22,6 +22,10 @@
 #include "inputclass.h"
 #include "graphicsclass.h"
 
+#include "fpsclass.h"
+#include "cpuclass.h"
+#include "timerclass.h"
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: SystemClass
@@ -61,6 +65,10 @@ private:
 
 	__int64 frameTimeOld = 0;
 	double frameTime;
+
+	FpsClass* m_Fps;
+	CpuClass* m_Cpu;
+	TimerClass* m_Timer;
 };
 
 

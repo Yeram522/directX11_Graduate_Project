@@ -46,7 +46,12 @@ public:
 	void UpdateHierachy();
 	//void LoadScene(int sceneIndex);
 	void SetShader();
-	
+
+	void SetFpsCpuInfo(int fps, int cpu)
+	{
+		m_ActiveScene->m_fps = fps;
+		m_ActiveScene->m_cpu = cpu;
+	}
 	Scene* getActiveScene() const { return m_ActiveScene; }
 private:
 	static SceneManager* Instance;

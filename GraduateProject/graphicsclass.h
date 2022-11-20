@@ -28,7 +28,7 @@ public:
 
 	bool Initialize(int, int, HWND);
 	void Shutdown();
-	bool Frame(InputClass*, double time);
+	bool Frame(InputClass*, int, int, float);
 
 	SceneManager* getSceneManager() { return m_SceneManager; }
 
@@ -53,7 +53,8 @@ private:
 	DebugWindowClass* m_DebugWindow;
 	TextureShaderClass* m_TextureShader;
 
-	Text* m_Text;
+
+
 };
 
 #endif

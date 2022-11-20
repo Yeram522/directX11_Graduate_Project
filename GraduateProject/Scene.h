@@ -40,11 +40,14 @@ public:
 
 	bool Initialize(int, int, HWND);
 	void Shutdown();
-	bool Render();
+	virtual bool Render();
 	void upadteHierachy();
 	bool isLoaded() { return isLoad; }
 	void updateshaderSetting();
 	vector<GameObject*> readGameObjectList() const;
+
+	int m_fps, m_cpu;
+
 protected:
 	SceneManager* sceneManager;
 	vector<GameObject*> m_GameObject;
@@ -58,7 +61,6 @@ protected:
 	LightClass* getLight();
 	ShaderManagerClass* getShaderManager();
 	bool isLoad;
-
 
 	//Reflection Model
 	GameObject* refractionModel;

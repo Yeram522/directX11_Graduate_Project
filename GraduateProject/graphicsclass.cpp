@@ -38,7 +38,6 @@ GraphicsClass::GraphicsClass()
 
 
 	m_image = 0;
-	m_Text = 0;
 }
 
 
@@ -199,7 +198,7 @@ void GraphicsClass::Shutdown()
 	return;
 }
 
-bool GraphicsClass::Frame(InputClass* input, double time)
+bool GraphicsClass::Frame(InputClass* input, int fps, int cpu, float frameTime)
 {
 	bool result;
 
@@ -246,8 +245,8 @@ bool GraphicsClass::Frame(InputClass* input, double time)
 	}
 
 
-	
-
+	//FPS CPU정보 업로드
+	m_SceneManager->SceneManager::SetFpsCpuInfo(fps,cpu);
 
 	// Render the graphics scene.
 	result = Render();

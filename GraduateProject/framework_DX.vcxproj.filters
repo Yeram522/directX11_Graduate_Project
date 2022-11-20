@@ -236,6 +236,15 @@
     <ClCompile Include="WaterShaderClass.cpp">
       <Filter>소스 파일\Engine\Graphic\Shader</Filter>
     </ClCompile>
+    <ClCompile Include="FpsClass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CpuClass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerClass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImGui\imconfig.h">
@@ -361,13 +370,22 @@
     <ClInclude Include="FogShaderClass.h">
       <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="WaterShaderClass.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="RefractionShaderClass.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
     </ClInclude>
     <ClInclude Include="TransparentShaderClass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="WaterShaderClass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="FpsClass.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CpuClass.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerClass.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

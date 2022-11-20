@@ -16,10 +16,16 @@ public:
 	GameObject* Mei;
 	GameObject* plane;
 	GameObject* Rock;
-
-
-
 	GameObject* water;
+
+	GameObject* info;
+
+	bool Render() override
+	{
+		info->getComponent<Text>()->SetFps(Scene::m_fps);
+		info->getComponent<Text>()->SetCpu(Scene::m_cpu);
+		return Scene::Render();
+	} 
 
 	void update(Transform* transform)
 	{
@@ -186,7 +192,7 @@ public:
 		model = billboardingT->getOrAddComponent<Model>();
 		billboardingT->getComponent<Transform>()->m_BillBoard = true;
 
-		billboardingT->getComponent<Transform>()->SetPosition(0.0f, -1.0f, 15.0f);
+		billboardingT->getComponent<Transform>()->SetPosition(0.0f, -2.0f, 15.0f);
 		// Initialize the model object.
 		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/2DObject.obj", L"./data/res/tree2.dds", L"./data/res/tree2A.dds", Scene::getShaderManager()->getTransparentSahder(), Scene::getLight(), Scene::hwnd);
 
@@ -203,8 +209,8 @@ public:
 		}
 
 
-		GameObject* temp3 = new GameObject("text", "text", Scene::getD3D(), Scene::getCamera());
-		Text* text = temp3->getOrAddComponent<Text>();
+		info = new GameObject("text", "text", Scene::getD3D(), Scene::getCamera());
+		Text* text = info->getOrAddComponent<Text>();
 
 		XMMATRIX baseviewMatrix;
 		Scene::getCamera()->GetViewMatrix(baseviewMatrix);
@@ -214,7 +220,7 @@ public:
 		{
 			return;
 		}
-		m_GameObject.push_back(temp3);
+		m_GameObject.push_back(info);
 	}
 
 
