@@ -15,6 +15,7 @@ public:
 	GameObject* BusStop;
 	GameObject* Mei;
 	GameObject* plane;
+	GameObject* Rock;
 
 
 
@@ -129,7 +130,7 @@ public:
 
 		plane = new GameObject("plane", "plane", Scene::getD3D(), Scene::getCamera(), nullptr);
 		Model* planeModel = plane->getOrAddComponent<Model>();
-		plane->update = [](Transform* transform) {transform->SetPosition(0.0f, -5.0f, 0.0f); };
+		plane->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
 
 		// Initialize the model object.
 		result = planeModel->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/plane.obj", L"./data/res/grass.dds", L"./data/res/block.dds", Scene::getShaderManager()->getMultiTextureShader(), Scene::getLight(), Scene::hwnd);
@@ -150,7 +151,7 @@ public:
 
 		water = new GameObject("water", "plane", Scene::getD3D(), Scene::getCamera(), nullptr);
 		model = water->getOrAddComponent<Model>();
-		water->update = [](Transform* transform) {transform->SetPosition(0.0f, -4.0f, 0.0f); };
+		water->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
 
 		// Initialize the model object.
 		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/waterDemo.obj", Scene::getShaderManager()->getReflectionTexture()->GetShaderResourceView(), Scene::getShaderManager()->getRefractionTexture()->GetShaderResourceView(), Scene::getShaderManager()->getWaterShader(), Scene::getLight(), Scene::hwnd);
@@ -166,7 +167,23 @@ public:
 		}
 		m_GameObject.push_back(water);
 
+		Rock = new GameObject("rock", "object", Scene::getD3D(), Scene::getCamera(), nullptr); //Instancing ¿¹Á¤
+		model = Rock->getOrAddComponent<Model>();
+		Rock->update = [](Transform* transform) {transform->SetPosition(0.0f, -2.0f, 10.0f); };
+		// Initialize the model object.
+		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/rock.obj", L"./data/res/Rocks_Color.dds", L"./data/res/Rocks_Roughness.dds", Scene::getShaderManager()->getMultiTextureShader(), Scene::getLight(), Scene::hwnd);
 
+		//temp1->setParent(temp);
+		if (!result)
+		{
+			return;
+		}
+
+		m_GameObject.push_back(Rock);
+		if (!Rock)
+		{
+			return;
+		}
 	}
 
 

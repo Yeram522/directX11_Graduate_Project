@@ -17,6 +17,9 @@
 using namespace std;
 using namespace DirectX;
 
+class ShaderManagerClass;
+
+
 class ShaderClass
 {
 protected:
@@ -43,6 +46,8 @@ protected:
 	};
 protected:
 	LightClass* m_Light;
+	ShaderManagerClass* getShaderManager();
+
 public:
 	ShaderClass(LightClass*);
 	~ShaderClass();

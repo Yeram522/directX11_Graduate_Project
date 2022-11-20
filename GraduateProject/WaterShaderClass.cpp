@@ -1,5 +1,6 @@
 #include "WaterShaderClass.h"
 #include "DDSTextureLoader.h"
+#include "ShaderManagerClass.h"
 WaterShaderClass::WaterShaderClass(LightClass* Light):ShaderClass(Light)
 {
     m_vertexShader = 0;
@@ -29,6 +30,8 @@ bool WaterShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
     }
     // Load the second texture in.
     CreateDDSTextureFromFile(device, L"./data/res/water01.dds", nullptr, &m_waterNormalTexture);
+
+
     CreateDDSTextureFromFile(device, L"./data/res/white.dds", nullptr, &m_waterReflectionTexture);
     CreateDDSTextureFromFile(device, L"./data/res/block.dds", nullptr, &m_waterRefractionTexture);
     return true;
