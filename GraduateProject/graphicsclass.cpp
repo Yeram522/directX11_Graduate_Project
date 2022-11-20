@@ -246,6 +246,8 @@ bool GraphicsClass::Frame(InputClass* input, double time)
 	}
 
 
+	
+
 	m_ShaderManager->updateWaterTranslate(m_Camera->GetReflectionViewMatrix());
 
 	// Render the graphics scene.
@@ -267,12 +269,16 @@ bool GraphicsClass::Render()
 	m_D3D->GetWorldMatrix(worldMatrix);
 	m_D3D->GetProjectionMatrix(projectionMatrix);
 	m_D3D->GetOrthoMatrix(orthoMatrix);
+
+	m_SceneManager->SceneManager::SetShader(); //반사 셰이더 세팅.
+
 	// 전체 씬을 텍스쳐에 그립니다.
 	result = RenderToTexture();
 	if (!result)
 	{
 		return false;
 	}
+
 
 	float fogColor = 0.5;
 	// Clear the buffers to begin the scene.

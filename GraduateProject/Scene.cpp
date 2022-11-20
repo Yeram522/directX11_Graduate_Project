@@ -99,6 +99,24 @@ void Scene::upadteHierachy()
 	}
 }
 
+void Scene::updateshaderSetting()
+{
+	bool result;
+	// Render the refraction of the scene to a texture.
+	result = sceneManager->m_ShaderManager->RenderRefractionToTexture(refractionModel, sceneManager->m_D3D, sceneManager->m_Camera, sceneManager->m_Light);
+	if (!result)
+	{
+		return ;
+	}
+
+	// Render the reflection of the scene to a texture.
+	result = sceneManager->m_ShaderManager->RenderReflectionToTexture(reflectionMdoel,sceneManager->m_D3D, sceneManager->m_Camera, sceneManager->m_Light);
+	if (!result)
+	{
+		return ;
+	}
+}
+
 vector<GameObject*> Scene::readGameObjectList() const
 {
 	return m_GameObject;

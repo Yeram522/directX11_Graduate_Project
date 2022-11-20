@@ -45,7 +45,7 @@ public:
 	void UpdateScene();
 	void UpdateHierachy();
 	//void LoadScene(int sceneIndex);
-
+	void SetShader();
 	
 	Scene* getActiveScene() const { return m_ActiveScene; }
 private:

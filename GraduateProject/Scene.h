@@ -43,7 +43,7 @@ public:
 	bool Render();
 	void upadteHierachy();
 	bool isLoaded() { return isLoad; }
-	
+	void updateshaderSetting();
 	vector<GameObject*> readGameObjectList() const;
 protected:
 	SceneManager* sceneManager;
@@ -58,6 +58,11 @@ protected:
 	LightClass* getLight();
 	ShaderManagerClass* getShaderManager();
 	bool isLoad;
+
+
+	//Reflection Model
+	GameObject* refractionModel;
+	GameObject* reflectionMdoel;
 };
 
 #endif

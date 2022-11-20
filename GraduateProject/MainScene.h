@@ -145,12 +145,15 @@ public:
 		}
 		m_GameObject.push_back(plane);
 
+		Scene::refractionModel = BigToToro;
+		Scene::reflectionMdoel = plane;
+
 		water = new GameObject("water", "plane", Scene::getD3D(), Scene::getCamera(), nullptr);
 		model = water->getOrAddComponent<Model>();
-		water->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
+		water->update = [](Transform* transform) {transform->SetPosition(0.0f, -4.0f, 0.0f); };
 
 		// Initialize the model object.
-		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/plane.obj", Scene::getShaderManager()->RenderReflectionToTexture(BigToToro, Scene::getD3D(), Scene::getCamera(), Scene::getLight()), Scene::getShaderManager()->RenderRefractionToTexture(plane, Scene::getD3D(), Scene::getCamera(), Scene::getLight()), Scene::getShaderManager()->getWaterShader(), Scene::getLight(), Scene::hwnd);
+		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/waterDemo.obj", Scene::getShaderManager()->getReflectionTexture()->GetShaderResourceView(), Scene::getShaderManager()->getRefractionTexture()->GetShaderResourceView(), Scene::getShaderManager()->getWaterShader(), Scene::getLight(), Scene::hwnd);
 
 		if (!result)
 		{

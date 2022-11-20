@@ -1,6 +1,6 @@
 #include "ShaderManagerClass.h"
 
-ID3D11ShaderResourceView* ShaderManagerClass::RenderRefractionToTexture(GameObject* refractionModel, D3DClass* m_D3D, CameraClass* m_Camera,LightClass* m_Light)
+bool ShaderManagerClass::RenderRefractionToTexture(GameObject* refractionModel, D3DClass* m_D3D, CameraClass* m_Camera, LightClass* m_Light)
 {
 	bool result;
 
@@ -24,7 +24,7 @@ ID3D11ShaderResourceView* ShaderManagerClass::RenderRefractionToTexture(GameObje
 	m_D3D->GetProjectionMatrix(projectionMatrix);
 
 	// Translate to where the bath model will be rendered.
-	worldMatrix *= XMMatrixTranslation( 0.0f, 2.0f, 0.0f);
+	worldMatrix *= XMMatrixTranslation(0.0f, 2.0f, 0.0f);
 
 	// Put the bath model vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	refractionModel->Render(m_D3D->GetDeviceContext());
@@ -35,16 +35,16 @@ ID3D11ShaderResourceView* ShaderManagerClass::RenderRefractionToTexture(GameObje
 		projectionMatrix, refractionModel->getComponent<Model>()->GetTextureArray());
 	if (!result)
 	{
-		return NULL;
+		return false;
 	}
 
 	// Reset the render target back to the original back buffer and not the render to texture anymore.
 	m_D3D->SetBackBufferRenderTarget();
 
-	return m_RefractionTexture->GetShaderResourceView();
+	return true;
 }
 
-ID3D11ShaderResourceView* ShaderManagerClass::RenderReflectionToTexture(GameObject* reflectionModel, D3DClass* m_D3D, CameraClass* m_Camera, LightClass* m_Light)
+bool ShaderManagerClass::RenderReflectionToTexture(GameObject* reflectionModel, D3DClass* m_D3D, CameraClass* m_Camera, LightClass* m_Light)
 {
 	bool result;
 	XMMATRIX reflectionViewMatrix, worldMatrix, projectionMatrix;
@@ -77,13 +77,13 @@ ID3D11ShaderResourceView* ShaderManagerClass::RenderReflectionToTexture(GameObje
 		projectionMatrix, reflectionModel->getComponent<Model>()->GetTextureArray());
 	if (!result)
 	{
-		return NULL;
+		return false;
 	}
 
 	// Reset the render target back to the original back buffer and not the render to texture anymore.
 	m_D3D->SetBackBufferRenderTarget();
 
-	return m_ReflectionTexture->GetShaderResourceView();
+	return true;
 }
 
 ShaderManagerClass::ShaderManagerClass()

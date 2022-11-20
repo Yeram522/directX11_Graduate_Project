@@ -39,3 +39,8 @@ void SceneManager::UpdateHierachy()
 {
 	m_ActiveScene->upadteHierachy();
 }
+
+void SceneManager::SetShader()
+{
+	m_ActiveScene->updateshaderSetting();
+}

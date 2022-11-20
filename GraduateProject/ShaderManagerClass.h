@@ -51,11 +51,22 @@ public:
 	{
 		return m_WaterShader;
 	}
+
 	RefractionShaderClass* getRefractionShader()
 	{
 		return m_RefractionShader;
 	}
 
+
+	RenderTextureClass* getReflectionTexture()
+	{
+		return m_ReflectionTexture;
+	}
+
+	RenderTextureClass* getRefractionTexture()
+	{
+		return m_RefractionTexture;
+	}
 
 	void updateWaterTranslate(XMMATRIX reflectionMatrix)
 	{
@@ -70,11 +81,11 @@ public:
 
 	}
 
-	ID3D11ShaderResourceView* RenderRefractionToTexture(GameObject*, D3DClass*, CameraClass* , LightClass* );
-	ID3D11ShaderResourceView* RenderReflectionToTexture(GameObject*, D3DClass*, CameraClass* , LightClass* );
+	bool RenderRefractionToTexture(GameObject*, D3DClass*, CameraClass* , LightClass* );
+	bool RenderReflectionToTexture(GameObject*, D3DClass*, CameraClass* , LightClass* );
 private:
 	ShaderManagerClass();
-	RenderTextureClass* m_RefractionTexture, * m_ReflectionTexture;
+	RenderTextureClass* m_RefractionTexture, *m_ReflectionTexture;
 	static ShaderManagerClass* Instance;
 	TextureShaderClass* m_TextureShader;
 	LightShaderClass* m_LightShader;
