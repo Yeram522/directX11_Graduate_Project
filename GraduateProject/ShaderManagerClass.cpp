@@ -27,12 +27,13 @@ bool ShaderManagerClass::RenderRefractionToTexture(GameObject* refractionModel, 
 	worldMatrix *= XMMatrixTranslation(0.0f, 2.0f, 0.0f);
 
 	// Put the bath model vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	refractionModel->Render(m_D3D->GetDeviceContext());
+	refractionModel->getComponent<Model>()->getMesh()->RenderBuffers(m_D3D->GetDeviceContext());
 
 	m_RefractionShader->SetClipPlane(clipPlane);
 	// Render the bath model using the light shader.
 	result = m_RefractionShader->Render(m_D3D->GetDeviceContext(), refractionModel->getComponent<Model>()->GetMeshIndexCount(), worldMatrix, viewMatrix,
 		projectionMatrix, refractionModel->getComponent<Model>()->GetTextureArray());
+
 	if (!result)
 	{
 		return false;
@@ -70,7 +71,7 @@ bool ShaderManagerClass::RenderReflectionToTexture(GameObject* reflectionModel, 
 	worldMatrix *= XMMatrixTranslation(0.0f, 6.0f, 8.0f);
 
 	// Put the wall model vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	reflectionModel->Render(m_D3D->GetDeviceContext());
+	reflectionModel->getComponent<Model>()->getMesh()->RenderBuffers(m_D3D->GetDeviceContext());
 
 	// Render the wall model using the light shader and the reflection view matrix.
 	result = m_LightShader->Render(m_D3D->GetDeviceContext(), reflectionModel->getComponent<Model>()->GetMeshIndexCount(), worldMatrix, reflectionViewMatrix,

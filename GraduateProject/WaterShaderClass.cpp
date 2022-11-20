@@ -46,8 +46,8 @@ bool WaterShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount
     bool result;
 
     // Set the shader parameters that it will use for rendering.
-    result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, m_reflectionMatrix, textureArray[0],
-        textureArray[1], m_waterNormalTexture, m_waterTranslation, m_reflectRefractScale);
+    result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, m_reflectionMatrix, m_waterNormalTexture,
+        m_waterNormalTexture, m_waterNormalTexture, m_waterTranslation, m_reflectRefractScale);
     if (!result)
     {
         return false;
