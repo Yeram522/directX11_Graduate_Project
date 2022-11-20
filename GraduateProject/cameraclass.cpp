@@ -118,3 +118,40 @@ void CameraClass::GetViewMatrix(XMMATRIX& viewMatrix)
 {
 	viewMatrix = m_viewMatrix;
 }
+
+void CameraClass::RenderReflection(float height)
+{
+	XMFLOAT3 up, position, lookAt;
+	float radians;
+
+
+	// 위쪽을 가리키는 벡터를 만듭니다.
+	up.x = 0.0f;
+	up.y = 1.0f;
+	up.z = 0.0f;
+
+	// 월드에 카메라 위치를 설정합니다.
+	// 평면 반사를 위해 카메라의 Y값을 역전시킵니다.
+	position.x = XMVectorGetX(camPosition);
+	position.y = -XMVectorGetY(camPosition) + (height * 2.0f);
+	position.z = XMVectorGetZ(camPosition);
+
+	// 회전을 라디안 값으로 계산합니다.
+	radians = -XMVectorGetY(camRight) * 0.0174532925f;
+
+	// 카메라가 보는 방향을 설정합니다.
+	lookAt.x = sinf(radians) + XMVectorGetX(camPosition);
+	lookAt.y = position.y;
+	lookAt.z = cosf(radians) + XMVectorGetZ(camPosition);
+
+	const XMFLOAT3 fup = XMFLOAT3(position.x, position.y, position.z);
+	const XMFLOAT3 fposition = XMFLOAT3(lookAt.x, lookAt.y, lookAt.z);
+	const XMFLOAT3 flookAt = XMFLOAT3(up.x, up.y, up.z);
+
+	// 위의 세 벡터를 이용하여 뷰 행렬을 생성합니다.
+	m_reflectionViewMatrix = XMMatrixLookAtLH(XMLoadFloat3(&fup),
+		XMLoadFloat3(&fposition),
+		XMLoadFloat3(&flookAt));
+
+	return;
+}

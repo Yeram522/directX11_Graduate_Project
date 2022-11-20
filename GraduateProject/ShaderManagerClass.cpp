@@ -6,6 +6,7 @@ ShaderManagerClass::ShaderManagerClass()
 	m_LightShader = 0;
 	m_MultiTexture = 0;
 	m_FogShader = 0;
+	m_ReflectionShader = 0;
 }
 
 ShaderManagerClass::~ShaderManagerClass()
@@ -78,11 +79,34 @@ bool ShaderManagerClass::Initialize(ID3D11Device* device, HWND hwnd, LightClass*
 	}
 
 	m_FogShader->setFogPosition(0.0f, 10.0f);
+
+	// 반사 셰이더 객체를 생성합니다.
+	m_ReflectionShader = new ReflectionShaderClass(Light);
+	if (!m_ReflectionShader)
+	{
+		return false;
+	}
+
+	// 반사 셰이더 객체를 초기화합니다.
+	result = m_ReflectionShader->Initialize(device, hwnd);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the reflection shader object.", L"Error", MB_OK);
+		return false;
+	}
 	return true;
 }
 
 void ShaderManagerClass::Shutdown()
 {
+	// 반사 셰이더 객체를 해제합니다.
+	if (m_ReflectionShader)
+	{
+		m_ReflectionShader->Shutdown();
+		delete m_ReflectionShader;
+		m_ReflectionShader = 0;
+	}
+
 	if (m_MultiTexture)
 	{
 		m_MultiTexture->Shutdown();

@@ -93,6 +93,12 @@
     <None Include="data\fog.ps">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="data\reflection.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\reflection.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -208,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>소스 파일\Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ReflectionShaderClass.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -333,6 +342,9 @@
     </ClInclude>
     <ClInclude Include="FogShaderClass.h">
       <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectionShaderClass.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

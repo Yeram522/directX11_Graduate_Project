@@ -34,6 +34,9 @@ public:
 	void Render();
 	void GetViewMatrix(XMMATRIX&);
 
+	void RenderReflection(float);
+	XMMATRIX GetReflectionViewMatrix();
+
 	float moveLeftRight = 0.0f;
 	float moveBackForward = 0.0f;
 
@@ -48,10 +51,6 @@ private:
 	XMFLOAT3 m_position;
 	XMFLOAT3 m_rotation;
 	XMMATRIX m_viewMatrix;
-
-
-
-
 
 	//new
 	float rotx = 0;
@@ -78,6 +77,8 @@ private:
 
 	XMMATRIX camRotationMatrix;
 	XMMATRIX groundWorld;
+
+	XMMATRIX m_reflectionViewMatrix;
 	
 };
 
