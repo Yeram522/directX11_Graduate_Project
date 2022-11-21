@@ -118,6 +118,15 @@
     <None Include="data\skydome.ps">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="data\Skyplane.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\Skyplane.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="ps1.bin">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -256,6 +265,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="SkyDomeShaderClass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyPlaneClass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyPlaneShaderClass.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -408,6 +423,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyPlaneClass.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyPlaneShaderClass.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

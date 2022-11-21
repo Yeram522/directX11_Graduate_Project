@@ -28,7 +28,7 @@ void Transform::update()
 	{
 		SetBillBoardTransform();
 	}
-
+	m_worldMatrix *= XMMatrixScaling(scale.x, scale.y, scale.z);
 	m_worldMatrix *= XMMatrixTranslation(localposition.x, localposition.y, localposition.z);
 
 }
@@ -54,6 +54,11 @@ void Transform::SetPosition(float x, float y, float z)
 	localposition = XMFLOAT3(x, y, z);
 }
 
+void Transform::SetScale(float x, float y, float z)
+{
+	scale = XMFLOAT3(x, y, z);
+}
+
 void Transform::SetBillBoardTransform()
 {
 	double angle;
@@ -70,6 +75,11 @@ void Transform::SetBillBoardTransform()
 void Transform::FollowCamera()
 {
 	SetPosition(m_Camera->GetPosition().x, m_Camera->GetPosition().y, m_Camera->GetPosition().z);
+}
+
+void Transform::FollowUpCamera()
+{
+	SetPosition(m_Camera->GetPosition().x, m_Camera->GetPosition().y+200.0f, m_Camera->GetPosition().z);
 }
 
 

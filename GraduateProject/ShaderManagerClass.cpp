@@ -100,6 +100,7 @@ ShaderManagerClass::ShaderManagerClass()
 	m_RefractionShader = 0;
 	m_WaterShader = 0;
 	m_TransparentShader = 0;
+	m_SkyPlaneShader = 0;
 }
 
 ShaderManagerClass::~ShaderManagerClass()
@@ -270,12 +271,33 @@ bool ShaderManagerClass::Initialize(ID3D11Device* device, HWND hwnd, LightClass*
 		return false;
 	}
 
+	// Create the sky plane shader object.
+	m_SkyPlaneShader = new SkyPlaneShaderClass(Light);
+	if (!m_SkyPlaneShader)
+	{
+		return false;
+	}
 
+	// Initialize the sky plane shader object.
+	result = m_SkyPlaneShader->Initialize(device, hwnd);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the sky plane shader object.", L"Error", MB_OK);
+		return false;
+	}
 	return true;
 }
 
 void ShaderManagerClass::Shutdown()
 {
+	// Release the sky plane shader object.
+	if (m_SkyPlaneShader)
+	{
+		m_SkyPlaneShader->Shutdown();
+		delete m_SkyPlaneShader;
+		m_SkyPlaneShader = 0;
+	}
+
 	// Release the sky dome shader object.
 	if (m_SkyDomeShader)
 	{

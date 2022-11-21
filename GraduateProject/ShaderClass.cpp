@@ -6,7 +6,7 @@ ShaderManagerClass* ShaderClass::getShaderManager()
     return ShaderManagerClass::GetInstance();
 }
 
-ShaderClass::ShaderClass(LightClass* Light, string type):m_Light(Light), type(type)
+ShaderClass::ShaderClass(LightClass* Light,string type):m_Light(Light), type(type)
 {
 
 }

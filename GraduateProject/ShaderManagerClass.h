@@ -11,6 +11,8 @@
 #include "RenderTextureClass.h"
 #include "TransparentShaderClass.h"
 #include "SkyDomeShaderClass.h"
+#include "SkyPlaneShaderClass.h"
+
 #include "GameObject.h"
 class ShaderManagerClass
 {
@@ -68,6 +70,12 @@ public:
 		return m_TransparentShader;
 	}
 
+	SkyPlaneShaderClass* getSkyPlaneShader()
+	{
+		return m_SkyPlaneShader;
+	}
+
+
 	RenderTextureClass* getReflectionTexture()
 	{
 		return m_ReflectionTexture;
@@ -106,6 +114,7 @@ private:
 	RefractionShaderClass* m_RefractionShader;
 	TransparentShaderClass* m_TransparentShader;
 	SkyDomeShaderClass* m_SkyDomeShader;
+	SkyPlaneShaderClass* m_SkyPlaneShader;
 	float m_waterHeight, m_waterTranslation;
 };
 

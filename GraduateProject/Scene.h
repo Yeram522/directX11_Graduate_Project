@@ -10,6 +10,7 @@
 #include "GameObject.h"
 #include "lightshaderclass.h"
 #include "lightclass.h"
+#include "SkyPlaneClass.h"
 #include "textureshaderclass.h"
 #include "rendertextureclass.h"
 #include "debugwindowclass.h"

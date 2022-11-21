@@ -31,6 +31,8 @@
     <None Include="data\refraction.vs" />
     <None Include="data\skydome.ps" />
     <None Include="data\skydome.vs" />
+    <None Include="data\Skyplane.ps" />
+    <None Include="data\Skyplane.vs" />
     <None Include="data\texture.ps" />
     <None Include="data\texture.vs" />
     <None Include="data\transparent.ps" />
@@ -40,6 +42,7 @@
     <None Include="html1.htm">
       <DeploymentContent>true</DeploymentContent>
     </None>
+    <None Include="ps1.bin" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cameraclass.cpp" />
@@ -78,6 +81,8 @@
     <ClCompile Include="ShaderClass.cpp" />
     <ClCompile Include="ShaderManagerClass.cpp" />
     <ClCompile Include="SkyDomeShaderClass.cpp" />
+    <ClCompile Include="SkyPlaneClass.cpp" />
+    <ClCompile Include="SkyPlaneShaderClass.cpp" />
     <ClCompile Include="systemclass.cpp" />
     <ClCompile Include="textclass.cpp" />
     <ClCompile Include="TextureArrayClass.cpp" />
@@ -130,6 +135,8 @@
     <ClInclude Include="ShaderClass.h" />
     <ClInclude Include="ShaderManagerClass.h" />
     <ClInclude Include="SkyDomeShaderClass.h" />
+    <ClInclude Include="SkyPlaneClass.h" />
+    <ClInclude Include="SkyPlaneShaderClass.h" />
     <ClInclude Include="systemclass.h" />
     <ClInclude Include="textclass.h" />
     <ClInclude Include="TextureArrayClass.h" />

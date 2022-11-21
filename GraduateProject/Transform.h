@@ -19,9 +19,10 @@ public:
 	void update() override;
 	void Rotate();
 	void SetPosition(float, float, float);
+	void SetScale(float, float, float);
 	void SetBillBoardTransform();
 	void FollowCamera();
-
+	void FollowUpCamera();
 	XMMATRIX m_worldMatrix, m_viewMatrix, m_projectionMatrix;
 
 	bool m_BillBoard= false;
@@ -30,7 +31,7 @@ public:
 private:
 	XMFLOAT3 localposition = { 0,0,0 };
 	XMFLOAT3 rotation;
-	XMFLOAT3 scale;
+	XMFLOAT3 scale = { 1.0f,1.0f,1.0f };
 
 	XMFLOAT3 parentposition;
 

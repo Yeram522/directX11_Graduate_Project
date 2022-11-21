@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <directxmath.h>
+#include <d3d11.h>
 
 using namespace DirectX;
 using namespace std;

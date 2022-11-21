@@ -11,6 +11,7 @@ public:
 	MainScene() :Scene("main")
 	{};
 	GameObject* SkyDome;
+	GameObject* Cloud;
 	GameObject* BigToToro;
 	GameObject* BabyToToro;
 	GameObject* BusStop;
@@ -25,6 +26,7 @@ public:
 	{
 		info->getComponent<Text>()->SetFps(Scene::m_fps);
 		info->getComponent<Text>()->SetCpu(Scene::m_cpu);
+		Cloud->getComponent<SkyPlaneClass>()->Frame();
 		return Scene::Render();
 	} 
 
@@ -37,6 +39,7 @@ public:
 	void InitObject() override {
 		bool result;
 
+		//Envirement
 		SkyDome = new GameObject("skydome", "skydome", Scene::getD3D(), Scene::getCamera(), nullptr); //Instancing ¿¹Á¤
 		Model* model = SkyDome->getOrAddComponent<Model>();
 		SkyDome->update = [](Transform* transform) {transform->FollowCamera(); };
@@ -54,6 +57,31 @@ public:
 		{
 			return;
 		}
+
+
+		Cloud = new GameObject("Cloud", "skyplane", Scene::getD3D(), Scene::getCamera(), nullptr);
+		SkyPlaneClass* skyplane = Cloud->getOrAddComponent<SkyPlaneClass>();
+		Cloud->update = [](Transform* transform) {
+			transform->FollowUpCamera(); 
+			transform->SetScale(200.0f, 1.0f, 200.0f);
+		};
+		result = skyplane->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/cloud001.dds", L"./data/res/cloud002.dds", Scene::getShaderManager()->getSkyPlaneShader());
+
+		if (!result)
+		{
+			return;
+		}
+
+		m_GameObject.push_back(Cloud);
+		if (!Cloud)
+		{
+			return;
+		}
+
+
+
+
+
 
 		BusStop = new GameObject("BusStop","object",Scene::getD3D(), Scene::getCamera(), nullptr);
 		model = BusStop->getOrAddComponent<Model>();
