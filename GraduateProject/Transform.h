@@ -20,6 +20,8 @@ public:
 	void Rotate();
 	void SetPosition(float, float, float);
 	void SetBillBoardTransform();
+	void FollowCamera();
+
 	XMMATRIX m_worldMatrix, m_viewMatrix, m_projectionMatrix;
 
 	bool m_BillBoard= false;

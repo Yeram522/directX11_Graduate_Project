@@ -254,11 +254,36 @@ bool ShaderManagerClass::Initialize(ID3D11Device* device, HWND hwnd, LightClass*
 		MessageBox(hwnd, L"Could not initialize the transparent shader object.", L"Error", MB_OK);
 		return false;
 	}
+
+	// Create the sky dome shader object.
+	m_SkyDomeShader = new SkyDomeShaderClass(Light);
+	if (!m_SkyDomeShader)
+	{
+		return false;
+	}
+
+	// Initialize the sky dome shader object.
+	result = m_SkyDomeShader->Initialize(device, hwnd);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the sky dome shader object.", L"Error", MB_OK);
+		return false;
+	}
+
+
 	return true;
 }
 
 void ShaderManagerClass::Shutdown()
 {
+	// Release the sky dome shader object.
+	if (m_SkyDomeShader)
+	{
+		m_SkyDomeShader->Shutdown();
+		delete m_SkyDomeShader;
+		m_SkyDomeShader = 0;
+	}
+
 	// 투명 셰이더 객체를 해제합니다.
 	if (m_TransparentShader)
 	{

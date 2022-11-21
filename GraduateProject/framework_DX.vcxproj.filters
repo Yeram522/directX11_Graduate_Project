@@ -111,6 +111,13 @@
     <None Include="data\transparent.ps">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="html1.htm" />
+    <None Include="data\skydome.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\skydome.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -236,13 +243,19 @@
     <ClCompile Include="WaterShaderClass.cpp">
       <Filter>소스 파일\Engine\Graphic\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="FpsClass.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="CpuClass.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="FpsClass.cpp">
+      <Filter>소스 파일\Engine\System</Filter>
     </ClCompile>
     <ClCompile Include="TimerClass.cpp">
+      <Filter>소스 파일\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystemClass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyDomeShaderClass.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -379,14 +392,28 @@
     <ClInclude Include="WaterShaderClass.h">
       <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="FpsClass.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="CpuClass.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="FpsClass.h">
+      <Filter>헤더 파일\Engine\System</Filter>
     </ClInclude>
     <ClInclude Include="TimerClass.h">
+      <Filter>헤더 파일\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystemClass.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="SkyDomeShaderClass.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DirectX11_Project.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

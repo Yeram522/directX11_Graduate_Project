@@ -16,6 +16,13 @@ void Model::Draw()
 		transform->m_D3D->TurnOnAlphaBlending();
 
 	}
+
+	if (m_Shader->getType() == "skydome")
+	{
+		transform->m_D3D->TurnOffCulling();
+		transform->m_D3D->TurnZBufferOff();
+
+	}
 	mesh->RenderBuffers(transform->m_D3D->GetDeviceContext());//render
 
 	//d3d랑 camera는 씬에서 가져와야하는데 일다 ㄴ씬이 없어서 transform에서 가져옴!
@@ -25,6 +32,13 @@ void Model::Draw()
 		m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
 		transform->m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());*/
 	m_Shader->Render(transform->m_D3D->GetDeviceContext(), mesh->GetIndexCount(), transform->m_worldMatrix, transform->m_viewMatrix, transform->m_projectionMatrix,GetTextureArray());
+
+	if (m_Shader->getType() == "skydome")
+	{
+		transform->m_D3D->TurnOnCulling();
+		transform->m_D3D->TurnZBufferOn();
+
+	}
 
 	if (m_Shader->getType() == "2D")
 	{

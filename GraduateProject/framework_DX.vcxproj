@@ -29,12 +29,17 @@
     <None Include="data\multitexture.vs" />
     <None Include="data\refraction.ps" />
     <None Include="data\refraction.vs" />
+    <None Include="data\skydome.ps" />
+    <None Include="data\skydome.vs" />
     <None Include="data\texture.ps" />
     <None Include="data\texture.vs" />
     <None Include="data\transparent.ps" />
     <None Include="data\transparent.vs" />
     <None Include="data\water.ps" />
     <None Include="data\water.vs" />
+    <None Include="html1.htm">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cameraclass.cpp" />
@@ -65,12 +70,14 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Multitextureshaderclass.cpp" />
+    <ClCompile Include="ParticleSystemClass.cpp" />
     <ClCompile Include="RefractionShaderClass.cpp" />
     <ClCompile Include="RenderTextureClass.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="ShaderClass.cpp" />
     <ClCompile Include="ShaderManagerClass.cpp" />
+    <ClCompile Include="SkyDomeShaderClass.cpp" />
     <ClCompile Include="systemclass.cpp" />
     <ClCompile Include="textclass.cpp" />
     <ClCompile Include="TextureArrayClass.cpp" />
@@ -114,12 +121,15 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Multitextureshaderclass.h" />
+    <ClInclude Include="ParticleSystemClass.h" />
     <ClInclude Include="RefractionShaderClass.h" />
     <ClInclude Include="RenderTextureClass.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ShaderClass.h" />
     <ClInclude Include="ShaderManagerClass.h" />
+    <ClInclude Include="SkyDomeShaderClass.h" />
     <ClInclude Include="systemclass.h" />
     <ClInclude Include="textclass.h" />
     <ClInclude Include="TextureArrayClass.h" />
@@ -130,6 +140,9 @@
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TransparentShaderClass.h" />
     <ClInclude Include="WaterShaderClass.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DirectX11_Project.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

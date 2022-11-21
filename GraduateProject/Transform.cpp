@@ -67,4 +67,9 @@ void Transform::SetBillBoardTransform()
 	m_worldMatrix *= XMMatrixRotationY(rotation);
 }
 
+void Transform::FollowCamera()
+{
+	SetPosition(m_Camera->GetPosition().x, m_Camera->GetPosition().y, m_Camera->GetPosition().z);
+}
+
 

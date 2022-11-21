@@ -10,6 +10,7 @@ class MainScene :public Scene
 public:
 	MainScene() :Scene("main")
 	{};
+	GameObject* SkyDome;
 	GameObject* BigToToro;
 	GameObject* BabyToToro;
 	GameObject* BusStop;
@@ -35,8 +36,27 @@ public:
 
 	void InitObject() override {
 		bool result;
+
+		SkyDome = new GameObject("skydome", "skydome", Scene::getD3D(), Scene::getCamera(), nullptr); //Instancing ¿¹Á¤
+		Model* model = SkyDome->getOrAddComponent<Model>();
+		SkyDome->update = [](Transform* transform) {transform->FollowCamera(); };
+		// Initialize the model object.
+		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/skydome.obj", L"./data/res/Rocks_Color.dds", L"./data/res/Rocks_Roughness.dds", Scene::getShaderManager()->getSkyDomeShader(), Scene::getLight(), Scene::hwnd);
+
+		//temp1->setParent(temp);
+		if (!result)
+		{
+			return;
+		}
+
+		m_GameObject.push_back(SkyDome);
+		if (!SkyDome)
+		{
+			return;
+		}
+
 		BusStop = new GameObject("BusStop","object",Scene::getD3D(), Scene::getCamera(), nullptr);
-		Model* model = BusStop->getOrAddComponent<Model>();
+		model = BusStop->getOrAddComponent<Model>();
 		BusStop->getComponent<Transform>()->SetPosition(-0.6f, -3.0f, 2.3f);
 		//BusStop->update = [](Transform* transform) {transform->SetPosition(-0.6f, -3.0f, 2.3f); };
 		//temp->update = [](Transform* transform) {transform->Rotate(); };
