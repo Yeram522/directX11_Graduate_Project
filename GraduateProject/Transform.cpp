@@ -79,7 +79,7 @@ void Transform::FollowCamera()
 
 void Transform::FollowUpCamera()
 {
-	SetPosition(m_Camera->GetPosition().x, m_Camera->GetPosition().y+200.0f, m_Camera->GetPosition().z);
+	SetPosition(m_Camera->GetPosition().x, m_Camera->GetPosition().y-5.0f, m_Camera->GetPosition().z);
 }
 
 

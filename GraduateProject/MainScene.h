@@ -63,7 +63,7 @@ public:
 		SkyPlaneClass* skyplane = Cloud->getOrAddComponent<SkyPlaneClass>();
 		Cloud->update = [](Transform* transform) {
 			transform->FollowUpCamera(); 
-			transform->SetScale(200.0f, 1.0f, 200.0f);
+			transform->SetScale(30.0f, 70.0f, 30.0f);
 		};
 		result = skyplane->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/cloud001.dds", L"./data/res/cloud002.dds", Scene::getShaderManager()->getSkyPlaneShader());
 

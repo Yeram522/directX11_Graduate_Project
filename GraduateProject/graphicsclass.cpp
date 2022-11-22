@@ -235,6 +235,14 @@ bool GraphicsClass::Frame(InputClass* input, int fps, int cpu, float frameTime)
 	{
 		m_Camera->moveBackForward -= speed;
 	}
+	if (keyboardState[DIK_Q] & 0x80)
+	{
+		m_Camera->moveUpDown += speed;
+	}
+	if (keyboardState[DIK_E] & 0x80)
+	{
+		m_Camera->moveUpDown -= speed;
+	}
 	if (((mouseCurrState.lX != input->mouseLastState.lX) || (mouseCurrState.lY != input->mouseLastState.lY))&& keyboardState[DIK_LCONTROL])
 	{
 		m_Camera->camYaw += input->mouseLastState.lX * 0.001f;

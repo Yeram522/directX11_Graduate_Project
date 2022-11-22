@@ -135,10 +135,12 @@ void CameraClass::Render()
 
 	camPosition += moveLeftRight * camRight;
 	camPosition += moveBackForward * camForward;
+	camPosition += moveUpDown * camUp;
 
 
 	moveLeftRight = 0.0f;
 	moveBackForward = 0.0f;
+	moveUpDown = 0.0f;
 
 
 
