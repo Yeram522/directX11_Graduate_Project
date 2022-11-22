@@ -11,6 +11,7 @@
 #include "lightshaderclass.h"
 #include "lightclass.h"
 #include "SkyPlaneClass.h"
+#include "ParticleSystemClass.h"
 #include "textureshaderclass.h"
 #include "rendertextureclass.h"
 #include "debugwindowclass.h"
@@ -48,7 +49,7 @@ public:
 	vector<GameObject*> readGameObjectList() const;
 
 	int m_fps, m_cpu;
-
+	float m_frameTime;
 protected:
 	SceneManager* sceneManager;
 	vector<GameObject*> m_GameObject;

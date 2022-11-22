@@ -20,6 +20,7 @@ D3DClass::D3DClass()
 	m_alphaDisableBlendingState = 0;
 	m_alphaBlendState2 = 0;
 	m_alphaDisableBlendState2 = 0;
+
 }
 
 
@@ -452,6 +453,9 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
 	{
 		return false;
 	}
+
+
+
     return true;
 }
 
@@ -729,3 +733,4 @@ void D3DClass::DisableSecondBlendState()
 
 	return;
 }
+

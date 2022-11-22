@@ -47,6 +47,11 @@ public:
 	//void LoadScene(int sceneIndex);
 	void SetShader();
 
+	void SetFrameTime(float frameTime)
+	{
+		m_ActiveScene->m_frameTime = frameTime;
+	}
+
 	void SetFpsCpuInfo(int fps, int cpu)
 	{
 		m_ActiveScene->m_fps = fps;

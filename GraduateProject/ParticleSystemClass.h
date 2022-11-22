@@ -9,14 +9,21 @@
 ///////////////////////
 #include <d3d11.h>
 #include <directxmath.h>
+
+///////////////////////
+// MY CLASS INCLUDES //
+///////////////////////
+#include "Component.h"
 #include "textureclass.h"
+#include "Transform.h"
+#include "ShaderManagerClass.h"
 
 
 using namespace std;
 using namespace DirectX;
 
 
-class ParticleSystemClass
+class ParticleSystemClass :public Component
 {
 private:
     struct ParticleType
@@ -34,20 +41,19 @@ private:
         XMFLOAT4 color;
     };
 public:
-    ParticleSystemClass();
-    ParticleSystemClass(const ParticleSystemClass&);
+    ParticleSystemClass(GameObject* gameObject);
     ~ParticleSystemClass();
 
-    bool Initialize(ID3D11Device*, WCHAR*);
+    bool Initialize(ID3D11Device*,const WCHAR*, ParticleShaderClass*);
     void Shutdown();
-    bool Frame(float, ID3D11DeviceContext*);
+    bool Frame(float);
     void Render(ID3D11DeviceContext*);
-
-    ID3D11ShaderResourceView* GetTexture();
+    void update() override;
+    ID3D11ShaderResourceView** GetTextureArray();
     int GetIndexCount();
 
 private:
-    bool LoadTexture(ID3D11Device*, WCHAR*);
+    bool LoadTexture(ID3D11Device*,const WCHAR*);
     void ReleaseTexture();
 
     bool InitializeParticleSystem();
@@ -73,13 +79,13 @@ private:
     int m_currentParticleCount;
     float m_accumulatedTime;
 
-    TextureClass* m_Texture;
-
+    TextureArrayClass* m_ParticleTexture;
     ParticleType* m_particleList;
 
     int m_vertexCount, m_indexCount;
     VertexType* m_vertices;
     ID3D11Buffer* m_vertexBuffer, * m_indexBuffer;
+    ParticleShaderClass* m_Shader;
 };
 
 #endif

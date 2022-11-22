@@ -285,11 +285,34 @@ bool ShaderManagerClass::Initialize(ID3D11Device* device, HWND hwnd, LightClass*
 		MessageBox(hwnd, L"Could not initialize the sky plane shader object.", L"Error", MB_OK);
 		return false;
 	}
+
+	// 파이클 셰이더 객체를 생성합니다.
+	m_ParticleShader = new ParticleShaderClass(Light);
+	if (!m_ParticleShader)
+	{
+		return false;
+	}
+
+	// 파티클 셰이더 객체를 초기화합니다.
+	result = m_ParticleShader->Initialize(device, hwnd);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the particle shader object.", L"Error", MB_OK);
+		return false;
+	}
 	return true;
 }
 
 void ShaderManagerClass::Shutdown()
 {
+	// 파티클 셰이더 객체를 해제합니다.
+	if (m_ParticleShader)
+	{
+		m_ParticleShader->Shutdown();
+		delete m_ParticleShader;
+		m_ParticleShader = 0;
+	}
+
 	// Release the sky plane shader object.
 	if (m_SkyPlaneShader)
 	{

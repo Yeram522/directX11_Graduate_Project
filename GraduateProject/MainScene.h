@@ -12,6 +12,7 @@ public:
 	{};
 	GameObject* SkyDome;
 	GameObject* Cloud;
+	GameObject* Effect;
 	GameObject* BigToToro;
 	GameObject* BabyToToro;
 	GameObject* BusStop;
@@ -27,6 +28,7 @@ public:
 		info->getComponent<Text>()->SetFps(Scene::m_fps);
 		info->getComponent<Text>()->SetCpu(Scene::m_cpu);
 		Cloud->getComponent<SkyPlaneClass>()->Frame();
+		Effect->getComponent<ParticleSystemClass>()->Frame(Scene::m_cpu);
 		return Scene::Render();
 	} 
 
@@ -77,11 +79,6 @@ public:
 		{
 			return;
 		}
-
-
-
-
-
 
 		BusStop = new GameObject("BusStop","object",Scene::getD3D(), Scene::getCamera(), nullptr);
 		model = BusStop->getOrAddComponent<Model>();
@@ -269,6 +266,27 @@ public:
 			return;
 		}
 		m_GameObject.push_back(info);
+
+
+		Effect = new GameObject("Particle", "effect", Scene::getD3D(), Scene::getCamera(), nullptr);
+		ParticleSystemClass* particle = Effect->getOrAddComponent<ParticleSystemClass>();
+		Effect->getComponent<Transform>()->m_BillBoard = true;
+		Effect->update = [](Transform* transform) {
+			transform->SetPosition(0.0f, 0.0f, -16.0f);
+		};
+		result = particle->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/star.dds", Scene::getShaderManager()->getParticleShader());
+
+		if (!result)
+		{
+			return;
+		}
+
+		m_GameObject.push_back(Effect);
+		if (!Effect)
+		{
+			return;
+		}
+
 	}
 
 

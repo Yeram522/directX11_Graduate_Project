@@ -1,18 +1,13 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Filename: transparent.ps
+// Filename: particle.ps
 ////////////////////////////////////////////////////////////////////////////////
 
 
 /////////////
 // GLOBALS //
 /////////////
-Texture2D shaderTexture[2];
+Texture2D shaderTexture;
 SamplerState SampleType;
-
-cbuffer TransparentBuffer
-{
-	float blendAmount;
-};
 
 
 //////////////
@@ -22,26 +17,24 @@ struct PixelInputType
 {
     float4 position : SV_POSITION;
     float2 tex : TEXCOORD0;
+	float4 color : COLOR;
 };
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // Pixel Shader
 ////////////////////////////////////////////////////////////////////////////////
-float4 TransparentPixelShader(PixelInputType input) : SV_TARGET
+float4 ParticlePixelShader(PixelInputType input) : SV_TARGET
 {
-	float4 color;
-	float4 alphaValue;
+	float4 textureColor;
+	float4 finalColor;
 
 
-	// Sample the texture pixel at this location.
-    color = shaderTexture[0].Sample(SampleType, input.tex);
-	alphaValue = shaderTexture[1].Sample(SampleType, input.tex);
+    // Sample the pixel color from the texture using the sampler at this texture coordinate location.
+    textureColor = shaderTexture.Sample(SampleType, input.tex);
 
-	if(color.r == 0.0f && color.g == 0.0f && color.b == 0.0f )
-	{
-     	color.a = 0.0f;
-	}
+    finalColor = textureColor * input.color;
+	
 
-	return color;
+    return finalColor;
 }

@@ -127,6 +127,12 @@
     <None Include="ps1.bin">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="data\particle.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\particle.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -273,6 +279,9 @@
     <ClCompile Include="SkyPlaneShaderClass.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleShaderClass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImGui\imconfig.h">
@@ -416,19 +425,22 @@
     <ClInclude Include="TimerClass.h">
       <Filter>헤더 파일\Engine\System</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleSystemClass.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="SkyDomeShaderClass.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleSystemClass.h">
+      <Filter>헤더 파일\Engine\Graphic</Filter>
+    </ClInclude>
     <ClInclude Include="SkyPlaneClass.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Engine\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyDomeShaderClass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
     </ClInclude>
     <ClInclude Include="SkyPlaneShaderClass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleShaderClass.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

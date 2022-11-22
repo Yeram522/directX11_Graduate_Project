@@ -255,6 +255,7 @@ bool GraphicsClass::Frame(InputClass* input, int fps, int cpu, float frameTime)
 
 	//FPS CPU정보 업로드
 	m_SceneManager->SceneManager::SetFpsCpuInfo(fps,cpu);
+	m_SceneManager->SceneManager::SetFrameTime(frameTime);
 
 	// Render the graphics scene.
 	result = Render();
