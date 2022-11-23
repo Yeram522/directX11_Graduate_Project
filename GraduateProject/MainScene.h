@@ -139,13 +139,14 @@ public:
 		}
 		m_GameObject.push_back(BabyToToro);
 
-
+		ModelLoader* modelLoader;
 		Mei = new GameObject("Mei", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
-		model = Mei->getOrAddComponent<Model>();
+		modelLoader = Mei->getOrAddComponent<ModelLoader>();
+		Mei->getComponent<Transform>()->SetScale(0.1f, 0.1f, 0.1f);
 		Mei->getComponent<Transform>()->SetPosition(0.0f, -3.0f, 5.0f);
 		//Mei->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 5.0f); };
 		// Initialize the model object.
-		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/mei.obj", L"./data/res/Mei_Texture.dds", L"./data/res/Mei_Texture.dds", Scene::getShaderManager()->getLightShader(), Scene::getLight(), Scene::hwnd);
+		result = modelLoader->Load(Scene::hwnd,Scene::getD3D()->GetDevice(), Scene::getD3D()->GetDeviceContext(), "./data/Mei_Run.fbx");
 
 		//temp1->setParent(temp);
 		if (!result)

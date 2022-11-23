@@ -9,9 +9,7 @@
 //////////////
 #include <d3d11.h>
 #include <directxmath.h>
-#include <assimp/Importer.hpp>
-#include <assimp/postprocess.h>
-#include <assimp/scene.h>
+
 using namespace DirectX;
 
 #include <fstream>

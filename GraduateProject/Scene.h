@@ -16,6 +16,7 @@
 #include "rendertextureclass.h"
 #include "debugwindowclass.h"
 #include "ShaderManagerClass.h"
+#include "Assimp/ModelLoader.h"
 
 #include<string>
 #include <vector>

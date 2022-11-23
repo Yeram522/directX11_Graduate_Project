@@ -47,6 +47,8 @@
     <None Include="ps1.bin" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Assimp\ModelLoader.cpp" />
+    <ClCompile Include="Assimp\TextureLoader.cpp" />
     <ClCompile Include="cameraclass.cpp" />
     <ClCompile Include="colorshaderclass.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -99,6 +101,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AlignedAllocationPolicy.h" />
+    <ClInclude Include="Assimp\AssimpMesh.h" />
+    <ClInclude Include="Assimp\ModelLoader.h" />
+    <ClInclude Include="Assimp\SafeRelease.hpp" />
+    <ClInclude Include="Assimp\TextureLoader.h" />
     <ClInclude Include="cameraclass.h" />
     <ClInclude Include="colorshaderclass.h" />
     <ClInclude Include="Component.h" />

@@ -57,8 +57,6 @@ private:
 
     ShaderClass* m_Shader;
     string directory;
-    /*  ÇÔ¼ö   */
-    void loadModel(string path);
     
 
 };

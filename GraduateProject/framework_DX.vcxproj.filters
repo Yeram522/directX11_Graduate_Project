@@ -61,6 +61,9 @@
     <Filter Include="헤더 파일\Engine\Manager">
       <UniqueIdentifier>{4a67cc4a-b861-410e-ade3-6b8b87148592}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Assimp">
+      <UniqueIdentifier>{27fcb839-5559-4d1c-b75c-7f1082340d44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\light.ps">
@@ -282,6 +285,12 @@
     <ClCompile Include="ParticleShaderClass.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Assimp\ModelLoader.cpp">
+      <Filter>헤더 파일\Assimp</Filter>
+    </ClCompile>
+    <ClCompile Include="Assimp\TextureLoader.cpp">
+      <Filter>헤더 파일\Assimp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImGui\imconfig.h">
@@ -442,6 +451,18 @@
     </ClInclude>
     <ClInclude Include="ParticleShaderClass.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\AssimpMesh.h">
+      <Filter>헤더 파일\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\ModelLoader.h">
+      <Filter>헤더 파일\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\SafeRelease.hpp">
+      <Filter>헤더 파일\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\TextureLoader.h">
+      <Filter>헤더 파일\Assimp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
