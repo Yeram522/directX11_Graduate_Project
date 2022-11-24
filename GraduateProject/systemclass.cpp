@@ -294,7 +294,8 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 	wc.lpszMenuName  = NULL;
 	wc.lpszClassName = m_applicationName;
 	wc.cbSize        = sizeof(WNDCLASSEX);
-	
+
+
 	// Register the window class.
 	RegisterClassEx(&wc);
 
@@ -334,6 +335,7 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 	m_hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_applicationName, m_applicationName, 
 						    WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP,
 						    posX, posY, screenWidth, screenHeight, NULL, NULL, m_hinstance, NULL);
+
 
 	// Bring the window up on the screen and set it as main focus.
 	ShowWindow(m_hwnd, SW_SHOW);

@@ -38,6 +38,7 @@ void EngineManager::updateImGui()
 {
 
 	//Content
+	showLightOption();
 	showInspector();
 	showViewPort();
 	showContentBrowser();
@@ -55,16 +56,39 @@ void EngineManager::renderImGui()
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }
 
-void EngineManager::showInspector()
+void EngineManager::showLightOption()
 {
 	//Create ImGui Test Window
-	ImGui::Begin("Inspector");
+	ImGui::Begin("LightOption");
+
 	ImGui::Text("PhongShader");
 	ImGui::SliderFloat3("LightDirection", m_graphicClass->m_Light->GetDirectiontoFloat(), -100.0f, 100.0f);
 	ImGui::SliderFloat4("AmbidientColor", m_graphicClass->m_Light->GetAmbientColortoFloat(), 0.0f, 1.0f);
 	ImGui::SliderFloat4("DiffuseColor", m_graphicClass->m_Light->GetDiffuseColortoFloat(), 0.0f, 1.0f);
 	ImGui::SliderFloat4("SpecularColor", m_graphicClass->m_Light->GetSpecularColortoFloat(), 0.0f, 1.0f);
 	ImGui::SliderFloat("Specular power", m_graphicClass->m_Light->GetSpecularPower(0), 0.0f, 100.0f);
+
+
+	ImGui::End();
+}
+
+void EngineManager::showInspector()
+{
+	ImGui::Begin("Inspector");
+
+	if (m_selectedGameObject != NULL)
+	{
+		//GameObject Name
+		ImGui::Text(m_selectedGameObject->getname().c_str());
+		ImGui::SliderFloat3("Transform", m_selectedGameObject->getComponent<Transform>()->getLocalPositionToPfloat(), -100.0f, 100.0f);
+		/*ImGui::SliderFloat4("AmbidientColor", m_graphicClass->m_Light->GetAmbientColortoFloat(), 0.0f, 1.0f);
+		ImGui::SliderFloat4("DiffuseColor", m_graphicClass->m_Light->GetDiffuseColortoFloat(), 0.0f, 1.0f);
+		ImGui::SliderFloat4("SpecularColor", m_graphicClass->m_Light->GetSpecularColortoFloat(), 0.0f, 1.0f);
+		ImGui::SliderFloat("Specular power", m_graphicClass->m_Light->GetSpecularPower(0), 0.0f, 100.0f);*/
+	}
+	
+
+
 	ImGui::End();
 }
 

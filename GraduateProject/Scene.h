@@ -49,6 +49,7 @@ public:
 	void updateshaderSetting();
 	vector<GameObject*> readGameObjectList() const;
 
+	//System Parameter
 	int m_fps, m_cpu;
 	float m_frameTime;
 protected:
@@ -68,6 +69,7 @@ protected:
 	//Reflection Model
 	GameObject* refractionModel;
 	GameObject* reflectionMdoel;
+
 };
 
 #endif

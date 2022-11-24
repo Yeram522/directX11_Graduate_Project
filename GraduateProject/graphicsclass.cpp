@@ -9,7 +9,6 @@ ShaderManagerClass* ShaderManagerClass::Instance = nullptr;
 
 GraphicsClass::GraphicsClass()
 {
-	m_Scene = 0;
 	m_D3D = 0;
 	m_Light = 0;
 	m_Camera = 0;
@@ -170,13 +169,6 @@ void GraphicsClass::Shutdown()
 		//m_Scene->Shutdown();
 		delete m_SceneManager;
 		m_SceneManager = 0;
-	}
-
-	if (m_Scene)
-	{
-		m_Scene->Shutdown();
-		delete m_Scene;
-		m_Scene = 0;
 	}
 
 	// 디버그 윈도우를 해제합니다.

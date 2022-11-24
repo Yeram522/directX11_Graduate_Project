@@ -2,7 +2,7 @@
 // Filename: GameObject.cpp
 ////////////////////////////////////////////////////////////////////////////////
 #include "GameObject.h"
-
+#include "EngineManager.h"
 
 GameObject::GameObject(string name, string tag ,
 	D3DClass* m_D3D , CameraClass* m_Camera ,  // transform
@@ -93,6 +93,9 @@ void GameObject::updateHierachy()
 {
 	if (ImGui::TreeNode(name.c_str()))
 	{
+		//EngineManager에 Inspector update하라고 Info 넘겨줌!
+		EngineManager::GetInstance()->updateGameObjectInspector(this);
+
 		for (auto child : children) child->updateHierachy();
 		ImGui::TreePop();
 	}

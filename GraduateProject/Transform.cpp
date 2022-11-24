@@ -5,6 +5,7 @@ Transform::Transform(GameObject* gameObject):Component(gameObject)
 	Component::gameObject = gameObject;
 	m_D3D = 0;
 	m_Camera = 0;
+	m_flocalposition = new float[3]{ 0.0f,0.0f,0.0f};
 	Component::setTag("transform");
 }
 
@@ -28,8 +29,12 @@ void Transform::update()
 	{
 		SetBillBoardTransform();
 	}
+
+	//localposition = XMFLOAT3(m_flocalposition[0], m_flocalposition[1], m_flocalposition[2]);
+
+
 	m_worldMatrix *= XMMatrixScaling(scale.x, scale.y, scale.z);
-	m_worldMatrix *= XMMatrixTranslation(localposition.x, localposition.y, localposition.z);
+	m_worldMatrix *= XMMatrixTranslation(m_flocalposition[0], m_flocalposition[1], m_flocalposition[2]);
 
 }
 
@@ -52,6 +57,7 @@ void Transform::Rotate()
 void Transform::SetPosition(float x, float y, float z)
 {
 	localposition = XMFLOAT3(x, y, z);
+	m_flocalposition = new float[3]{ x,y,z };
 }
 
 void Transform::SetScale(float x, float y, float z)

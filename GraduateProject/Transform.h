@@ -28,13 +28,20 @@ public:
 	bool m_BillBoard= false;
 	D3DClass* m_D3D;//임시로 public
 	CameraClass* m_Camera;//임시로 public
+
+
+	//for imgui
+	float* getLocalPositionToPfloat()
+	{
+		return m_flocalposition;
+	}
 private:
 	XMFLOAT3 localposition = { 0,0,0 };
 	XMFLOAT3 rotation;
 	XMFLOAT3 scale = { 1.0f,1.0f,1.0f };
 
 	XMFLOAT3 parentposition;
-
+	float* m_flocalposition;
 
 
 };
