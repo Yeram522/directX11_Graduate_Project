@@ -18,9 +18,12 @@ void ModelLoader::update()
 {
 	Transform* transform = Component::transform;
 	Draw(transform->m_D3D->GetDeviceContext());
+
 }
 
-bool ModelLoader::Load(HWND hwnd, ID3D11Device * dev, ID3D11DeviceContext * devcon, std::string filename) {
+bool ModelLoader::Load(HWND hwnd, ID3D11Device * dev, ID3D11DeviceContext * devcon, std::string filename, ShaderClass* shader) {
+	this->m_Shader = shader;
+
 	Assimp::Importer importer;
 
 	const aiScene* pScene = importer.ReadFile(filename,
@@ -42,10 +45,40 @@ bool ModelLoader::Load(HWND hwnd, ID3D11Device * dev, ID3D11DeviceContext * devc
 }
 
 void ModelLoader::Draw(ID3D11DeviceContext * devcon) {
+
+
 	for (size_t i = 0; i < meshes_.size(); ++i ) {
 		meshes_[i].Draw(devcon);
 
+		m_Shader->Render(transform->m_D3D->GetDeviceContext(), meshes_[i].getIndicedCount(), transform->m_worldMatrix, transform->m_viewMatrix, transform->m_projectionMatrix, GetTextureArray());
 	}
+}
+
+bool ModelLoader::LoadTextures(ID3D11Device* device, ID3D11ShaderResourceView* texture1, ID3D11ShaderResourceView* texture2)
+{
+	bool result;
+
+
+	// Create the texture array object.
+	m_TextureArray = new TextureArrayClass;
+	if (!m_TextureArray)
+	{
+		return false;
+	}
+
+	// Initialize the texture object.
+	result = m_TextureArray->Initialize(device, texture1, texture2);
+	if (!result)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+ID3D11ShaderResourceView** ModelLoader::GetTextureArray()
+{
+	return m_TextureArray->GetTextureArray();
 }
 
 AssimpMesh ModelLoader::processMesh(aiMesh * mesh, const aiScene * scene) {
@@ -66,7 +99,9 @@ AssimpMesh ModelLoader::processMesh(aiMesh * mesh, const aiScene * scene) {
 			vertex.texcoord.x = (float)mesh->mTextureCoords[0][i].x;
 			vertex.texcoord.y = (float)mesh->mTextureCoords[0][i].y;
 		}
-
+		vertex.normal.x = mesh->mNormals[0].x;
+		vertex.normal.y = mesh->mNormals[0].y;
+		vertex.normal.z = mesh->mNormals[0].z;
 		vertices.push_back(vertex);
 	}
 
@@ -123,6 +158,9 @@ std::vector<Texture> ModelLoader::loadMaterialTextures(aiMaterial * mat, aiTextu
 			this->textures_loaded_.push_back(texture);  // Store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
 		}
 	}
+
+	LoadTextures(transform->m_D3D->GetDevice(), textures[0].texture, textures[0].texture);
+
 	return textures;
 }
 
@@ -181,6 +219,7 @@ ID3D11ShaderResourceView * ModelLoader::loadEmbeddedTexture(const aiTexture* emb
 		if (FAILED(hr))
 			MessageBox(hwnd_, L"CreateShaderResourceView failed!", L"Error!", MB_ICONERROR | MB_OK);
 
+
 		return texture;
 	}
 
@@ -190,6 +229,7 @@ ID3D11ShaderResourceView * ModelLoader::loadEmbeddedTexture(const aiTexture* emb
 	hr = CreateWICTextureFromMemory(dev_, devcon_, reinterpret_cast<const unsigned char*>(embeddedTexture->pcData), size, nullptr, &texture);
 	if (FAILED(hr))
 		MessageBox(hwnd_, L"Texture couldn't be created from memory!", L"Error!", MB_ICONERROR | MB_OK);
+
 
 	return texture;
 }

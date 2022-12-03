@@ -13,10 +13,11 @@
 using namespace DirectX;
 
 #include "SafeRelease.hpp"
-
+#include "../Mesh.h"
 struct VERTEX {
 	FLOAT X, Y, Z;
 	XMFLOAT2 texcoord;
+	XMFLOAT3 normal;
 };
 
 struct Texture {
@@ -36,6 +37,7 @@ public:
     std::vector<Texture> textures_;
     ID3D11Device *dev_;
 
+
     AssimpMesh(ID3D11Device *dev, const std::vector<VERTEX> &vertices, const std::vector<UINT> &indices, const std::vector<Texture> &textures) :
             vertices_(vertices),
             indices_(indices),
@@ -46,7 +48,17 @@ public:
         this->setupMesh(this->dev_);
     }
 
+    int getIndicedCount()
+    {
+        return indices_.size();
+    }
     void Draw(ID3D11DeviceContext *devcon) {
+        RenderBuffer(devcon);
+    }
+
+    
+    void RenderBuffer(ID3D11DeviceContext* devcon)
+    {
         UINT stride = sizeof(VERTEX);
         UINT offset = 0;
 
@@ -54,10 +66,7 @@ public:
         devcon->IASetIndexBuffer(IndexBuffer_, DXGI_FORMAT_R32_UINT, 0);
 
         devcon->PSSetShaderResources(0, 1, &textures_[0].texture);
-
-        devcon->DrawIndexed(static_cast<UINT>(indices_.size()), 0, 0);
     }
-
     void Close() {
         SafeRelease(VertexBuffer_);
         SafeRelease(IndexBuffer_);
