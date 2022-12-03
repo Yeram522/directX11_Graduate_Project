@@ -252,21 +252,6 @@ public:
 			return;
 		}
 
-
-		info = new GameObject("text", "text", Scene::getD3D(), Scene::getCamera());
-		Text* text = info->getOrAddComponent<Text>();
-
-		XMMATRIX baseviewMatrix;
-		Scene::getCamera()->GetViewMatrix(baseviewMatrix);
-		// Initialize the bitmap object.
-		result = text->Initialize(Scene::getD3D()->GetDevice(), Scene::getD3D()->GetDeviceContext(), Scene::hwnd, Scene::getscreenWidth(), Scene::getscreenHeight(), baseviewMatrix);
-		if (!result)
-		{
-			return;
-		}
-		m_GameObject.push_back(info);
-
-
 		Effect = new GameObject("Particle", "effect", Scene::getD3D(), Scene::getCamera(), nullptr);
 		ParticleSystemClass* particle = Effect->getOrAddComponent<ParticleSystemClass>();
 		Effect->getComponent<Transform>()->m_BillBoard = true;
@@ -285,6 +270,22 @@ public:
 		}
 
 		m_GameObject.push_back(Effect);
+
+		info = new GameObject("text", "text", Scene::getD3D(), Scene::getCamera());
+		Text* text = info->getOrAddComponent<Text>();
+
+		XMMATRIX baseviewMatrix;
+		Scene::getCamera()->GetViewMatrix(baseviewMatrix);
+		// Initialize the bitmap object.
+		result = text->Initialize(Scene::getD3D()->GetDevice(), Scene::getD3D()->GetDeviceContext(), Scene::hwnd, Scene::getscreenWidth(), Scene::getscreenHeight(), baseviewMatrix);
+		if (!result)
+		{
+			return;
+		}
+		m_GameObject.push_back(info);
+
+
+	
 		
 	}
 

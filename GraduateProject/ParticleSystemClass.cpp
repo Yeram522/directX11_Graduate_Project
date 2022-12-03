@@ -93,6 +93,7 @@ void ParticleSystemClass::Render(ID3D11DeviceContext* deviceContext)
 
 void ParticleSystemClass::update()
 {
+
     transform->m_D3D->EnableSecondBlendState();
     Transform* transform = Component::transform;
     Render(transform->m_D3D->GetDeviceContext());
