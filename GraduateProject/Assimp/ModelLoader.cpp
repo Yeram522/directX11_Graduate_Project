@@ -8,6 +8,12 @@ ModelLoader::ModelLoader(GameObject* gameObject) :Component(gameObject),
         textures_loaded_(),
         hwnd_(nullptr) {
     // empty
+
+	m_TextureArray = new TextureArrayClass;
+	if (!m_TextureArray)
+	{
+		return;
+	}
 }
 
 ModelLoader::~ModelLoader() {
@@ -81,6 +87,11 @@ ID3D11ShaderResourceView** ModelLoader::GetTextureArray()
 	return m_TextureArray->GetTextureArray();
 }
 
+ID3D11ShaderResourceView** ModelLoader::GetMulitTextureArray()
+{
+	return m_TextureArray->GetMultiTextureArray();
+}
+
 AssimpMesh ModelLoader::processMesh(aiMesh * mesh, const aiScene * scene) {
 	// Data to fill
 	std::vector<VERTEX> vertices;
@@ -114,7 +125,6 @@ AssimpMesh ModelLoader::processMesh(aiMesh * mesh, const aiScene * scene) {
 
 	if (mesh->mMaterialIndex >= 0) {
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-
 		std::vector<Texture> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse", scene);
 		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 	}
@@ -143,10 +153,12 @@ std::vector<Texture> ModelLoader::loadMaterialTextures(aiMaterial * mat, aiTextu
 			const aiTexture* embeddedTexture = scene->GetEmbeddedTexture(str.C_Str());
 			if (embeddedTexture != nullptr) {
 				texture.texture = loadEmbeddedTexture(embeddedTexture);
+				LoadTextures(transform->m_D3D->GetDevice(), texture.texture, texture.texture);
+
 			} else {
 				std::string filename = std::string(str.C_Str());
-				//filename = directory_ + '/' + filename;
-				filename = "./data/Mei_TEX.png";
+				filename = directory_ + '/' + filename;
+				//filename = "./data/Mei_TEX.png";
 				std::wstring filenamews = std::wstring(filename.begin(), filename.end());
 				hr = CreateWICTextureFromFile(dev_, devcon_, filenamews.c_str(), nullptr, &texture.texture);
 				if (FAILED(hr))
@@ -157,9 +169,9 @@ std::vector<Texture> ModelLoader::loadMaterialTextures(aiMaterial * mat, aiTextu
 			textures.push_back(texture);
 			this->textures_loaded_.push_back(texture);  // Store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
 		}
-	}
+		//m_TextureArray->m_multiTexture.push_back(textures[i].texture);
 
-	LoadTextures(transform->m_D3D->GetDevice(), textures[0].texture, textures[0].texture);
+	}
 
 	return textures;
 }

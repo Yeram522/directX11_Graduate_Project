@@ -152,12 +152,12 @@ bool ParticleSystemClass::InitializeParticleSystem()
 {
     int i;
     // 어디에 파티클이 생겨날지 임의의 분산값을 설정합니다.
-    m_particleDeviationX = 0.5f;
+    m_particleDeviationX = 50.5f;
     m_particleDeviationY = 0.1f;
     m_particleDeviationZ = 2.0f;
 
     // 파티클의 속도 및 속도 편차를 정합니다.
-    m_particleVelocity = 1.0f;
+    m_particleVelocity = 5.0f;
     m_particleVelocityVariation = 0.2f;
 
     // 파티클의 실제 크기입니다.
@@ -336,9 +336,13 @@ void ParticleSystemClass::EmitParticles(float frameTime)
 
         velocity = m_particleVelocity + (((float)rand() - (float)rand()) / RAND_MAX) * m_particleVelocityVariation;
 
-        red = (((float)rand() - (float)rand()) / RAND_MAX) + 0.5f;
+        /*red = (((float)rand() - (float)rand()) / RAND_MAX) + 0.5f;
         green = (((float)rand() - (float)rand()) / RAND_MAX) + 0.5f;
-        blue = (((float)rand() - (float)rand()) / RAND_MAX) + 0.5f;
+        blue = (((float)rand() - (float)rand()) / RAND_MAX) + 0.5f;*/
+
+        red = 1.0f;
+        green = 1.0f;
+        blue = 1.0f;
 
         // 블렌딩하기 위해서는 파티클들을 뒤에서부터 앞으로 그려야 하기 때문에 배열을 정렬합니다.
         // Z깊이값으로 정렬할 것이기 때문에 파티클이 어느 지점에 삽입되어야 할 지 찾아야 합니다.
@@ -396,7 +400,7 @@ void ParticleSystemClass::UpdateParticles(float frameTime)
     // Each frame we update all the particles by making them move downwards using their position, velocity, and the frame time.
     for (i = 0; i < m_currentParticleCount; i++)
     {
-        m_particleList[i].positionY = m_particleList[i].positionY - (m_particleList[i].velocity * frameTime * 0.001f);
+        m_particleList[i].positionY = m_particleList[i].positionY - (m_particleList[i].velocity * frameTime *0.01);
     }
 
     return;
@@ -410,7 +414,7 @@ void ParticleSystemClass::KillParticles()
     // 특정 높이 범위 아래로 내려간 파티클들을 전부 제거합니다.
     for (i = 0; i < m_maxParticles; i++)
     {
-        if ((m_particleList[i].active == true) && (m_particleList[i].positionY < -3.0f))
+        if ((m_particleList[i].active == true) && (m_particleList[i].positionY < -20.0f))
         {
             m_particleList[i].active = false;
             m_currentParticleCount--;

@@ -110,7 +110,7 @@ void Scene::updateshaderSetting()
 	}
 
 	// Render the reflection of the scene to a texture.
-	result = sceneManager->m_ShaderManager->RenderReflectionToTexture(reflectionMdoel,sceneManager->m_D3D, sceneManager->m_Camera, sceneManager->m_Light);
+	result = sceneManager->m_ShaderManager->RenderReflectionToTexture(reflectionModel,sceneManager->m_D3D, sceneManager->m_Camera, sceneManager->m_Light);
 	if (!result)
 	{
 		return ;

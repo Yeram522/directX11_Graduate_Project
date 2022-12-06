@@ -133,7 +133,7 @@ public:
 		m_GameObject.push_back(plane);
 
 		Scene::refractionModel = BigToToro;
-		Scene::reflectionMdoel = plane;
+		Scene::reflectionModel = plane;
 
 		water = new GameObject("water", "plane", Scene::getD3D(), Scene::getCamera(), nullptr);
 		model = water->getOrAddComponent<Model>();

@@ -131,7 +131,6 @@ void CameraClass::Render()
 	camUp = XMVector3TransformCoord(DefaultUp, RotateYTempMatrix);
 	camForward = XMVector3TransformCoord(DefaultForward, RotateYTempMatrix);
 
-	//up = XMVector3Cross(camForward, camRight);
 
 	camPosition += moveLeftRight * camRight;
 	camPosition += moveBackForward * camForward;

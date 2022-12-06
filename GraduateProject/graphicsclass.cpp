@@ -271,8 +271,20 @@ bool GraphicsClass::Render()
 
 
 
-	m_SceneManager->SceneManager::SetShader(); //반사 셰이더 세팅.
+//	m_SceneManager->SceneManager::SetShader(); //반사 셰이더 세팅.
+	// Render the refraction of the scene to a texture.
+	result = m_ShaderManager->RenderRefractionToTexture(m_SceneManager->getActiveScene()->refractionModel, m_D3D, m_Camera, m_Light);
+	if (!result)
+	{
+		return false;
+	}
 
+	// Render the reflection of the scene to a texture.
+	result = m_ShaderManager->RenderReflectionToTexture(m_SceneManager->getActiveScene()->reflectionModel, m_D3D, m_Camera, m_Light);
+	if (!result)
+	{
+		return false;
+	}
 	m_ShaderManager->updateWaterTranslate(m_Camera->GetReflectionViewMatrix());
 
 

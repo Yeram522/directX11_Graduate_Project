@@ -17,6 +17,7 @@ public:
 	GameObject* BabyToToro;
 	GameObject* BusStop;
 	GameObject* Mei;
+	GameObject* GhibliTree;
 	GameObject* plane;
 	GameObject* Rock;
 	GameObject* water;
@@ -145,7 +146,7 @@ public:
 		Mei->getComponent<Transform>()->SetScale(0.01f, 0.01f, 0.01f);
 		Mei->getComponent<Transform>()->SetPosition(0.0f, -3.0f, 5.0f);
 		// Initialize the model object.
-		result = modelLoader->Load(Scene::hwnd,Scene::getD3D()->GetDevice(), Scene::getD3D()->GetDeviceContext(), "./data/Mei_Run.fbx", Scene::getShaderManager()->getLightShader());
+		result = modelLoader->Load(Scene::hwnd,Scene::getD3D()->GetDevice(), Scene::getD3D()->GetDeviceContext(), "./data/Mei.fbx", Scene::getShaderManager()->getLightShader());
 
 		if (!result)
 		{
@@ -157,6 +158,27 @@ public:
 			return;
 		}
 		m_GameObject.push_back(Mei);
+
+		GhibliTree = new GameObject("GhibliTree", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
+		model = GhibliTree->getOrAddComponent<Model>();
+	//	GhibliHeadhouse->getComponent<Transform>()->SetRotation(0.0f, 0.0f, 0.0f);
+
+		GhibliTree->getComponent<Transform>()->SetScale(10.0f, 10.0f, 10.0f);
+		GhibliTree->getComponent<Transform>()->SetPosition(0.0f, 0.0f, 15.0f);
+		// Initialize the model object.
+		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/tree.obj", L"./data/res/tree_high_tree_BaseColor.dds", L"./data/res/tree_high_tree_BaseColor.dds", Scene::getShaderManager()->getLightShader(), Scene::getLight(), Scene::hwnd);
+
+		if (!result)
+		{
+			return;
+		}
+
+		if (!GhibliTree)
+		{
+			return;
+		}
+		m_GameObject.push_back(GhibliTree);
+
 
 		//GameObject* temp2 = new GameObject("image", "sprite", Scene::getD3D(), Scene::getCamera());
 		//Image* image = temp2->getOrAddComponent<Image>();
@@ -173,7 +195,6 @@ public:
 		plane = new GameObject("plane", "plane", Scene::getD3D(), Scene::getCamera(), nullptr);
 		Model* planeModel = plane->getOrAddComponent<Model>();
 		plane->getComponent<Transform>()->SetPosition(0.0f, -3.0f, 0.0f);
-		//plane->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
 
 		// Initialize the model object.
 		result = planeModel->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/plane.obj", L"./data/res/grass.dds", L"./data/res/block.dds", Scene::getShaderManager()->getMultiTextureShader(), Scene::getLight(), Scene::hwnd);
@@ -189,13 +210,12 @@ public:
 		}
 		m_GameObject.push_back(plane);
 
-		Scene::refractionModel = BigToToro;
-		Scene::reflectionMdoel = plane;
+		Scene::refractionModel = plane;
+		Scene::reflectionModel = BigToToro;
 
 		water = new GameObject("water", "plane", Scene::getD3D(), Scene::getCamera(), nullptr);
 		model = water->getOrAddComponent<Model>();
 		water->getComponent<Transform>()->SetPosition(0.0f, -3.0f, 0.0f);
-		//water->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
 
 		// Initialize the model object.
 		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/waterDemo.obj", Scene::getShaderManager()->getReflectionTexture()->GetShaderResourceView(), Scene::getShaderManager()->getRefractionTexture()->GetShaderResourceView(), Scene::getShaderManager()->getWaterShader(), Scene::getLight(), Scene::hwnd);
@@ -231,34 +251,53 @@ public:
 			return;
 		}
 
-		GameObject* billboardingT;
-		billboardingT = new GameObject("billboardingT", "object", Scene::getD3D(), Scene::getCamera(), nullptr); //Instancing ¿¹Á¤
-		model = billboardingT->getOrAddComponent<Model>();
-		billboardingT->getComponent<Transform>()->m_BillBoard = true;
+		GameObject* GhibliTreeL = new GameObject("GhibliTreeL", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
+		model = GhibliTreeL->getOrAddComponent<Model>();
+		//	GhibliHeadhouse->getComponent<Transform>()->SetRotation(0.0f, 0.0f, 0.0f);
 
-		billboardingT->getComponent<Transform>()->SetPosition(0.0f, -2.0f, 15.0f);
+		GhibliTreeL->getComponent<Transform>()->SetScale(0.13f, 0.13f, 0.13f);
+		GhibliTreeL->getComponent<Transform>()->SetPosition(0.0f, 0.0f, 15.0f);
 		// Initialize the model object.
-		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/2DObject.obj", L"./data/res/tree2.dds", L"./data/res/tree2A.dds", Scene::getShaderManager()->getTransparentSahder(), Scene::getLight(), Scene::hwnd);
+		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/treeleafobj.obj", L"./data/res/grassesTex.dds", L"./data/res/grassesTex.dds", Scene::getShaderManager()->getTransparentSahder(), Scene::getLight(), Scene::hwnd);
 
-		//temp1->setParent(temp);
 		if (!result)
 		{
 			return;
 		}
 
-		m_GameObject.push_back(billboardingT);
-		if (!billboardingT)
+		if (!GhibliTreeL)
 		{
 			return;
 		}
+		m_GameObject.push_back(GhibliTreeL);
+
+		GameObject* GhibliGrass = new GameObject("GhibliGrass", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
+		model = GhibliGrass->getOrAddComponent<Model>();
+		//	GhibliHeadhouse->getComponent<Transform>()->SetRotation(0.0f, 0.0f, 0.0f);
+
+		GhibliGrass->getComponent<Transform>()->SetScale(0.3f, 0.3f, 0.3f);
+		GhibliGrass->getComponent<Transform>()->SetPosition(0.0f, 2.5f, -1.6f);
+		// Initialize the model object.
+		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/treeflowergroup.obj", L"./data/res/grassesTex.dds", L"./data/res/grassesTex.dds", Scene::getShaderManager()->getTransparentSahder(), Scene::getLight(), Scene::hwnd);
+
+		if (!result)
+		{
+			return;
+		}
+
+		if (!GhibliTreeL)
+		{
+			return;
+		}
+		m_GameObject.push_back(GhibliGrass);
 
 		Effect = new GameObject("Particle", "effect", Scene::getD3D(), Scene::getCamera(), nullptr);
 		ParticleSystemClass* particle = Effect->getOrAddComponent<ParticleSystemClass>();
 		Effect->getComponent<Transform>()->m_BillBoard = true;
 		Effect->update = [](Transform* transform) {
-			transform->SetPosition(0.0f, 0.0f, -16.0f);
+			transform->SetPosition(0.0f, 8.0f, -16.0f);
 		};
-		result = particle->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/star.dds", Scene::getShaderManager()->getParticleShader());
+		result = particle->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/rain.dds", Scene::getShaderManager()->getParticleShader());
 
 		if (!result)
 		{

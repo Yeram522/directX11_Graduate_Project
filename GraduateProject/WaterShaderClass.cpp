@@ -29,11 +29,11 @@ bool WaterShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
         return false;
     }
     // Load the second texture in.
-    CreateDDSTextureFromFile(device, L"./data/res/water01.dds", nullptr, &m_waterNormalTexture);
+    CreateDDSTextureFromFile(device, L"./data/res/white.dds", nullptr, &m_waterNormalTexture);
 
 
-    CreateDDSTextureFromFile(device, L"./data/res/white.dds", nullptr, &m_waterReflectionTexture);
-    CreateDDSTextureFromFile(device, L"./data/res/block.dds", nullptr, &m_waterRefractionTexture);
+    CreateDDSTextureFromFile(device, L"./data/res/cloud002.dds", nullptr, &m_waterReflectionTexture);
+    //CreateDDSTextureFromFile(device, L"./data/res/white.dds", nullptr, &m_waterRefractionTexture);
     return true;
 }
 

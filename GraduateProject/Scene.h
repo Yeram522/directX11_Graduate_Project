@@ -52,6 +52,9 @@ public:
 	//System Parameter
 	int m_fps, m_cpu;
 	float m_frameTime;
+	//Reflection Model
+	GameObject* refractionModel;
+	GameObject* reflectionModel;
 protected:
 	SceneManager* sceneManager;
 	vector<GameObject*> m_GameObject;
@@ -66,9 +69,7 @@ protected:
 	ShaderManagerClass* getShaderManager();
 	bool isLoad;
 
-	//Reflection Model
-	GameObject* refractionModel;
-	GameObject* reflectionMdoel;
+
 
 };
 

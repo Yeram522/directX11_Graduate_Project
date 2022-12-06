@@ -29,10 +29,8 @@ void Transform::update()
 	{
 		SetBillBoardTransform();
 	}
-
-	//localposition = XMFLOAT3(m_flocalposition[0], m_flocalposition[1], m_flocalposition[2]);
-
-
+	
+	m_worldMatrix *= XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z);
 	m_worldMatrix *= XMMatrixScaling(scale.x, scale.y, scale.z);
 	m_worldMatrix *= XMMatrixTranslation(m_flocalposition[0], m_flocalposition[1], m_flocalposition[2]);
 
@@ -63,6 +61,11 @@ void Transform::SetPosition(float x, float y, float z)
 void Transform::SetScale(float x, float y, float z)
 {
 	scale = XMFLOAT3(x, y, z);
+}
+
+void Transform::SetRotation(float x, float y, float z)
+{
+	rotation = XMFLOAT3(x, y, z);
 }
 
 void Transform::SetBillBoardTransform()

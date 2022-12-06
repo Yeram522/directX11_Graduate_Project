@@ -20,6 +20,7 @@ public:
 	void Rotate();
 	void SetPosition(float, float, float);
 	void SetScale(float, float, float);
+	void SetRotation(float, float, float);
 	void SetBillBoardTransform();
 	void FollowCamera();
 	void FollowUpCamera();
@@ -37,7 +38,7 @@ public:
 	}
 private:
 	XMFLOAT3 localposition = { 0,0,0 };
-	XMFLOAT3 rotation;
+	XMFLOAT3 rotation = { 0,0,0 };
 	XMFLOAT3 scale = { 1.0f,1.0f,1.0f };
 
 	XMFLOAT3 parentposition;

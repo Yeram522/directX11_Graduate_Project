@@ -29,6 +29,7 @@ public:
 	void Draw(ID3D11DeviceContext* devcon);
 	bool LoadTextures(ID3D11Device*, ID3D11ShaderResourceView*, ID3D11ShaderResourceView*);
 	ID3D11ShaderResourceView** GetTextureArray();
+	ID3D11ShaderResourceView** GetMulitTextureArray();
 	void Close();
 private:
 	ShaderClass* m_Shader;
