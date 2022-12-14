@@ -6,7 +6,7 @@
 
 #include "MainScene.h"
 #include "TitleScene.h"
-
+#include "ShaderManagerClass.h"
 class SceneManager
 {
 public:
@@ -18,7 +18,7 @@ public:
 		}
 		return Instance;
 	}
-	bool Initialize(int screenWidth, int screenHeight,D3DClass* m_D3D, CameraClass* m_Camera,HWND hwnd, LightClass*, LightShaderClass*);
+	bool Initialize(int screenWidth, int screenHeight,D3DClass* m_D3D, CameraClass* m_Camera,HWND hwnd, LightClass*, ShaderManagerClass*);
 
 	//씬을 로드 및 생성
 	template <typename T>
@@ -45,8 +45,18 @@ public:
 	void UpdateScene();
 	void UpdateHierachy();
 	//void LoadScene(int sceneIndex);
+	void SetShader();
 
-	
+	void SetFrameTime(float frameTime)
+	{
+		m_ActiveScene->m_frameTime = frameTime;
+	}
+
+	void SetFpsCpuInfo(int fps, int cpu)
+	{
+		m_ActiveScene->m_fps = fps;
+		m_ActiveScene->m_cpu = cpu;
+	}
 	Scene* getActiveScene() const { return m_ActiveScene; }
 private:
 	static SceneManager* Instance;
@@ -68,8 +78,8 @@ private:
 	HWND hwnd;
 	D3DClass* m_D3D;
 	CameraClass* m_Camera;
+	ShaderManagerClass* m_ShaderManager;
 	LightClass* m_Light;
-	LightShaderClass* m_LightShader;
 };
 
 #endif

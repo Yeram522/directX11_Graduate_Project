@@ -8,60 +8,29 @@
 //////////////
 // INCLUDES //
 //////////////
-#include <d3d11.h>
-#include <directxmath.h>
-#include <d3dcompiler.h>
-
-#include <fstream>
-
-using namespace std;
-using namespace DirectX;
-
+#include "ShaderClass.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: LightShaderClass
 ////////////////////////////////////////////////////////////////////////////////
-class LightShaderClass
+class LightShaderClass:public ShaderClass
 {
-private:
-	struct MatrixBufferType
-	{
-		XMMATRIX world;
-		XMMATRIX view;
-		XMMATRIX projection;
-	};
-
-	struct CameraBufferType
-	{
-		XMFLOAT3 cameraPosition;
-		float padding;
-	};
-
-	struct LightBufferType
-	{
-		XMFLOAT4 ambientColor;
-		XMFLOAT4 diffuseColor;
-		XMFLOAT3 lightDirection;
-		float specularPower;
-		XMFLOAT4 specularColor;
-	};
-
 public:
-	LightShaderClass();
+	LightShaderClass(LightClass* light);
 	LightShaderClass(const LightShaderClass&);
 	~LightShaderClass();
 
-	bool Initialize(ID3D11Device*, HWND);
-	void Shutdown();
-	bool Render(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView*, 
-		XMFLOAT3, XMFLOAT4, XMFLOAT4, XMFLOAT3, XMFLOAT4, float);
+	bool Initialize(ID3D11Device*, HWND) override;
+	void Shutdown() override;
+	bool Render(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView**, 
+		XMFLOAT3 cameraPosition = XMFLOAT3(0, 0, 0)) override;
 
 private:
 	bool InitializeShader(ID3D11Device*, HWND, const WCHAR*, const WCHAR*);
 	void ShutdownShader();
 	void OutputShaderErrorMessage(ID3D10Blob*, HWND, const WCHAR*);
 
-	bool SetShaderParameters(ID3D11DeviceContext*, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView*, 
+	bool SetShaderParameters(ID3D11DeviceContext*, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView**, 
 		XMFLOAT3, XMFLOAT4, XMFLOAT4, XMFLOAT3, XMFLOAT4, float);
 	void RenderShader(ID3D11DeviceContext*, int);
 

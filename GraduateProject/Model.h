@@ -5,14 +5,13 @@
 #define _MODEL_H_
 #include "Mesh.h"
 #include "d3dclass.h"
-#include "lightshaderclass.h"
-#include "lightclass.h"
+
 #include "cameraclass.h"
 #include "Transform.h"
 #include "Component.h"
 #include "textureclass.h"
 #include "TextureArrayClass.h"
-#include "Multitextureshaderclass.h"
+#include "ShaderManagerClass.h"
 #include <iostream>
 
 class Model:public Component
@@ -21,27 +20,53 @@ public:
     /*  함수   */
     Model(GameObject* gameObject);
    
-    bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*, const WCHAR* ,LightShaderClass* shader, LightClass* m_Light, HWND);
+    template<typename T>
+    T* SetGetShader()
+    {
+        T* newShader = new T();
+        m_Shader = newShader;
+
+        auto result = dynamic_cast<T*>(m_Shader);
+        return result;
+    }
+
+
+    bool Initialize(ID3D11Device*, const WCHAR*, const WCHAR*, const WCHAR* , ShaderClass* shader, LightClass* m_Light, HWND);
+    bool Initialize(ID3D11Device*, const WCHAR*, ID3D11ShaderResourceView*, ID3D11ShaderResourceView* , ShaderClass* shader, LightClass* m_Light, HWND);
 
     bool LoadTextures(ID3D11Device*, const WCHAR*, const WCHAR*);
+    bool LoadTextures(ID3D11Device*, ID3D11ShaderResourceView*, ID3D11ShaderResourceView*);
     void ReleaseTexture();
     ID3D11ShaderResourceView** GetTextureArray();
 
+    void updateHierachyInfo() override
+    {
+        ImGui::Text("Model");
+        //string n = to_string(getMesh()->GetVertexCount());
+        //const char* result = n.c_str();
+        //ImGui::Text("vertexCount");
+        //ImGui::SameLine(); 
+        //ImGui::Text(result);
+    }
+
+    int GetMeshIndexCount()
+    {
+        return mesh->GetIndexCount();
+    }
     void update() override;
     void Draw();
     Mesh* getMesh() { return mesh; }
 private:
     /*  Model 데이터  */
-    vector<Mesh> meshes;
+    vector<Mesh> meshes;//사용 X
     Mesh* mesh;
     TextureArrayClass* m_TextureArray; //Multi texturing
-    MultiTextureShaderClass* m_MultiTextureShader;
+   // MultiTextureShaderClass* m_MultiTextureShader;
     LightShaderClass* m_LightShader;
     LightClass* m_Light;
 
+    ShaderClass* m_Shader;
     string directory;
-    /*  함수   */
-    void loadModel(string path);
     
 
 };

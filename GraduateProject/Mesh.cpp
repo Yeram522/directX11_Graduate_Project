@@ -15,10 +15,16 @@ int Mesh::GetIndexCount()
 	return m_indexCount;
 }
 
+int Mesh::GetVertexCount()
+{
+	return m_vertexCount;
+}
+
 bool Mesh::LoadMesh(const WCHAR* filename)
 {
 	ReadFileCounts(filename);
 	return true;
+
 }
 
 

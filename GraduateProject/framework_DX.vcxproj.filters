@@ -49,6 +49,21 @@
     <Filter Include="소스 파일\Engine\Graphic">
       <UniqueIdentifier>{23da8319-576b-4547-bbb7-b83ef0e89f67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Engine\Graphic\Shader">
+      <UniqueIdentifier>{05e0d162-082c-4ab5-98dc-bff7f23fe63f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Engine\Graphic\Shader">
+      <UniqueIdentifier>{0693f2df-4738-489b-979a-642d6dd6a402}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Engine\Manager">
+      <UniqueIdentifier>{cb4b81b8-532e-408f-b55e-c8e559f42607}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Engine\Manager">
+      <UniqueIdentifier>{4a67cc4a-b861-410e-ade3-6b8b87148592}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Assimp">
+      <UniqueIdentifier>{27fcb839-5559-4d1c-b75c-7f1082340d44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\light.ps">
@@ -73,6 +88,52 @@
       <Filter>리소스 파일</Filter>
     </None>
     <None Include="data\multitexture.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\fog.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\fog.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\water.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\refraction.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\refraction.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\water.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\transparent.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\transparent.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="html1.htm" />
+    <None Include="data\skydome.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\skydome.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\Skyplane.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\Skyplane.ps">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="ps1.bin">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\particle.vs">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="data\particle.ps">
       <Filter>리소스 파일</Filter>
     </None>
   </ItemGroup>
@@ -113,9 +174,6 @@
     <ClCompile Include="textureclass.cpp">
       <Filter>소스 파일\Engine\Graphic</Filter>
     </ClCompile>
-    <ClCompile Include="textureshaderclass.cpp">
-      <Filter>소스 파일\Engine\Graphic</Filter>
-    </ClCompile>
     <ClCompile Include="DDSTextureLoader.cpp">
       <Filter>소스 파일\Engine\Graphic</Filter>
     </ClCompile>
@@ -128,9 +186,6 @@
     <ClCompile Include="lightclass.cpp">
       <Filter>소스 파일\Engine\Graphic</Filter>
     </ClCompile>
-    <ClCompile Include="lightshaderclass.cpp">
-      <Filter>소스 파일\Engine\Graphic</Filter>
-    </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>소스 파일\Engine\Component</Filter>
     </ClCompile>
@@ -139,9 +194,6 @@
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>소스 파일\Engine\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>소스 파일\Engine\System</Filter>
     </ClCompile>
     <ClCompile Include="Debugwindowclass.cpp">
       <Filter>소스 파일\Engine\System</Filter>
@@ -154,9 +206,6 @@
     </ClCompile>
     <ClCompile Include="MainScene.cpp">
       <Filter>소스 파일\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineManager.cpp">
-      <Filter>소스 파일\Engine</Filter>
     </ClCompile>
     <ClCompile Include="TitleScene.cpp">
       <Filter>소스 파일\Scene</Filter>
@@ -176,11 +225,71 @@
     <ClCompile Include="Fontshaderclass.cpp">
       <Filter>소스 파일\Engine\Graphic</Filter>
     </ClCompile>
-    <ClCompile Include="Multitextureshaderclass.cpp">
-      <Filter>소스 파일\Engine\Graphic</Filter>
-    </ClCompile>
     <ClCompile Include="TextureArrayClass.cpp">
       <Filter>소스 파일\Engine\Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderClass.cpp">
+      <Filter>소스 파일\Engine\Graphic\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Multitextureshaderclass.cpp">
+      <Filter>소스 파일\Engine\Graphic\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="textureshaderclass.cpp">
+      <Filter>소스 파일\Engine\Graphic\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="lightshaderclass.cpp">
+      <Filter>소스 파일\Engine\Graphic\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="FogShaderClass.cpp">
+      <Filter>소스 파일\Engine\Graphic\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderManagerClass.cpp">
+      <Filter>소스 파일\Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineManager.cpp">
+      <Filter>소스 파일\Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>소스 파일\Engine\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="RefractionShaderClass.cpp">
+      <Filter>소스 파일\Engine\Graphic\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="TransparentShaderClass.cpp">
+      <Filter>소스 파일\Engine\Graphic\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="WaterShaderClass.cpp">
+      <Filter>소스 파일\Engine\Graphic\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="CpuClass.cpp">
+      <Filter>소스 파일\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="FpsClass.cpp">
+      <Filter>소스 파일\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerClass.cpp">
+      <Filter>소스 파일\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystemClass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyDomeShaderClass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyPlaneClass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyPlaneShaderClass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleShaderClass.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Assimp\ModelLoader.cpp">
+      <Filter>헤더 파일\Assimp</Filter>
+    </ClCompile>
+    <ClCompile Include="Assimp\TextureLoader.cpp">
+      <Filter>헤더 파일\Assimp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -214,9 +323,6 @@
     <ClInclude Include="textureclass.h">
       <Filter>헤더 파일\Engine\Graphic</Filter>
     </ClInclude>
-    <ClInclude Include="textureshaderclass.h">
-      <Filter>헤더 파일\Engine\Graphic</Filter>
-    </ClInclude>
     <ClInclude Include="graphicsclass.h">
       <Filter>헤더 파일\Engine\Graphic</Filter>
     </ClInclude>
@@ -231,9 +337,6 @@
     </ClInclude>
     <ClInclude Include="d3dclass.h">
       <Filter>헤더 파일\Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="lightshaderclass.h">
-      <Filter>헤더 파일\Engine\Graphic</Filter>
     </ClInclude>
     <ClInclude Include="lightclass.h">
       <Filter>헤더 파일\Engine\Graphic</Filter>
@@ -271,17 +374,8 @@
     <ClInclude Include="Model.h">
       <Filter>헤더 파일\Engine\Component</Filter>
     </ClInclude>
-    <ClInclude Include="EngineManager.h">
-      <Filter>헤더 파일\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Image.h">
       <Filter>헤더 파일\Engine\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>헤더 파일\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>헤더 파일\Engine</Filter>
     </ClInclude>
     <ClInclude Include="FontClass.h">
       <Filter>헤더 파일\Engine\Component</Filter>
@@ -292,11 +386,88 @@
     <ClInclude Include="Fontshaderclass.h">
       <Filter>헤더 파일\Engine\Graphic</Filter>
     </ClInclude>
-    <ClInclude Include="Multitextureshaderclass.h">
-      <Filter>헤더 파일\Engine\Graphic</Filter>
-    </ClInclude>
     <ClInclude Include="TextureArrayClass.h">
       <Filter>헤더 파일\Engine\Graphic</Filter>
     </ClInclude>
+    <ClInclude Include="ShaderClass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="textureshaderclass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Multitextureshaderclass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="lightshaderclass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineManager.h">
+      <Filter>헤더 파일\Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>헤더 파일\Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>헤더 파일\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderManagerClass.h">
+      <Filter>헤더 파일\Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="FogShaderClass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="RefractionShaderClass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="TransparentShaderClass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="WaterShaderClass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CpuClass.h">
+      <Filter>헤더 파일\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="FpsClass.h">
+      <Filter>헤더 파일\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerClass.h">
+      <Filter>헤더 파일\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystemClass.h">
+      <Filter>헤더 파일\Engine\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyPlaneClass.h">
+      <Filter>헤더 파일\Engine\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyDomeShaderClass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyPlaneShaderClass.h">
+      <Filter>헤더 파일\Engine\Graphic\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleShaderClass.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\AssimpMesh.h">
+      <Filter>헤더 파일\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\ModelLoader.h">
+      <Filter>헤더 파일\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\SafeRelease.hpp">
+      <Filter>헤더 파일\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\TextureLoader.h">
+      <Filter>헤더 파일\Assimp</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DirectX11_Project.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

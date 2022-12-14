@@ -7,33 +7,19 @@
 //////////////
 // INCLUDES //
 //////////////
-#include <d3d11.h>
-#include <directxmath.h>
-#include <d3dcompiler.h>
+#include "ShaderClass.h"
 
-#include <fstream>
-
-using namespace std;
-using namespace DirectX;
-
-class MultiTextureShaderClass
+class MultiTextureShaderClass:public ShaderClass
 {
-private:
-	struct MatrixBufferType
-	{
-		XMMATRIX world;
-		XMMATRIX view;
-		XMMATRIX projection;
-	};
-
 public:
-	MultiTextureShaderClass();
+	MultiTextureShaderClass(LightClass*);
 	MultiTextureShaderClass(const MultiTextureShaderClass&);
 	~MultiTextureShaderClass();
 
-	bool Initialize(ID3D11Device*, HWND);
-	void Shutdown();
-	bool Render(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView**);
+	bool Initialize(ID3D11Device*, HWND) override;
+	void Shutdown() override;
+	bool Render(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView**,
+		XMFLOAT3 cameraPosition = XMFLOAT3(0, 0, 0)) override;
 
 private:
 	bool InitializeShader(ID3D11Device*, HWND, const WCHAR*, const WCHAR*);

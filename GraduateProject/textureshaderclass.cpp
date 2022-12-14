@@ -4,7 +4,7 @@
 #include "textureshaderclass.h"
 
 
-TextureShaderClass::TextureShaderClass()
+TextureShaderClass::TextureShaderClass(LightClass* Light) :ShaderClass(Light,"2D")
 {
 	m_vertexShader = 0;
 	m_pixelShader = 0;
@@ -13,10 +13,6 @@ TextureShaderClass::TextureShaderClass()
 	m_sampleState = 0;
 }
 
-
-TextureShaderClass::TextureShaderClass(const TextureShaderClass& other)
-{
-}
 
 
 TextureShaderClass::~TextureShaderClass()
@@ -49,14 +45,16 @@ void TextureShaderClass::Shutdown()
 }
 
 
-bool TextureShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount, XMMATRIX worldMatrix, XMMATRIX viewMatrix, 
-								XMMATRIX projectionMatrix, ID3D11ShaderResourceView* texture)
+bool TextureShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount,
+	XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix,
+	ID3D11ShaderResourceView** textures,
+	XMFLOAT3 cameraPosition)
 {
 	bool result;
 
 
 	// Set the shader parameters that it will use for rendering.
-	result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, texture);
+	result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, textures[0]);
 	if(!result)
 	{
 		return false;

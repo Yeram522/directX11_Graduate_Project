@@ -11,37 +11,22 @@
 //////////////
 // INCLUDES //
 //////////////
-#include <d3d11.h>
-#include <directxmath.h>
-#include <d3dcompiler.h>
-
-#include <fstream>
-
-using namespace std;
-using namespace DirectX;
+#include "ShaderClass.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // Class name: TextureShaderClass
 ////////////////////////////////////////////////////////////////////////////////
-class TextureShaderClass
+class TextureShaderClass : public ShaderClass
 {
-private:
-	struct MatrixBufferType
-	{
-		XMMATRIX world;
-		XMMATRIX view;
-		XMMATRIX projection;
-	};
-
 public:
-	TextureShaderClass();
-	TextureShaderClass(const TextureShaderClass&);
+	TextureShaderClass(LightClass* Light);
 	~TextureShaderClass();
 
-	bool Initialize(ID3D11Device*, HWND);
-	void Shutdown();
-	bool Render(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView*);
+	bool Initialize(ID3D11Device*, HWND) override;
+	void Shutdown() override;
+	bool Render(ID3D11DeviceContext*, int, XMMATRIX, XMMATRIX, XMMATRIX, ID3D11ShaderResourceView**,
+		XMFLOAT3 cameraPosition = XMFLOAT3(0, 0, 0)) override;
 
 private:
 	bool InitializeShader(ID3D11Device*, HWND, const WCHAR*, const WCHAR*);
@@ -57,6 +42,7 @@ private:
 	ID3D11InputLayout* m_layout;
 	ID3D11Buffer* m_matrixBuffer;
 	ID3D11SamplerState* m_sampleState;
+	ID3D11Device* m_D3D;
 };
 
 #endif

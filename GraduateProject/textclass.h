@@ -41,6 +41,9 @@ public:
 	void Shutdown();
 	bool Render();
 	void update() override;
+
+	bool SetFps(int);
+	bool SetCpu(int);
 private:
 	bool InitializeSentence(SentenceType**, int, ID3D11Device*);
 	bool UpdateSentence(SentenceType*, const char*, int, int, float, float, float, ID3D11DeviceContext*);

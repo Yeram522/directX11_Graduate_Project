@@ -10,30 +10,53 @@ void Model::Draw()
 {
 	bool result;
 	Transform* transform = Component::transform;
+
+	if (m_Shader->getType() == "2D")
+	{
+		transform->m_D3D->TurnOnAlphaBlending();
+
+	}
+
+	if (m_Shader->getType() == "skydome")
+	{
+		transform->m_D3D->TurnOffCulling();
+		transform->m_D3D->TurnZBufferOff();
+
+	}
 	mesh->RenderBuffers(transform->m_D3D->GetDeviceContext());//render
 
 	//d3d랑 camera는 씬에서 가져와야하는데 일다 ㄴ씬이 없어서 transform에서 가져옴!
 	/*result = m_LightShader->Render(transform->m_D3D->GetDeviceContext(), mesh->GetIndexCount(),
 		transform->m_worldMatrix, transform->m_viewMatrix, transform->m_projectionMatrix,
-		GetTextureArray()[0],
+		GetTextureArray(),
 		m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
 		transform->m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());*/
+	m_Shader->Render(transform->m_D3D->GetDeviceContext(), mesh->GetIndexCount(), transform->m_worldMatrix, transform->m_viewMatrix, transform->m_projectionMatrix,GetTextureArray());
 
-	m_MultiTextureShader->Render(transform->m_D3D->GetDeviceContext(), mesh->GetIndexCount(), transform->m_worldMatrix, transform->m_viewMatrix, transform->m_projectionMatrix,GetTextureArray());
+	if (m_Shader->getType() == "skydome")
+	{
+		transform->m_D3D->TurnOnCulling();
+		transform->m_D3D->TurnZBufferOn();
+
+	}
+
+	if (m_Shader->getType() == "2D")
+	{
+		transform->m_D3D->TurnOffAlphaBlending();
+	}
 
 }
 
 Model::Model(GameObject* gameObject):Component(gameObject)
 {
 	m_TextureArray = 0;
-	m_MultiTextureShader = 0;
 	mesh = new Mesh();
 
 
 }
 
 bool Model::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const WCHAR* textureFilename1
-, const WCHAR* textureFilename2,LightShaderClass* shader, LightClass* m_Light, HWND hwnd)
+, const WCHAR* textureFilename2, ShaderClass* shader, LightClass* m_Light, HWND hwnd)
 {
 	bool result;
 
@@ -58,20 +81,41 @@ bool Model::Initialize(ID3D11Device* device, const WCHAR* modelFilename, const W
 		return false;
 	}
 
+	this->m_Shader = shader;
+	/*this->m_LightShader = shader;
+	this->m_Light = m_Light;*/
 
-	this->m_LightShader = shader;
-	this->m_Light = m_Light;
+	return true;
+}
 
-	// Create the multitexture shader object.
-	m_MultiTextureShader = new MultiTextureShaderClass;
-	if (!m_MultiTextureShader)
+bool Model::Initialize(ID3D11Device* device, const WCHAR* modelFilename, ID3D11ShaderResourceView* texture1, ID3D11ShaderResourceView* texture2, ShaderClass* shader, LightClass* m_Light, HWND hwnd)
+{
+	bool result;
+
+	// Load in the model data,
+	result = mesh->LoadMesh(modelFilename);
+	if (!result)
 	{
 		return false;
 	}
 
-	// Initialize the multitexture shader object.
-	result = m_MultiTextureShader->Initialize(device, hwnd);
+	// Initialize the vertex and index buffers.
+	result = mesh->InitializeBuffers(device);
+	if (!result)
+	{
+		return false;
+	}
 
+	// Load the textures for this model.
+	result = LoadTextures(device, texture1, texture2);
+	if (!result)
+	{
+		return false;
+	}
+
+	this->m_Shader = shader;
+	/*this->m_LightShader = shader;
+	this->m_Light = m_Light;*/
 
 	return true;
 }
@@ -90,6 +134,28 @@ bool Model::LoadTextures(ID3D11Device* device, const WCHAR* filename1, const WCH
 
 	// Initialize the texture object.
 	result = m_TextureArray->Initialize(device, filename1, filename2);
+	if (!result)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool Model::LoadTextures(ID3D11Device* device, ID3D11ShaderResourceView* texture1, ID3D11ShaderResourceView* texture2)
+{
+	bool result;
+
+
+	// Create the texture array object.
+	m_TextureArray = new TextureArrayClass;
+	if (!m_TextureArray)
+	{
+		return false;
+	}
+
+	// Initialize the texture object.
+	result = m_TextureArray->Initialize(device, texture1, texture2);
 	if (!result)
 	{
 		return false;
@@ -117,18 +183,4 @@ ID3D11ShaderResourceView** Model::GetTextureArray()
 	return m_TextureArray->GetTextureArray();
 }
 
-
-void Model::loadModel(string path)
-{
-	Assimp::Importer import;
-	const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
-	/*if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
-	{
-		std::cout << "ERROR::ASSIMP::" << import.GetErrorString() << endl;
-		return;
-	}
-	directory = path.substr(0, path.find_last_of('/'));
-
-	processNode(scene->mRootNode, scene);*/
-}
 

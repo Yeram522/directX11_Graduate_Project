@@ -41,6 +41,15 @@ bool TextureArrayClass::Initialize(ID3D11Device* device, const WCHAR* filename1,
 	return true;
 }
 
+
+bool TextureArrayClass::Initialize(ID3D11Device* device, ID3D11ShaderResourceView* texture1, ID3D11ShaderResourceView* texture2)
+{
+	m_textures[0] = texture1;
+	m_textures[1] = texture2;
+
+	return true;
+}
+
 void TextureArrayClass::Shutdown()
 {
 	// Release the texture resources.
@@ -62,4 +71,14 @@ void TextureArrayClass::Shutdown()
 ID3D11ShaderResourceView** TextureArrayClass::GetTextureArray()
 {
 	return m_textures;
+}
+
+ID3D11ShaderResourceView** TextureArrayClass::GetMultiTextureArray()
+{
+	ID3D11ShaderResourceView** textures = new ID3D11ShaderResourceView*[m_multiTexture.size()];
+	for (int i = 0; i < m_multiTexture.size(); i++)
+	{
+		textures[i] = m_multiTexture[i];
+	}
+	return textures;
 }

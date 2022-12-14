@@ -4,7 +4,7 @@
 #include "lightshaderclass.h"
 
 
-LightShaderClass::LightShaderClass()
+LightShaderClass::LightShaderClass(LightClass* light) :ShaderClass(light,"3D")
 {
 	m_vertexShader = 0;
 	m_pixelShader = 0;
@@ -14,10 +14,6 @@ LightShaderClass::LightShaderClass()
 	m_lightBuffer = 0;
 }
 
-
-LightShaderClass::LightShaderClass(const LightShaderClass& other)
-{
-}
 
 
 LightShaderClass::~LightShaderClass()
@@ -51,16 +47,15 @@ void LightShaderClass::Shutdown()
 
 bool LightShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount, 
 	XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix, 
-	ID3D11ShaderResourceView* texture, 
-	XMFLOAT3 lightDirection, XMFLOAT4 ambientColor, XMFLOAT4 diffuseColor,
-	XMFLOAT3 cameraPosition, XMFLOAT4 specularColor, float specularPower)
+	ID3D11ShaderResourceView** textures, 
+	XMFLOAT3 cameraPosition)
 {
 	bool result;
 
 
 	// Set the shader parameters that it will use for rendering.
-	result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, texture, 
-		lightDirection, ambientColor, diffuseColor, cameraPosition, specularColor, specularPower);
+	result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, textures, 
+		ShaderClass::m_Light->GetDirection(), ShaderClass::m_Light->GetAmbientColor(), ShaderClass::m_Light->GetDiffuseColor(), cameraPosition, ShaderClass::m_Light->GetSpecularColor(), ShaderClass::m_Light->GetSpecularPower());
 	if(!result)
 	{
 		return false;
@@ -352,7 +347,7 @@ void LightShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND h
 // The SetShaderParameters function now takes in lightDirection and diffuseColor as inputs.
 bool LightShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, 
 	XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix, 
-	ID3D11ShaderResourceView* texture, 
+	ID3D11ShaderResourceView** textures, 
 	XMFLOAT3 lightDirection, XMFLOAT4 ambientColor, XMFLOAT4 diffuseColor, XMFLOAT3 cameraPosition, XMFLOAT4 specularColor, float specularPower)
 {
 	HRESULT result;
@@ -392,7 +387,7 @@ bool LightShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext,
     deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_matrixBuffer);
 
 	// Set shader texture resource in the pixel shader.
-	deviceContext->PSSetShaderResources(0, 1, &texture);
+	deviceContext->PSSetShaderResources(0, 2, textures);
 
 	// Lock the light constant buffer so it can be written to.
 	result = deviceContext->Map(m_lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);

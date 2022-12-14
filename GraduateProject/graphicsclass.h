@@ -10,6 +10,8 @@
 ///////////////////////
 #include "SceneManager.h"
 #include "EngineManager.h"
+#include "ShaderManagerClass.h"
+
 #include "Image.h"
 #include "textclass.h"
 #include "inputclass.h"
@@ -26,7 +28,7 @@ public:
 
 	bool Initialize(int, int, HWND);
 	void Shutdown();
-	bool Frame(InputClass*, double time);
+	bool Frame(InputClass*, int, int, float);
 
 	SceneManager* getSceneManager() { return m_SceneManager; }
 
@@ -39,20 +41,19 @@ private:
 
 	bool RenderToTexture();
 private:
-
+	ShaderManagerClass* m_ShaderManager;
 	SceneManager* m_SceneManager;
 	EngineManager* m_EngineManager;
-	Scene* m_Scene;
 	D3DClass* m_D3D;
 	CameraClass* m_Camera;
-	LightShaderClass* m_LightShader;
 	LightClass* m_Light;
 
 	RenderTextureClass* m_RenderTexture;
 	DebugWindowClass* m_DebugWindow;
 	TextureShaderClass* m_TextureShader;
 
-	Text* m_Text;
+
+
 };
 
 #endif

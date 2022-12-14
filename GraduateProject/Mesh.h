@@ -9,9 +9,7 @@
 //////////////
 #include <d3d11.h>
 #include <directxmath.h>
-#include <assimp/Importer.hpp>
-#include <assimp/postprocess.h>
-#include <assimp/scene.h>
+
 using namespace DirectX;
 
 #include <fstream>
@@ -54,8 +52,11 @@ public:
 	bool LoadMesh(const WCHAR*);
 	void ReleaseModel();
 	int GetIndexCount();
-
-
+	int GetVertexCount();
+	string getFileName()
+	{
+		return m_filename;
+	}
 	bool InitializeBuffers(ID3D11Device*);
 	void ShutdownBuffers();
 	void RenderBuffers(ID3D11DeviceContext*);
@@ -65,7 +66,7 @@ private:
 	bool LoadDataStructures(const WCHAR*, int, int, int, int);
 private:
 	ID3D11Buffer* m_vertexBuffer, * m_indexBuffer;
-
+	string m_filename;
 	int m_vertexCount, m_indexCount, m_textureCount, m_normalCount, m_faceCount;
 	ModelType* m_model;
 };

@@ -45,9 +45,10 @@ bool Image::Initialize(ID3D11Device* device, int screenWidth, int screenHeight, 
 		return false;
 	}
 
+	ShaderManagerClass* shaderManager = ShaderManagerClass::GetInstance();
 
 	// 텍스쳐 셰이더를 생성합니다.
-	m_TextureShader = new TextureShaderClass;
+	m_TextureShader = shaderManager->getTextureShader();
 	if (!m_TextureShader)
 	{
 		return false;
@@ -100,6 +101,7 @@ bool Image::Render()
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	// Render the bitmap with the texture shader.
 	result = m_TextureShader->Render(transform->m_D3D->GetDeviceContext(),GetIndexCount(), transform->m_worldMatrix, transform->m_viewMatrix, orthoMatrix, GetTexture());
+
 	if (!result)
 	{
 		return false;
@@ -116,7 +118,7 @@ int Image::GetIndexCount()
 	return m_indexCount;
 }
 
-ID3D11ShaderResourceView* Image::GetTexture()
+ID3D11ShaderResourceView** Image::GetTexture()
 {
 	return m_Texture->GetTexture();
 }

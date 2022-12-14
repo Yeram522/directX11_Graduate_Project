@@ -4,33 +4,39 @@
 #include "graphicsclass.h"
 SceneManager* SceneManager::Instance = nullptr;
 EngineManager* EngineManager::Instance = nullptr;
+ShaderManagerClass* ShaderManagerClass::Instance = nullptr;
 
 
 GraphicsClass::GraphicsClass()
 {
-	m_Scene = 0;
 	m_D3D = 0;
-	m_LightShader = 0;
 	m_Light = 0;
 	m_Camera = 0;
 	m_RenderTexture = 0;
 	m_DebugWindow = 0;
 	m_TextureShader = 0;
+
 	// Create the SceneManager object.
 	m_SceneManager = SceneManager::GetInstance();
 	if (!m_SceneManager)
 	{
 		return;
 	}
-	m_EngineManager = EngineManager::GetInstance();
 
+	m_EngineManager = EngineManager::GetInstance();
 	if (!m_EngineManager)
 	{
 		return;
 	}
 
+	m_ShaderManager = ShaderManagerClass::GetInstance();
+	if (!m_ShaderManager)
+	{
+		return;
+	}
+
+
 	m_image = 0;
-	m_Text = 0;
 }
 
 
@@ -75,21 +81,6 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	m_Camera->GetViewMatrix(baseViewMatrix);
 
 
-	// Create the light shader object.
-	m_LightShader = new LightShaderClass;
-	if (!m_LightShader)
-	{
-		return false;
-	}
-
-	// Initialize the light shader object.
-	result = m_LightShader->Initialize(m_D3D->GetDevice(), hwnd);
-	if (!result)
-	{
-		MessageBox(hwnd, L"Could not initialize the light shader object.", L"Error", MB_OK);
-		return false;
-	}
-
 	// Create the light object.
 	m_Light = new LightClass;
 	if (!m_Light)
@@ -109,8 +100,16 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	m_Light->SetSpecularColor(1.0f, 1.0f, 1.0f, 1.0f);
 	m_Light->SetSpecularPower(32.0f);
 
+	//set shaderManager
+	result = m_ShaderManager->Initialize(m_D3D->GetDevice(), hwnd,m_Light);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the ShaderManager object.", L"Error", MB_OK);
+		return false;
+	}
 
-	result = m_SceneManager->SceneManager::Initialize(screenWidth, screenHeight, m_D3D, m_Camera, hwnd, m_Light, m_LightShader);
+
+	result = m_SceneManager->SceneManager::Initialize(screenWidth, screenHeight, m_D3D, m_Camera, hwnd, m_Light, m_ShaderManager);
 	if (!result)
 	{
 		return false;
@@ -158,6 +157,7 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 		return false;
 	}
 
+	
 	return true;
 }
 
@@ -169,13 +169,6 @@ void GraphicsClass::Shutdown()
 		//m_Scene->Shutdown();
 		delete m_SceneManager;
 		m_SceneManager = 0;
-	}
-
-	if (m_Scene)
-	{
-		m_Scene->Shutdown();
-		delete m_Scene;
-		m_Scene = 0;
 	}
 
 	// 디버그 윈도우를 해제합니다.
@@ -197,7 +190,7 @@ void GraphicsClass::Shutdown()
 	return;
 }
 
-bool GraphicsClass::Frame(InputClass* input, double time)
+bool GraphicsClass::Frame(InputClass* input, int fps, int cpu, float frameTime)
 {
 	bool result;
 
@@ -234,6 +227,14 @@ bool GraphicsClass::Frame(InputClass* input, double time)
 	{
 		m_Camera->moveBackForward -= speed;
 	}
+	if (keyboardState[DIK_Q] & 0x80)
+	{
+		m_Camera->moveUpDown += speed;
+	}
+	if (keyboardState[DIK_E] & 0x80)
+	{
+		m_Camera->moveUpDown -= speed;
+	}
 	if (((mouseCurrState.lX != input->mouseLastState.lX) || (mouseCurrState.lY != input->mouseLastState.lY))&& keyboardState[DIK_LCONTROL])
 	{
 		m_Camera->camYaw += input->mouseLastState.lX * 0.001f;
@@ -244,13 +245,17 @@ bool GraphicsClass::Frame(InputClass* input, double time)
 	}
 
 
+	//FPS CPU정보 업로드
+	m_SceneManager->SceneManager::SetFpsCpuInfo(fps,cpu);
+	m_SceneManager->SceneManager::SetFrameTime(frameTime);
+
 	// Render the graphics scene.
 	result = Render();
 	if(!result)
 	{
 		return false;
 	}
-
+	
 	return true;
 }
 
@@ -263,21 +268,40 @@ bool GraphicsClass::Render()
 	m_D3D->GetWorldMatrix(worldMatrix);
 	m_D3D->GetProjectionMatrix(projectionMatrix);
 	m_D3D->GetOrthoMatrix(orthoMatrix);
+
+
+
+//	m_SceneManager->SceneManager::SetShader(); //반사 셰이더 세팅.
+	// Render the refraction of the scene to a texture.
+	result = m_ShaderManager->RenderRefractionToTexture(m_SceneManager->getActiveScene()->refractionModel, m_D3D, m_Camera, m_Light);
+	if (!result)
+	{
+		return false;
+	}
+
+	// Render the reflection of the scene to a texture.
+	result = m_ShaderManager->RenderReflectionToTexture(m_SceneManager->getActiveScene()->reflectionModel, m_D3D, m_Camera, m_Light);
+	if (!result)
+	{
+		return false;
+	}
+	m_ShaderManager->updateWaterTranslate(m_Camera->GetReflectionViewMatrix());
+
+
+	float fogColor = 0.5;
+	// Clear the buffers to begin the scene.
+	m_D3D->BeginScene(fogColor, fogColor, fogColor, 1.0f);
+
+	m_Camera->Render();
+
+
+
 	// 전체 씬을 텍스쳐에 그립니다.
 	result = RenderToTexture();
 	if (!result)
 	{
 		return false;
 	}
-
-
-	// Clear the buffers to begin the scene.
-	m_D3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
-
-	m_Camera->Render();
-
-	// Turn the Z buffer back on now that all 2D rendering has completed.
-	m_D3D->TurnZBufferOn();
 
 	m_EngineManager->initImGui();
 
@@ -292,12 +316,7 @@ bool GraphicsClass::Render()
 
 	m_EngineManager->renderImGui();
 
-	// 2D 렌더링을 하기 위해 Z버퍼를 끕니다.
-	//m_D3D->TurnZBufferOff();
-	
 
-	//// 2D렌더링이 끝났으므로 다시 Z버퍼를 킵니다.
-	//m_D3D->TurnZBufferOn();
 
 	m_D3D->EndScene();
 	return true;
@@ -311,7 +330,7 @@ bool GraphicsClass::RenderToTexture()
 	// RTT가 렌더링 타겟이 되도록 합니다.
 	m_RenderTexture->SetRenderTarget(m_D3D->GetDeviceContext(), m_D3D->GetDepthStencilView());
 	// RTT를 초기화합니다.
-	m_RenderTexture->ClearRenderTarget(m_D3D->GetDeviceContext(), m_D3D->GetDepthStencilView(), 0.0f, 0.0f, 1.0f, 1.0f);
+	m_RenderTexture->ClearRenderTarget(m_D3D->GetDeviceContext(), m_D3D->GetDepthStencilView(), 0.0f, 0.0f, 0.0f, 1.0f);
 
 	// 여기서 씬을 그리면 백버퍼 대신 RTT에 렌더링됩니다.
 	m_SceneManager->SceneManager::UpdateScene();

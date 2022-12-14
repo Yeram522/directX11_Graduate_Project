@@ -13,24 +13,17 @@ public:
 
 	void InitObject() override {
 		bool result;
-		GameObject* temp = 0;
-		temp = new GameObject("chair", "object", Scene::getD3D(), Scene::getCamera());
-		Model* model = temp->getOrAddComponent<Model>();
-		
-
-		// Initialize the model object.
-		result = temp->getComponent<Model>()->Initialize(Scene::getD3D()->GetDevice(), L"./data/chair.obj", L"./data/chair_d.dds", L"./data/chair_d.dds", Scene::getLightShader(), Scene::getLight(), Scene::hwnd);
-
+		GameObject* temp2 = new GameObject("image", "sprite", Scene::getD3D(), Scene::getCamera());
+		Image* image = temp2->getOrAddComponent<Image>();
+		temp2->getComponent<Transform>()->SetPosition(-100.0f,100.0f, 0.0f);
+		// Initialize the bitmap object.
+		result = image->Initialize(Scene::getD3D()->GetDevice(), Scene::getscreenWidth(), Scene::getscreenHeight(), L"./data/totoTitle.dds", 1920, 1080,Scene::hwnd);
 		if (!result)
 		{
-			return;
+			return ;
 		}
+		m_GameObject.push_back(temp2);
 
-		m_GameObject.push_back(temp);
-		if (!temp)
-		{
-			return;
-		}
 	}
 };
 #endif

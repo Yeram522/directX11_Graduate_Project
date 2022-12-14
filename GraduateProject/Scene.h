@@ -10,10 +10,13 @@
 #include "GameObject.h"
 #include "lightshaderclass.h"
 #include "lightclass.h"
+#include "SkyPlaneClass.h"
+#include "ParticleSystemClass.h"
 #include "textureshaderclass.h"
 #include "rendertextureclass.h"
 #include "debugwindowclass.h"
-
+#include "ShaderManagerClass.h"
+#include "Assimp/ModelLoader.h"
 
 #include<string>
 #include <vector>
@@ -40,11 +43,18 @@ public:
 
 	bool Initialize(int, int, HWND);
 	void Shutdown();
-	bool Render();
+	virtual bool Render();
 	void upadteHierachy();
 	bool isLoaded() { return isLoad; }
-	
+	void updateshaderSetting();
 	vector<GameObject*> readGameObjectList() const;
+
+	//System Parameter
+	int m_fps, m_cpu;
+	float m_frameTime;
+	//Reflection Model
+	GameObject* refractionModel;
+	GameObject* reflectionModel;
 protected:
 	SceneManager* sceneManager;
 	vector<GameObject*> m_GameObject;
@@ -56,8 +66,11 @@ protected:
 	D3DClass* getD3D();
 	CameraClass* getCamera();
 	LightClass* getLight();
-	LightShaderClass* getLightShader();
+	ShaderManagerClass* getShaderManager();
 	bool isLoad;
+
+
+
 };
 
 #endif

@@ -8,6 +8,9 @@ SystemClass::SystemClass()
 {
 	m_Input = 0;
 	m_Graphics = 0;
+	m_Fps = 0;
+	m_Cpu = 0;
+	m_Timer = 0;
 }
 
 
@@ -58,12 +61,69 @@ bool SystemClass::Initialize()
 		return false;
 	}
 	
+	// Create the fps object.
+	m_Fps = new FpsClass;
+	if (!m_Fps)
+	{
+		return false;
+	}
+
+	// Initialize the fps object.
+	m_Fps->Initialize();
+
+	// Create the cpu object.
+	m_Cpu = new CpuClass;
+	if (!m_Cpu)
+	{
+		return false;
+	}
+
+	// Initialize the cpu object.
+	m_Cpu->Initialize();
+
+	// Create the timer object.
+	m_Timer = new TimerClass;
+	if (!m_Timer)
+	{
+		return false;
+	}
+
+	// Initialize the timer object.
+	result = m_Timer->Initialize();
+	if (!result)
+	{
+		MessageBox(m_hwnd, L"Could not initialize the Timer object.", L"Error", MB_OK);
+		return false;
+	}
+
 	return true;
 }
 
 
 void SystemClass::Shutdown()
 {
+	// Release the timer object.
+	if (m_Timer)
+	{
+		delete m_Timer;
+		m_Timer = 0;
+	}
+
+	// Release the cpu object.
+	if (m_Cpu)
+	{
+		m_Cpu->Shutdown();
+		delete m_Cpu;
+		m_Cpu = 0;
+	}
+
+	// Release the fps object.
+	if (m_Fps)
+	{
+		delete m_Fps;
+		m_Fps = 0;
+	}
+
 	// Release the graphics object.
 	if(m_Graphics)
 	{
@@ -131,6 +191,11 @@ bool SystemClass::Frame()
 {
 	bool result;
 
+	// Update the system stats.
+	m_Timer->Frame();
+	m_Fps->Frame();
+	m_Cpu->Frame();
+
 	// Check if the user pressed escape and wants to exit the application.
 	if(m_Input->IsKeyDown(VK_ESCAPE))
 	{
@@ -140,14 +205,14 @@ bool SystemClass::Frame()
 	//SceneLoaded Test
 	if (m_Input->IsKeyDown(VK_SPACE))
 	{
-		m_Graphics->getSceneManager()->SceneManager::LoadScene(new TitleScene());
+		m_Graphics->getSceneManager()->SceneManager::LoadScene(new MainScene());
 
 	}
 
 	frameTime = GetFrameTime();
 
 	// Do the frame processing for the graphics object.
-	result = m_Graphics->Frame(m_Input, frameTime);
+	result = m_Graphics->Frame(m_Input, m_Fps->GetFps(), m_Cpu->GetCpuPercentage(), m_Timer->GetTime());
 	if(!result)
 	{
 		return false;
@@ -229,7 +294,8 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 	wc.lpszMenuName  = NULL;
 	wc.lpszClassName = m_applicationName;
 	wc.cbSize        = sizeof(WNDCLASSEX);
-	
+
+
 	// Register the window class.
 	RegisterClassEx(&wc);
 
@@ -257,8 +323,8 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 	else
 	{
 		// If windowed then set it to 800x600 resolution.
-		screenWidth = 1280;// 800;
-		screenHeight = 720;// 600;
+		screenWidth = 1920;// 800;
+		screenHeight = 1080;// 600;
 
 		// Place the window in the middle of the screen.
 		posX = (GetSystemMetrics(SM_CXSCREEN) - screenWidth)  / 2;
@@ -269,6 +335,7 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 	m_hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_applicationName, m_applicationName, 
 						    WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP,
 						    posX, posY, screenWidth, screenHeight, NULL, NULL, m_hinstance, NULL);
+
 
 	// Bring the window up on the screen and set it as main focus.
 	ShowWindow(m_hwnd, SW_SHOW);

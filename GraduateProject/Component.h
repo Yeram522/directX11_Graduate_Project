@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <directxmath.h>
+#include <d3d11.h>
 
 using namespace DirectX;
 using namespace std;
@@ -42,6 +43,7 @@ public:
 
 	virtual void update() {}
 
+	virtual void updateHierachyInfo() ;
 	void setEnable(bool enable = true) { this->enabled = enable; }
 	bool getEnable() const { return enabled; }
 

@@ -6,7 +6,7 @@
 /////////////
 // GLOBALS //
 /////////////
-Texture2D shaderTexture;
+Texture2D shaderTextures[2];
 SamplerState SampleType;
 
 cbuffer LightBuffer
@@ -44,8 +44,21 @@ float4 LightPixelShader(PixelInputType input) : SV_TARGET
     float4 specular;
 
 
-	// Sample the pixel color from the texture using the sampler at this texture coordinate location.
-	textureColor = shaderTexture.Sample(SampleType, input.tex);
+	//For Multtexture
+	float4 textureColor1;
+    float4 textureColor2;
+    float4 blendColor;
+
+	// Get the pixel color from the first texture.
+    textureColor1 = shaderTextures[0].Sample(SampleType, input.tex);
+
+    // Get the pixel color from the second texture.
+    textureColor2 = shaderTextures[1].Sample(SampleType, input.tex);
+
+    // Blend the two pixels together and multiply by the gamma value.
+     // Blend the two pixels together and multiply by the gamma value.
+    textureColor = textureColor1 * textureColor2 * 2.0;
+    
 
 	// Set the default output color to the ambient light value for all pixels.
     color = ambientColor;

@@ -1,6 +1,6 @@
 #include "Multitextureshaderclass.h"
 
-MultiTextureShaderClass::MultiTextureShaderClass()
+MultiTextureShaderClass::MultiTextureShaderClass(LightClass* Light):ShaderClass(Light,"2D")
 {
 	m_vertexShader = 0;
 	m_pixelShader = 0;
@@ -10,9 +10,6 @@ MultiTextureShaderClass::MultiTextureShaderClass()
 }
 
 
-MultiTextureShaderClass::MultiTextureShaderClass(const MultiTextureShaderClass& other)
-{
-}
 
 
 MultiTextureShaderClass::~MultiTextureShaderClass()
@@ -42,12 +39,14 @@ void MultiTextureShaderClass::Shutdown()
 	return;
 }
 
-bool MultiTextureShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount, XMMATRIX worldMatrix,
-	XMMATRIX viewMatrix, XMMATRIX projectionMatrix, ID3D11ShaderResourceView** textureArray)
+bool MultiTextureShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount,
+	XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix,
+	ID3D11ShaderResourceView** textureArray,
+	XMFLOAT3 cameraPosition)
 {
 	bool result;
 
-
+	//textureArray
 	// Set the shader parameters that it will use for rendering.
 	result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, textureArray);
 	if (!result)
@@ -291,7 +290,6 @@ bool MultiTextureShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceCon
 	unsigned int bufferNumber;
 
 
-	// Transpose the matrices to prepare them for the shader.
 	// Transpose the matrices to prepare them for the shader.
 	worldMatrix = XMMatrixTranspose(worldMatrix);
 	viewMatrix = XMMatrixTranspose(viewMatrix);

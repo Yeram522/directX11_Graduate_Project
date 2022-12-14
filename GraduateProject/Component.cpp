@@ -12,5 +12,9 @@ Component::Component(GameObject* gameObject)
 	return;
 }
 
+void Component::updateHierachyInfo()
+{
+}
+
 GameObject* Component::getParent() const { return gameObject->parent; }
 Transform* Component::getTransform() const { return transform; }

@@ -70,13 +70,7 @@ void Scene::Shutdown()
 		sceneManager->m_Light = 0;
 	}
 
-	// Release the light shader object.
-	if (sceneManager->m_LightShader)
-	{
-		sceneManager->m_LightShader->Shutdown();
-		delete sceneManager->m_LightShader;
-		sceneManager->m_LightShader = 0;
-	}
+
 
 	return;
 }
@@ -102,6 +96,24 @@ void Scene::upadteHierachy()
 	for (auto& object : m_GameObject)
 	{
 		object->updateHierachy();
+	}
+}
+
+void Scene::updateshaderSetting()
+{
+	bool result;
+	// Render the refraction of the scene to a texture.
+	result = sceneManager->m_ShaderManager->RenderRefractionToTexture(refractionModel, sceneManager->m_D3D, sceneManager->m_Camera, sceneManager->m_Light);
+	if (!result)
+	{
+		return ;
+	}
+
+	// Render the reflection of the scene to a texture.
+	result = sceneManager->m_ShaderManager->RenderReflectionToTexture(reflectionModel,sceneManager->m_D3D, sceneManager->m_Camera, sceneManager->m_Light);
+	if (!result)
+	{
+		return ;
 	}
 }
 
@@ -149,7 +161,7 @@ LightClass* Scene::getLight()
 	return sceneManager->m_Light;
 }
 
-LightShaderClass* Scene::getLightShader()
+ShaderManagerClass* Scene::getShaderManager()
 {
-	return sceneManager->m_LightShader;
+	return sceneManager->m_ShaderManager;
 }

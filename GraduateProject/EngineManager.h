@@ -30,13 +30,19 @@ public:
 	void updateImGui();
 	void renderImGui();
 
-
+	void showLightOption();
 	void showInspector();
 	void showViewPort();
 	void showContentBrowser();
+
+	void updateGameObjectInspector(GameObject* gameObject)
+	{
+		m_selectedGameObject = gameObject;
+	}
 private:
 	static EngineManager* Instance;
 	GraphicsClass* m_graphicClass;
+	GameObject* m_selectedGameObject;
 };
 
 #endif

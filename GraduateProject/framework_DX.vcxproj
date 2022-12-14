@@ -19,25 +19,48 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\fog.ps" />
+    <None Include="data\fog.vs" />
     <None Include="data\font.ps" />
     <None Include="data\font.vs" />
     <None Include="data\light.ps" />
     <None Include="data\light.vs" />
     <None Include="data\multitexture.ps" />
     <None Include="data\multitexture.vs" />
+    <None Include="data\particle.ps" />
+    <None Include="data\particle.vs" />
+    <None Include="data\refraction.ps" />
+    <None Include="data\refraction.vs" />
+    <None Include="data\skydome.ps" />
+    <None Include="data\skydome.vs" />
+    <None Include="data\Skyplane.ps" />
+    <None Include="data\Skyplane.vs" />
     <None Include="data\texture.ps" />
     <None Include="data\texture.vs" />
+    <None Include="data\transparent.ps" />
+    <None Include="data\transparent.vs" />
+    <None Include="data\water.ps" />
+    <None Include="data\water.vs" />
+    <None Include="html1.htm">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="ps1.bin" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Assimp\ModelLoader.cpp" />
+    <ClCompile Include="Assimp\TextureLoader.cpp" />
     <ClCompile Include="cameraclass.cpp" />
     <ClCompile Include="colorshaderclass.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="CpuClass.cpp" />
     <ClCompile Include="d3dclass.cpp" />
     <ClCompile Include="DDSTextureLoader.cpp" />
     <ClCompile Include="Debugwindowclass.cpp" />
     <ClCompile Include="EngineManager.cpp" />
+    <ClCompile Include="FogShaderClass.cpp" />
     <ClCompile Include="FontClass.cpp" />
     <ClCompile Include="Fontshaderclass.cpp" />
+    <ClCompile Include="FpsClass.cpp" />
     <ClCompile Include="graphicsclass.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
@@ -54,28 +77,46 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Multitextureshaderclass.cpp" />
+    <ClCompile Include="ParticleShaderClass.cpp" />
+    <ClCompile Include="ParticleSystemClass.cpp" />
+    <ClCompile Include="RefractionShaderClass.cpp" />
     <ClCompile Include="RenderTextureClass.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="ShaderClass.cpp" />
+    <ClCompile Include="ShaderManagerClass.cpp" />
+    <ClCompile Include="SkyDomeShaderClass.cpp" />
+    <ClCompile Include="SkyPlaneClass.cpp" />
+    <ClCompile Include="SkyPlaneShaderClass.cpp" />
     <ClCompile Include="systemclass.cpp" />
     <ClCompile Include="textclass.cpp" />
     <ClCompile Include="TextureArrayClass.cpp" />
     <ClCompile Include="textureclass.cpp" />
     <ClCompile Include="textureshaderclass.cpp" />
+    <ClCompile Include="TimerClass.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="TransparentShaderClass.cpp" />
+    <ClCompile Include="WaterShaderClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AlignedAllocationPolicy.h" />
+    <ClInclude Include="Assimp\AssimpMesh.h" />
+    <ClInclude Include="Assimp\ModelLoader.h" />
+    <ClInclude Include="Assimp\SafeRelease.hpp" />
+    <ClInclude Include="Assimp\TextureLoader.h" />
     <ClInclude Include="cameraclass.h" />
     <ClInclude Include="colorshaderclass.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="CpuClass.h" />
     <ClInclude Include="d3dclass.h" />
     <ClInclude Include="DDSTextureLoader.h" />
     <ClInclude Include="Debugwindowclass.h" />
     <ClInclude Include="EngineManager.h" />
+    <ClInclude Include="FogShaderClass.h" />
     <ClInclude Include="FontClass.h" />
     <ClInclude Include="Fontshaderclass.h" />
+    <ClInclude Include="FpsClass.h" />
     <ClInclude Include="graphicsclass.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImGui\imconfig.h" />
@@ -94,16 +135,31 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Multitextureshaderclass.h" />
+    <ClInclude Include="ParticleShaderClass.h" />
+    <ClInclude Include="ParticleSystemClass.h" />
+    <ClInclude Include="RefractionShaderClass.h" />
     <ClInclude Include="RenderTextureClass.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="ShaderClass.h" />
+    <ClInclude Include="ShaderManagerClass.h" />
+    <ClInclude Include="SkyDomeShaderClass.h" />
+    <ClInclude Include="SkyPlaneClass.h" />
+    <ClInclude Include="SkyPlaneShaderClass.h" />
     <ClInclude Include="systemclass.h" />
     <ClInclude Include="textclass.h" />
     <ClInclude Include="TextureArrayClass.h" />
     <ClInclude Include="textureclass.h" />
     <ClInclude Include="textureshaderclass.h" />
+    <ClInclude Include="TimerClass.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="TransparentShaderClass.h" />
+    <ClInclude Include="WaterShaderClass.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DirectX11_Project.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
