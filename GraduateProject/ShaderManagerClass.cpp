@@ -27,6 +27,7 @@ bool ShaderManagerClass::RenderRefractionToTexture(GameObject* refractionModel, 
 	worldMatrix *= XMMatrixTranslation(0.0f, 2.0f, 0.0f);
 
 	// Put the bath model vertex and index buffers on the graphics pipeline to prepare them for drawing.
+	if (refractionModel == NULL) return true;
 	refractionModel->getComponent<Model>()->getMesh()->RenderBuffers(m_D3D->GetDeviceContext());
 
 	m_RefractionShader->SetClipPlane(clipPlane);
@@ -69,7 +70,7 @@ bool ShaderManagerClass::RenderReflectionToTexture(GameObject* reflectionModel, 
 
 	// Translate to where the wall model will be rendered.
 	worldMatrix *= XMMatrixTranslation(0.0f, 6.0f, 8.0f);
-
+	if (reflectionModel == NULL) return true;
 	// Put the wall model vertex and index buffers on the graphics pipeline to prepare them for drawing.
 	reflectionModel->getComponent<Model>()->getMesh()->RenderBuffers(m_D3D->GetDeviceContext());
 

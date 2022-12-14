@@ -47,7 +47,7 @@ bool SkyDomeShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCou
 	XMFLOAT4 apexColor = XMFLOAT4(0.0f, 0.15f, 0.66f, 1.0f);
 
 	// Set the color at the center of the sky dome.
-	XMFLOAT4 centerColor = XMFLOAT4(0.81f, 0.38f, 0.66f, 1.0f);
+	XMFLOAT4 centerColor = XMFLOAT4(0.1f, 0.38f, 0.66f, 1.0f);
 
 	// Set the shader parameters that it will use for rendering.
 	result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, apexColor, centerColor);

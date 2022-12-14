@@ -39,6 +39,16 @@ public:
     void ReleaseTexture();
     ID3D11ShaderResourceView** GetTextureArray();
 
+    void updateHierachyInfo() override
+    {
+        ImGui::Text("Model");
+        //string n = to_string(getMesh()->GetVertexCount());
+        //const char* result = n.c_str();
+        //ImGui::Text("vertexCount");
+        //ImGui::SameLine(); 
+        //ImGui::Text(result);
+    }
+
     int GetMeshIndexCount()
     {
         return mesh->GetIndexCount();

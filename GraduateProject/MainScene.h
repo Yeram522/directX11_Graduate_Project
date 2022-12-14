@@ -21,7 +21,7 @@ public:
 	GameObject* plane;
 	GameObject* Rock;
 	GameObject* water;
-
+	GameObject* bkbillboard;
 	GameObject* info;
 
 	bool Render() override
@@ -124,7 +124,8 @@ public:
 		BabyToToro = new GameObject("BabyTotoro", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
 		model = BabyToToro->getOrAddComponent<Model>();
 		BabyToToro->getComponent<Transform>()->SetPosition(0.0f, -3.0f, 0.0f);
-		//BabyToToro->update = [](Transform* transform) {transform->SetPosition(0.0f, -3.0f, 0.0f); };
+		BabyToToro->update = [](Transform* transform) {
+			transform->SetPosition(0.0f, -3.0f, 0.0f); };
 		// Initialize the model object.
 		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/chiTotoro.obj", L"./data/res/ChiTotoro_Texture.dds", L"./data/res/ChiTotoro_Texture.dds", Scene::getShaderManager()->getLightShader(), Scene::getLight(), Scene::hwnd);
 
@@ -159,40 +160,13 @@ public:
 		}
 		m_GameObject.push_back(Mei);
 
-		GhibliTree = new GameObject("GhibliTree", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
-		model = GhibliTree->getOrAddComponent<Model>();
-	//	GhibliHeadhouse->getComponent<Transform>()->SetRotation(0.0f, 0.0f, 0.0f);
-
-		GhibliTree->getComponent<Transform>()->SetScale(10.0f, 10.0f, 10.0f);
-		GhibliTree->getComponent<Transform>()->SetPosition(0.0f, 0.0f, 15.0f);
-		// Initialize the model object.
-		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/tree.obj", L"./data/res/tree_high_tree_BaseColor.dds", L"./data/res/tree_high_tree_BaseColor.dds", Scene::getShaderManager()->getLightShader(), Scene::getLight(), Scene::hwnd);
-
-		if (!result)
-		{
-			return;
-		}
-
-		if (!GhibliTree)
-		{
-			return;
-		}
-		m_GameObject.push_back(GhibliTree);
+		
 
 
-		//GameObject* temp2 = new GameObject("image", "sprite", Scene::getD3D(), Scene::getCamera());
-		//Image* image = temp2->getOrAddComponent<Image>();
-	
-		//// Initialize the bitmap object.
-		//result = image->Initialize(Scene::getD3D()->GetDevice(), Scene::getscreenWidth(), Scene::getscreenHeight(), L"./data/edi.dds", 256, 256,Scene::hwnd);
-		//if (!result)
-		//{
-		//	return ;
-		//}
-		//m_GameObject.push_back(temp2);
 
 
 		plane = new GameObject("plane", "plane", Scene::getD3D(), Scene::getCamera(), nullptr);
+
 		Model* planeModel = plane->getOrAddComponent<Model>();
 		plane->getComponent<Transform>()->SetPosition(0.0f, -3.0f, 0.0f);
 
@@ -235,7 +209,8 @@ public:
 		model = Rock->getOrAddComponent<Model>();
 		//Rock->getComponent<Transform>()->m_BillBoard = true;
 
-		Rock->getComponent<Transform>()->SetPosition(0.0f, -2.0f, 10.0f);
+		Rock->getComponent<Transform>()->SetScale(2.0f, 2.0f, 2.0f);
+		Rock->getComponent<Transform>()->SetPosition(-12.5f, -2.0f, -2.5f);
 		// Initialize the model object.
 		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/rock.obj", L"./data/res/Rocks_Color.dds", L"./data/res/Rocks_Roughness.dds", Scene::getShaderManager()->getMultiTextureShader(), Scene::getLight(), Scene::hwnd);
 
@@ -251,25 +226,85 @@ public:
 			return;
 		}
 
-		GameObject* GhibliTreeL = new GameObject("GhibliTreeL", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
-		model = GhibliTreeL->getOrAddComponent<Model>();
-		//	GhibliHeadhouse->getComponent<Transform>()->SetRotation(0.0f, 0.0f, 0.0f);
 
-		GhibliTreeL->getComponent<Transform>()->SetScale(0.13f, 0.13f, 0.13f);
-		GhibliTreeL->getComponent<Transform>()->SetPosition(0.0f, 0.0f, 15.0f);
-		// Initialize the model object.
-		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/treeleafobj.obj", L"./data/res/grassesTex.dds", L"./data/res/grassesTex.dds", Scene::getShaderManager()->getTransparentSahder(), Scene::getLight(), Scene::hwnd);
+
+
+
+		bkbillboard = new GameObject("bkbillboard", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
+		model = bkbillboard->getOrAddComponent<Model>();
+		bkbillboard->getComponent<Transform>()->SetBillBoardTransform();
+		bkbillboard->getComponent<Transform>()->SetPosition(0.0f, 8.7f, 42.6f);
+		bkbillboard->getComponent<Transform>()->SetScale(50.0f, 20.0f,1.0f);
+		bkbillboard->update = [](Transform* transform) {
+			transform->FollowForwardCamera();
+		};
+		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/totohorse.obj", L"./data/res/TotoroBackground.dds", L"./data/res/TotoroBackground.dds", Scene::getShaderManager()->getTransparentSahder(), Scene::getLight(), Scene::hwnd);
 
 		if (!result)
 		{
 			return;
 		}
 
-		if (!GhibliTreeL)
+		if (!bkbillboard)
 		{
 			return;
 		}
-		m_GameObject.push_back(GhibliTreeL);
+		m_GameObject.push_back(bkbillboard);
+
+
+		GameObject*  bkbillboard2 = new GameObject("bkbillboard2", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
+		model = bkbillboard2->getOrAddComponent<Model>();
+		bkbillboard2->getComponent<Transform>()->SetBillBoardTransform();
+		bkbillboard2->getComponent<Transform>()->SetPosition(-50.0f, 5.0f, -6.0f);
+		bkbillboard2->getComponent<Transform>()->SetScale(1.0f, 20.0f, 50.0f);
+		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/totohorse2.obj", L"./data/res/TotoroBackground.dds", L"./data/res/TotoroBackground.dds", Scene::getShaderManager()->getTransparentSahder(), Scene::getLight(), Scene::hwnd);
+
+		if (!result)
+		{
+			return;
+		}
+
+		if (!bkbillboard2)
+		{
+			return;
+		}
+		m_GameObject.push_back(bkbillboard2);
+
+		GameObject* bkbillboard3 = new GameObject("bkbillboard3", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
+		model = bkbillboard3->getOrAddComponent<Model>();
+		bkbillboard3->getComponent<Transform>()->SetBillBoardTransform();
+		bkbillboard3->getComponent<Transform>()->SetPosition(50.0f, 11.0f, -6.0f);
+		bkbillboard3->getComponent<Transform>()->SetScale(1.0f, 20.0f, 50.0f);
+		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/totohorse3.obj", L"./data/res/TotoroBackground.dds", L"./data/res/TotoroBackground.dds", Scene::getShaderManager()->getTransparentSahder(), Scene::getLight(), Scene::hwnd);
+
+		if (!result)
+		{
+			return;
+		}
+
+		if (!bkbillboard3)
+		{
+			return;
+		}
+		m_GameObject.push_back(bkbillboard3);
+
+		GameObject* meiHousBoard = new GameObject("meiHousBoard", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
+		model = meiHousBoard->getOrAddComponent<Model>();
+		meiHousBoard->getComponent<Transform>()->m_BillBoard = true;
+		meiHousBoard->getComponent<Transform>()->SetPosition(-19.0f, 3.0f, 9.0f);
+		meiHousBoard->getComponent<Transform>()->SetScale(10.0f, 10.0f, 1.0f);
+		result = model->Initialize(Scene::getD3D()->GetDevice(), L"./data/res/totohorse.obj", L"./data/res/meihousejapan.dds", L"./data/res/meihousejapan.dds", Scene::getShaderManager()->getTransparentSahder(), Scene::getLight(), Scene::hwnd);
+
+		if (!result)
+		{
+			return;
+		}
+
+		if (!meiHousBoard)
+		{
+			return;
+		}
+		m_GameObject.push_back(meiHousBoard);
 
 		GameObject* GhibliGrass = new GameObject("GhibliGrass", "object", Scene::getD3D(), Scene::getCamera(), nullptr);
 		model = GhibliGrass->getOrAddComponent<Model>();
@@ -285,12 +320,11 @@ public:
 			return;
 		}
 
-		if (!GhibliTreeL)
+		if (!GhibliGrass)
 		{
 			return;
 		}
 		m_GameObject.push_back(GhibliGrass);
-
 		Effect = new GameObject("Particle", "effect", Scene::getD3D(), Scene::getCamera(), nullptr);
 		ParticleSystemClass* particle = Effect->getOrAddComponent<ParticleSystemClass>();
 		Effect->getComponent<Transform>()->m_BillBoard = true;

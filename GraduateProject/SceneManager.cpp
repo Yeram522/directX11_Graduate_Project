@@ -11,7 +11,7 @@ bool SceneManager::Initialize(int screenWidth, int screenHeight, D3DClass* m_D3D
 	this->m_ShaderManager = shadermanager;
 
 	bool result;
-	m_ActiveScene = new MainScene();
+	m_ActiveScene = new TitleScene();
 	if (!m_ActiveScene)
 	{
 		return false;

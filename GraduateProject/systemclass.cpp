@@ -205,7 +205,7 @@ bool SystemClass::Frame()
 	//SceneLoaded Test
 	if (m_Input->IsKeyDown(VK_SPACE))
 	{
-		m_Graphics->getSceneManager()->SceneManager::LoadScene(new TitleScene());
+		m_Graphics->getSceneManager()->SceneManager::LoadScene(new MainScene());
 
 	}
 
@@ -323,8 +323,8 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 	else
 	{
 		// If windowed then set it to 800x600 resolution.
-		screenWidth = 1280;// 800;
-		screenHeight = 720;// 600;
+		screenWidth = 1920;// 800;
+		screenHeight = 1080;// 600;
 
 		// Place the window in the middle of the screen.
 		posX = (GetSystemMetrics(SM_CXSCREEN) - screenWidth)  / 2;

@@ -24,17 +24,26 @@ public:
 	void SetBillBoardTransform();
 	void FollowCamera();
 	void FollowUpCamera();
+	void FollowForwardCamera();
 	XMMATRIX m_worldMatrix, m_viewMatrix, m_projectionMatrix;
 
 	bool m_BillBoard= false;
 	D3DClass* m_D3D;//임시로 public
 	CameraClass* m_Camera;//임시로 public
-
+	void updateHierachyInfo() override
+	{
+		ImGui::SliderFloat3("Transform", getLocalPositionToPfloat(), -100.0f, 100.0f);
+	} 
 
 	//for imgui
 	float* getLocalPositionToPfloat()
 	{
 		return m_flocalposition;
+	}
+
+	float* getLocalRotationnToPfloat()
+	{
+		return m_flocalrotation;
 	}
 private:
 	XMFLOAT3 localposition = { 0,0,0 };
@@ -43,6 +52,7 @@ private:
 
 	XMFLOAT3 parentposition;
 	float* m_flocalposition;
+	float* m_flocalrotation;
 
 
 };

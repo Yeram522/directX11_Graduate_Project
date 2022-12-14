@@ -57,7 +57,11 @@ public:
 
 
 	function<void(Transform*)> update;//transform update
+	vector<Component*> getcomponentList()
+	{
+		return components;
 
+	}
 	void setParent(GameObject* parent) {
 		if (this->parent) {
 			this->parent->remove(this);

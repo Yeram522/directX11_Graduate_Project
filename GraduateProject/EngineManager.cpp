@@ -79,8 +79,18 @@ void EngineManager::showInspector()
 	if (m_selectedGameObject != NULL)
 	{
 		//GameObject Name
+
 		ImGui::Text(m_selectedGameObject->getname().c_str());
-		ImGui::SliderFloat3("Transform", m_selectedGameObject->getComponent<Transform>()->getLocalPositionToPfloat(), -100.0f, 100.0f);
+		ImGui::Text("++++++++++++++");
+
+		for (auto component : m_selectedGameObject->getcomponentList())
+		{
+
+			component->updateHierachyInfo();
+			ImGui::Text("-------------------");
+
+		}
+		//ImGui::SliderFloat3("Rotation", m_selectedGameObject->getComponent<Transform>()->getLocalRotationnToPfloat(), 0.0f, 360.0f);
 		/*ImGui::SliderFloat4("AmbidientColor", m_graphicClass->m_Light->GetAmbientColortoFloat(), 0.0f, 1.0f);
 		ImGui::SliderFloat4("DiffuseColor", m_graphicClass->m_Light->GetDiffuseColortoFloat(), 0.0f, 1.0f);
 		ImGui::SliderFloat4("SpecularColor", m_graphicClass->m_Light->GetSpecularColortoFloat(), 0.0f, 1.0f);

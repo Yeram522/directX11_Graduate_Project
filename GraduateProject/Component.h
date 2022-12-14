@@ -43,6 +43,7 @@ public:
 
 	virtual void update() {}
 
+	virtual void updateHierachyInfo() ;
 	void setEnable(bool enable = true) { this->enabled = enable; }
 	bool getEnable() const { return enabled; }
 

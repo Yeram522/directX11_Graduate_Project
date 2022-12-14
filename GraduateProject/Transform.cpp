@@ -66,6 +66,7 @@ void Transform::SetScale(float x, float y, float z)
 void Transform::SetRotation(float x, float y, float z)
 {
 	rotation = XMFLOAT3(x, y, z);
+	m_flocalposition = new float[3]{ x,y,z };
 }
 
 void Transform::SetBillBoardTransform()
@@ -89,6 +90,11 @@ void Transform::FollowCamera()
 void Transform::FollowUpCamera()
 {
 	SetPosition(m_Camera->GetPosition().x, m_Camera->GetPosition().y-5.0f, m_Camera->GetPosition().z);
+}
+
+void Transform::FollowForwardCamera()
+{
+	//SetPosition(localposition.x, localposition.y, m_Camera->GetPosition().z + 42.6f);
 }
 
 
